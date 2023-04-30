@@ -8,7 +8,7 @@ const nextConfig = {
     },
     sassOptions: {
         includePaths: ['./components'],
-        prependData: `@import "./styles/variables.scss";`,
+        prependData: `@import "./styles/settings/__settings.scss";`,
     }
 }
 
