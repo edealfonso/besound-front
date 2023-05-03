@@ -1,0 +1,79 @@
+.footer {
+    // padding: 1.5rem var(--pad);
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+    // width: 100%;
+
+    
+    background-color: black;
+    color: white;
+
+    .newsletter {
+        // // @include container-redux;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        background-color: cream;
+        color: black;
+    
+        .cta {
+            // // @include bigtext;
+            font-weight: 500;
+            width: 15em;
+            text-align: center;
+        }
+    }
+
+    .links {
+        // @include container;
+
+        line-height: 2.2;
+
+        h4 {
+            // @include smalltext;
+            text-transform: uppercase;
+        }
+        a {
+            // @include opacity-link;
+        }
+
+        display: grid;
+        grid-template-columns: 40% 40%;
+
+        .left, .right {
+            display: grid;
+            grid-template-columns: 50% 50%;
+            gap: 2.4rem;
+            margin-right: 2.4rem;
+        }
+
+        .right {
+            position: relative;
+            .legal {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: max-content;
+
+                // @include smalltext;
+    
+                ul {
+                    display: flex;
+                    gap: 4rem;
+                }
+            }
+        }
+        
+    }
+
+    .signature {
+        border-top: 1px solid white;
+        // @include smalltext;
+        // @include container-redux;
+        text-transform: uppercase;
+        text-align: center;
+    }
+}

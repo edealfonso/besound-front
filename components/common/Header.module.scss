@@ -1,0 +1,19 @@
+.header {
+  background-color: darkgray;
+  border-bottom: 1px solid black;
+  padding: 1.5rem 6rem;
+  width: 100%;
+  position: relative;
+
+  nav a {
+    // @include opacity-link;
+  }
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}

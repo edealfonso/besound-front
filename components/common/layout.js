@@ -2,16 +2,16 @@ import Head from "next/head";
 import styles from "./layout.module.scss";
 import { AppContext } from "@/lib/context/state";
 
-import Header from "@/components/common/header";
-import Footer from "@/components/common/footer";
+import Header from "./Header";
+import Footer from "./Footer";
 import { useContext } from "react";
 
-export const siteTitle = "The Good Cream";
-export const siteDescription = "The Good Cream";
+export const siteTitle = "besound";
+export const siteDescription = "Sound experiences to share";
 
 
-export default function Layout({ children, home }) {
-    const {veil} = useContext(AppContext);
+export default function Layout({ children, recordPage, homePage }) {
+    // const {veil} = useContext(AppContext);
 
     return (
         <div className={styles.mainContainer}>
@@ -22,14 +22,16 @@ export default function Layout({ children, home }) {
                 <title>{siteTitle}</title>
             </Head>
 
-            <Header />
+            {/* Header */}
+            {recordPage && <Header long={true} />}
+            {homePage && <Header search={true} />}
+            {!recordPage && !homePage &&  <Header />}
 
-            <main className={styles.main}>{children}</main>
-
-            {home && <Footer backLink={false} />}
-            {!home && <Footer backLink={true} />}
-            {veil && <div className={styles.veil}></div>}
+            {/* Main */}
+            {recordPage && <main className={`${styles.main} ${styles.short}`}>{children}</main>}
+            {!recordPage && <main className={styles.main}>{children}</main>}
             
+            <Footer />
         </div>
     );
 }
