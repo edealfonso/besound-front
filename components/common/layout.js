@@ -1,37 +1,41 @@
-import Head from "next/head";
-import styles from "./layout.module.scss";
-import { AppContext } from "@/lib/context/state";
+import Head from 'next/head';
 
-import Header from "./Header";
-import Footer from "./Footer";
-import { useContext } from "react";
+import Header from './Header';
+import Footer from './Footer';
 
-export const siteTitle = "besound";
-export const siteDescription = "Sound experiences to share";
+import styles from './Layout.module.scss';
 
+import { siteTitle, siteDescription } from '@/lib/constants';
 
-export default function Layout({ children, recordPage, homePage }) {
-    // const {veil} = useContext(AppContext);
-
+export default function Layout({ children, recordPage, homePage, noPaddings }) {
     return (
-        <div className={styles.mainContainer}>
+        <>
             <Head>
                 <link rel="icon" href="/favicon.ico" />
                 <meta name="description" content={siteDescription} />
                 <meta name="og:title" content={siteTitle} />
                 <title>{siteTitle}</title>
             </Head>
+            <div
+                className={`${styles.bodyContainer} ${
+                    noPaddings ? styles.noPaddings : ''
+                }`}
+            >
+                {/* Header */}
+                {recordPage && <Header long={true} />}
+                {homePage && <Header search={true} />}
+                {!recordPage && !homePage && <Header />}
 
-            {/* Header */}
-            {recordPage && <Header long={true} />}
-            {homePage && <Header search={true} />}
-            {!recordPage && !homePage &&  <Header />}
+                {/* Main */}
+                {recordPage && (
+                    <main className={`${styles.main} ${styles.short}`}>
+                        {children}
+                    </main>
+                )}
+                {!recordPage && <main className={styles.main}>{children}</main>}
 
-            {/* Main */}
-            {recordPage && <main className={`${styles.main} ${styles.short}`}>{children}</main>}
-            {!recordPage && <main className={styles.main}>{children}</main>}
-            
-            <Footer />
-        </div>
+                <Footer />
+            </div>
+        </>
     );
 }

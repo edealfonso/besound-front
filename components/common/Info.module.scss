@@ -1,0 +1,13 @@
+.info {
+    margin: 0 auto;
+    max-width: 15em;
+    text-align: center;
+
+    &.highlight {
+        @include theme('color', $color-text-highlight);
+    }
+
+    &.alt {
+        @include theme('color', $color-icons);
+    }
+}

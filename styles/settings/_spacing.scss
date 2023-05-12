@@ -1,0 +1,25 @@
+@function spacer($factor: 1) {
+    @return calc(1em * $factor);
+}
+
+$pad-x: spacer(2);
+$pad-y: spacer(4);
+
+@mixin default-padding {
+    padding: $pad-y $pad-x;
+}
+
+@mixin bg-contain {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+@mixin bg-cover {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+// border radius
+$border-radius: 7px;

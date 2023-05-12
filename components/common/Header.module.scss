@@ -1,19 +1,25 @@
 .header {
-  background-color: darkgray;
-  border-bottom: 1px solid black;
-  padding: 1.5rem 6rem;
-  width: 100%;
-  position: relative;
+    $header_h: max(11rem, 7vh);
 
-  nav a {
-    // @include opacity-link;
-  }
+    position: relative;
+
+    width: 100%;
+    height: $header_h;
+    padding: spacer(1) spacer(2);
+
+    display: grid;
+    justify-content: center;
+    align-items: end;
+
+    @include theme('background-color', $color-bg-alt);
 }
 
 .logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
+    width: 14.7rem;
+    height: 3rem;
+    max-width: 40vw;
+
+    @include theme('background-image', $url-logo);
+    @include bg-contain;
+    background-position: center bottom;
 }

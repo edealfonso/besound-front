@@ -1,0 +1,8 @@
+.container {
+    @include default-padding;
+
+    &.onlyHorizontal {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}

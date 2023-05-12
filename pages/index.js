@@ -1,10 +1,29 @@
-import Head from 'next/head'
-import Layout from '@/components/common/Layout'
-import styles from '@/styles/Home.module.css'
+import Layout from '@/components/common/Layout';
+import Info from '@/components/common/Info';
+import { getHomePageAPI, getPostsListAPI } from '@/lib/api';
+import Splash from '@/components/home/Splash';
+import PostList from '@/components/home/PostList';
+import Container from '@/components/common/Container';
 
+export async function getServerSideProps() {
+    const posts = await getPostsListAPI();
+    const page = await getHomePageAPI();
+    return {
+        props: {
+            posts,
+            page
+        }
+    };
+}
 
-export default function Home() {
+export default function Home({ posts, page }) {
     return (
-        <Layout>Home lets</Layout>
-    )
+        <Layout noPaddings>
+            <Splash motto={page.motto} />
+            <Container onlyHorizontal>
+                <Info>{page.instruction}</Info>
+            </Container>
+            <PostList posts={posts} />
+        </Layout>
+    );
 }

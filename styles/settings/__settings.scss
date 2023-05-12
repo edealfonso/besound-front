@@ -1,5 +1,20 @@
-@import 'spacing';
-@import 'text';
-@import 'misc';
-@import 'colors';
+// media queries
 @import 'media-queries';
+
+// colors and themes
+// keep order colors -> themes
+@import 'colors';
+@import 'themes';
+
+// text
+@import 'text';
+
+// spacing
+@import 'spacing';
+
+// other settings
+@import 'misc';
+
+// rest of settings
+// must be explicitly imported in components
+// as they are rarely used (due to optimization)

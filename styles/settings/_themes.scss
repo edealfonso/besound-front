@@ -1,0 +1,108 @@
+// source https://www.fabrizioduroni.it/2020/05/20/dark-mode-css-sass-scss/
+
+$themes: (
+    light-theme: (
+        url-logo: url('../../public/logo-light.svg'),
+        url-logo-inv: url('../../public/logo-dark.svg'),
+        cursor: url('../../public/cursor-dark.png'),
+        color-bg: $cream,
+        color-bg-alt: $dark,
+        color-bg-card: $cloud,
+        color-bg-button: $dark,
+        color-bg-button-alt: $darkgreen,
+        color-text: $dark,
+        color-text-highlight: $darkgreen,
+        color-text-button: $cream,
+        color-text-button-alt: $cream,
+        color-audio: $cloud,
+        color-audio-stroke: $dark,
+        color-audio-active: $green,
+        color-audio-active-stroke: $darkgreen,
+        color-icons: $lightgreen
+    ),
+    dark-theme: (
+        url-logo: url('../../public/logo-dark.svg'),
+        url-logo-inv: url('../../public/logo-light.svg'),
+        cursor: url('../../public/cursor-light.png'),
+        color-bg: $dark,
+        color-bg-alt: $gray,
+        color-bg-card: $gray,
+        color-bg-button: $cloud,
+        color-bg-button-alt: $darkgreen,
+        color-text: $cream,
+        color-text-highlight: $lightgreen,
+        color-text-button: $dark,
+        color-text-button-alt: $cream,
+        color-audio: $gray,
+        color-audio-stroke: $cream,
+        color-audio-active: $green,
+        color-audio-active-stroke: $lightgreen,
+        color-icons: $lightgreen
+    )
+);
+
+$light-theme: 'light-theme';
+$dark-theme: 'dark-theme';
+$url-logo: 'url-logo';
+$url-logo-inv: 'url-logo-inv';
+$cursor: 'cursor';
+$color-bg: 'color-bg';
+$color-bg-alt: 'color-bg-alt';
+$color-bg-card: 'color-bg-card';
+$color-bg-button: 'color-bg-button';
+$color-bg-button-alt: 'color-bg-button-alt';
+$color-text: 'color-text';
+$color-text-highlight: 'color-text-highlight';
+$color-text-button: 'color-text-button';
+$color-text-button-alt: 'color-text-button-alt';
+$color-audio: 'color-audio';
+$color-audio-stroke: 'color-audio-stroke';
+$color-audio-active: 'color-audio-active';
+$color-audio-active-stroke: 'color-audio-active-stroke';
+$color-icons: 'color-icons';
+
+@mixin themeProperty(
+    $theme,
+    $property,
+    $color,
+    $additionalPropertiesPositionIsFront,
+    $additionalProperties
+) {
+    @if $additionalPropertiesPositionIsFront {
+        #{$property}: unquote(
+            $additionalProperties + ' ' + map-get($theme, $color)
+        );
+    } @else {
+        #{$property}: unquote(
+            map-get($theme, $color) + ' ' + $additionalProperties
+        );
+    }
+}
+
+@mixin theme(
+    $property,
+    $color,
+    $additionalPropertiesPositionIsFront: false,
+    $additionalProperties: ''
+) {
+    $light: map-get($themes, $light-theme);
+    $dark: map-get($themes, $dark-theme);
+
+    @include themeProperty(
+        $light,
+        $property,
+        $color,
+        $additionalPropertiesPositionIsFront,
+        $additionalProperties
+    );
+
+    @media (prefers-color-scheme: dark) {
+        @include themeProperty(
+            $dark,
+            $property,
+            $color,
+            $additionalPropertiesPositionIsFront,
+            $additionalProperties
+        );
+    }
+}

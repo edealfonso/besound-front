@@ -1,8 +1,8 @@
 import Head from "next/head";
 import Layout from "@/components/common/Layout"
 import { useState } from "react";
-
-// import styles from "@/styles/pages/DeletePost.module.scss"
+import Button
+from "@/components/common/Button";
 
 import { createPostAPI } from "@/lib/api"
 
@@ -60,7 +60,9 @@ export default function CreatePost({  }) {
                 {/* {APIResponse.status}<br />
                 {APIResponse.statusText}<br /> */}
 
-                <button onClick={handleSubmitPost} >Create post</button> 
+                <button className="alt" onClick={handleSubmitPost}>Create post</button> 
+                <button className="alt" >Create post</button> 
+                <Button url="http://google.es" alt={true}>Hello</Button>
 
             </section>
             <section>

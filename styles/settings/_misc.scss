@@ -1,0 +1,4 @@
+@mixin cursor-play {
+    cursor: pointer;
+    @include theme('cursor', $cursor, false, ', pointer');
+}

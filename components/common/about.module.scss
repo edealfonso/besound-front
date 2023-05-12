@@ -10,12 +10,12 @@
         flex-direction: column;
         justify-content: space-between;
         width: 100%;
-    }  
-    .veil{
+    }
+    .veil {
         position: absolute;
         inset: 0;
-        background-color: rgba(0,0,0,0.5);
+        background-color: rgba(0, 0, 0, 0.5);
         z-index: 10;
-        transition: all .3s ease;
+        transition: all 0.3s ease;
     }
 }

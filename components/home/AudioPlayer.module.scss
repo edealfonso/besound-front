@@ -1,0 +1,12 @@
+.audioPlayer {
+    width: max-content;
+    @include f-audio;
+    padding-bottom: 0.6em;
+
+    @include cursor-play;
+
+    &.active,
+    &:hover {
+        @include f-audio-active;
+    }
+}
