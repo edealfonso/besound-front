@@ -7,7 +7,11 @@
         @include theme('color', $color-text-highlight);
     }
 
-    &.alt {
+    &.warning {
+        color: $red;
+    }
+
+    &.splash {
         @include theme('color', $color-icons);
     }
 

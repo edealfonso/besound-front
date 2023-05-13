@@ -1,0 +1,13 @@
+.box {
+    display: flex;
+    flex-direction: column;
+
+    @include theme('background-color', $color-bg-card);
+    border-radius: $border-radius;
+    border: 2px dashed;
+
+    align-items: center;
+    gap: spacer(1);
+
+    padding: spacer(1) spacer(1);
+}

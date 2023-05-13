@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
 
 import styles from './Rec.module.scss';

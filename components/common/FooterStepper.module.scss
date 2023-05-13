@@ -1,2 +1,12 @@
 .stepper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    padding: spacer(1);
+
+    .back {
+        @include f-underline;
+    }
 }

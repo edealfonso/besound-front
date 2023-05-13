@@ -26,7 +26,7 @@ export default function Splash({ motto }) {
                 priority
                 className={styles.logo}
             />
-            <Info alt>{motto}</Info>
+            <Info splash>{motto}</Info>
         </div>
     );
 }

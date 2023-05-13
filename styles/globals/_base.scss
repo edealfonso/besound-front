@@ -8,6 +8,11 @@ a {
     font-weight: 500;
 }
 
+a {
+    cursor: pointer;
+}
+
+.button,
 button {
     display: inline-block;
     width: fit-content;
@@ -19,24 +24,38 @@ button {
     @include theme('background-color', $color-bg-button);
     @include theme('color', $color-text-button);
     border-radius: $border-radius;
-    outline: 0px solid $transparent;
+    outline: 2px solid $transparent;
     transition: all 0.15s ease;
+    // box-shadow: 5px 5px 2px 1px $transparent;
 
     cursor: pointer;
 
-    &.alt {
+    &:hover {
         @include theme('background-color', $color-bg-button-alt);
-        @include theme('color', $color-text-button-alt);
+        box-shadow: 4px 4px 2px 1px rgba(112, 108, 115, 0.3);
+    }
+
+    &:focus,
+    &:active {
+        outline: 2px solid $green;
     }
 
     &.disabled {
         color: $gray;
     }
 
-    &:hover {
-        transform: scale(1.04);
-        outline-color: $lightgreen;
-        outline-width: 4px;
+    &.alt {
+        @include theme('background-color', $color-bg-button-alt);
+        @include theme('color', $color-text-button-alt);
+
+        &:hover {
+            @include theme('background-color', $color-bg-button);
+            box-shadow: 5px 5px 2px 1px rgba(128, 155, 112, 0.3);
+        }
+    }
+
+    &.no-margin {
+        margin: 0;
     }
 }
 
