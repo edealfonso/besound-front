@@ -1,12 +1,47 @@
 .audioPlayer {
+    display: block;
     width: max-content;
     @include f-audio;
     padding-bottom: 0.6em;
 
     @include cursor-play;
 
-    &.active,
+    .title {
+        display: block;
+        position: relative;
+        &::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            overflow: hidden;
+            content: attr(data-title);
+            @include f-audio-active;
+        }
+    }
+
     &:hover {
+        @include f-audio-hover;
+    }
+
+    &.played {
+        @include f-audio-played;
+
+        .title {
+            &::after {
+                width: 6rem;
+            }
+        }
+    }
+
+    &.active {
         @include f-audio-active;
+
+        .title {
+            &::after {
+                width: fit-content;
+            }
+        }
     }
 }

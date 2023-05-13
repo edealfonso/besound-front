@@ -4,7 +4,8 @@ $themes: (
     light-theme: (
         url-logo: url('../../public/logo-light.svg'),
         url-logo-inv: url('../../public/logo-dark.svg'),
-        cursor: url('../../public/cursor-dark.png'),
+        cursor-png: url('../../public/cursor-dark.png'),
+        cursor-svg: url('../../public/cursor-dark.svg'),
         color-bg: $cream,
         color-bg-alt: $dark,
         color-bg-card: $cloud,
@@ -23,7 +24,8 @@ $themes: (
     dark-theme: (
         url-logo: url('../../public/logo-dark.svg'),
         url-logo-inv: url('../../public/logo-light.svg'),
-        cursor: url('../../public/cursor-light.png'),
+        cursor-png: url('../../public/cursor-light.png'),
+        cursor-svg: url('../../public/cursor-light.png'),
         color-bg: $dark,
         color-bg-alt: $gray,
         color-bg-card: $gray,
@@ -45,7 +47,8 @@ $light-theme: 'light-theme';
 $dark-theme: 'dark-theme';
 $url-logo: 'url-logo';
 $url-logo-inv: 'url-logo-inv';
-$cursor: 'cursor';
+$cursor-png: 'cursor-png';
+$cursor-svg: 'cursor-svg';
 $color-bg: 'color-bg';
 $color-bg-alt: 'color-bg-alt';
 $color-bg-card: 'color-bg-card';

@@ -1,4 +1,16 @@
 @mixin cursor-play {
-    cursor: pointer;
-    @include theme('cursor', $cursor, false, ', pointer');
+    $light: map-get($themes, $light-theme);
+    $dark: map-get($themes, $dark-theme);
+
+    cursor: unquote(
+        map-get($light, $cursor-svg) + ',' + map-get($light, $cursor-png) +
+            ', pointer'
+    );
+
+    @media (prefers-color-scheme: dark) {
+        cursor: unquote(
+            map-get($dark, $cursor-svg) + ',' + map-get($dark, $cursor-png) +
+                ', pointer'
+        );
+    }
 }

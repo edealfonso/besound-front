@@ -46,9 +46,20 @@
     @include theme('-webkit-text-stroke-color', $color-audio-stroke);
 }
 
+@mixin f-audio-hover {
+    @include theme('-webkit-text-fill-color', $color-audio);
+    @include theme('-webkit-text-stroke-color', $color-audio-active);
+}
+
 @mixin f-audio-active {
     @include theme('-webkit-text-fill-color', $color-audio-active);
     @include theme('-webkit-text-stroke-color', $color-audio-active-stroke);
+}
+
+@mixin f-audio-played {
+    -webkit-text-fill-color: transparent;
+    // @include theme('-webkit-text-fill-color', $color-audio-active-stroke);
+    @include theme('-webkit-text-stroke-color', $color-audio-active);
 }
 
 //
