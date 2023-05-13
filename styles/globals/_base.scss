@@ -12,11 +12,15 @@ button {
     display: inline-block;
     width: fit-content;
     padding: 0.55em 1em;
+    margin: spacer(1) auto;
+
     @include f-button;
 
     @include theme('background-color', $color-bg-button);
     @include theme('color', $color-text-button);
     border-radius: $border-radius;
+    outline: 0px solid $transparent;
+    transition: all 0.15s ease;
 
     cursor: pointer;
 
@@ -27,6 +31,12 @@ button {
 
     &.disabled {
         color: $gray;
+    }
+
+    &:hover {
+        transform: scale(1.04);
+        outline-color: $lightgreen;
+        outline-width: 4px;
     }
 }
 

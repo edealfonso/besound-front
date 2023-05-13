@@ -9,32 +9,4 @@
     justify-content: space-around;
 
     @include theme('background-color', $color-bg-card);
-
-    .rec {
-        border-radius: 50%;
-        width: max(6.2rem, 62px);
-        height: max(6.2rem, 62px);
-        margin: spacer(0.8);
-        background-image: url('../../public/rec-ring.svg');
-        @include bg-contain;
-
-        cursor: pointer;
-
-        &.active {
-            position: relative;
-
-            &:after {
-                position: absolute;
-                z-index: 1;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-
-                content: '';
-                border-radius: 50%;
-                background-color: $red;
-            }
-        }
-    }
 }

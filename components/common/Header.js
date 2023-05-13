@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import { Transition } from 'react-transition-group';
+import { AppContext } from '@/lib/contexts/AppContext';
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -24,11 +25,17 @@ const transitionStyles = {
 export default function Header({ long, search }) {
     const [isAboutOpen, setIsAboutOpen] = useState(false);
     const nodeRef = useRef(null);
+    const { isAuthenticated, recordingStep } = useContext(AppContext);
 
     return (
         <>
             <header className={styles.header}>
-                <div className={styles.logo}></div>
+                <Link href="/" className={styles.logo}></Link>
+                <div className={styles.contextData}>
+                    isAuthenticated : {isAuthenticated ? 'true' : 'false'}{' '}
+                    <br />
+                    recordingStep : {recordingStep} <br />
+                </div>
             </header>
             {/* <Transition nodeRef={nodeRef} in={isAboutOpen} timeout={duration}>
                 {(state) => (

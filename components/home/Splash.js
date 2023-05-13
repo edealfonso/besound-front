@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
-import Image from "next/image";
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
 
-import styles from "./Splash.module.scss";
-import Info from "../common/Info";
+import styles from './Splash.module.scss';
+import Info from '../common/Info';
 
-const SPLASH_TIME = 1500;
+const SPLASH_TIME = 150;
 
 export default function Splash({ motto }) {
     const [show, setShow] = useState(true);
-    
+
     useEffect(() => {
         let show_timer = setTimeout(() => setShow(false), SPLASH_TIME);
         return () => {
             clearTimeout(show_timer);
-        }
+        };
     }, []);
 
-    return ( 
-        <div className={`${styles.splash} ${show?'':styles.hide}`}>
+    return (
+        <div className={`${styles.splash} ${show ? '' : styles.hide}`}>
             <Image
                 src="logo-light.svg"
                 alt="besound"
@@ -25,10 +25,8 @@ export default function Splash({ motto }) {
                 height={30}
                 priority
                 className={styles.logo}
-                />
-                <Info alt>  
-                    {motto}
-                </Info>
-        </div> 
+            />
+            <Info alt>{motto}</Info>
+        </div>
     );
 }

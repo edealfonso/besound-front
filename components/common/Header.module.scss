@@ -12,6 +12,14 @@
     align-items: end;
 
     @include theme('background-color', $color-bg-alt);
+
+    .contextData {
+        position: absolute;
+        top: spacer(1);
+        right: spacer(1);
+        color: white;
+        @include f-small;
+    }
 }
 
 .logo {
