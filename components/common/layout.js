@@ -1,3 +1,6 @@
+import { useContext } from 'react';
+import { AppContext } from '@/lib/contexts/AppContext';
+
 import Head from 'next/head';
 
 import Header from './Header';
@@ -8,6 +11,8 @@ import styles from './Layout.module.scss';
 import { siteTitle, siteDescription } from '@/lib/constants';
 
 export default function Layout({ children, recordPage, homePage, noPaddings }) {
+    const { recordingStep } = useContext(AppContext);
+
     return (
         <>
             <Head>
@@ -19,20 +24,27 @@ export default function Layout({ children, recordPage, homePage, noPaddings }) {
             <div
                 className={`${styles.bodyContainer} ${
                     noPaddings ? styles.noPaddings : ''
-                }`}
+                } ${recordingStep == 2 ? styles.noPaddings : ''}`}
             >
                 {/* Header */}
-                {recordPage && <Header long={true} />}
-                {homePage && <Header search={true} />}
-                {!recordPage && !homePage && <Header />}
+                {recordingStep >= 1 && recordingStep <= 5 && (
+                    <Header long={true} />
+                )}
+                {recordingStep == 0 && <Header search={true} />}
+                {recordingStep == null && <Header />}
 
                 {/* Main */}
-                {recordPage && (
+                {recordingStep >= 1 && recordingStep <= 5 && (
                     <main className={`${styles.main} ${styles.short}`}>
                         {children}
                     </main>
                 )}
-                {!recordPage && <main className={styles.main}>{children}</main>}
+                {recordingStep == 0 && (
+                    <main className={styles.main}>{children}</main>
+                )}
+                {recordingStep == null && (
+                    <main className={styles.main}>{children}</main>
+                )}
 
                 <Footer />
             </div>

@@ -1,0 +1,19 @@
+.audioAnalyzer {
+    position: fixed;
+    top: 50%;
+    left: -50%;
+    // transform: scale(0.5) translateY(-100%);
+    transform: scale(0.5) translateY(-80%);
+
+    &.hide {
+        display: none;
+    }
+}
+
+.localData {
+    position: absolute;
+    top: spacer(1);
+    left: spacer(1);
+    color: white;
+    @include f-small;
+}

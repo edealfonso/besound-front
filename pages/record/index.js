@@ -1,14 +1,22 @@
-import { useContext } from 'react';
-import { useRouter } from 'next/router';
+import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
 
-import Link from 'next/link';
 import Layout from '@/components/common/Layout';
-import Info from '@/components/common/Info';
-import Box from '@/components/common/Box';
 
 import { getRecordPageAPI } from '@/lib/api';
-import AudioPlayer from '@/components/home/AudioPlayer';
+
+import Step1_Prepare from '@/components/record/Step1_Prepare';
+import Step2_Record from '@/components/record/Step2_Record';
+import Step3_Effect from '@/components/record/Step3_Effect';
+import Step4_Title from '@/components/record/Step4_Title';
+import Step5_Confirmation from '@/components/record/Step5_Confirmation';
+
+import dynamic from 'next/dynamic';
+const AudioAnalyser = dynamic(import('react-audio-analyser'), { ssr: false }); // Async API cannot be server-side rendered
+
+import { Player } from 'tone';
+
+import styles from '@/styles/pages/Record.module.scss';
 
 export async function getServerSideProps() {
     const page = await getRecordPageAPI();
@@ -20,112 +28,72 @@ export async function getServerSideProps() {
 }
 
 export default function Record({ page }) {
-    const router = useRouter();
-    const { recordingStep, setRecordPageStaticData } = useContext(AppContext);
+    const [windowSize, setWindowSize] = useState([0, 0]);
+    const [recordingStatus, setRecordingStatus] = useState('');
+    const [audioBlob, setAudioBlob] = useState(null);
+    const { setRecordPageStaticData, recordingStep } = useContext(AppContext);
 
-    // initially save data so that footer stepper can use it
-    setRecordPageStaticData(page);
-
-    const post = {
-        id: '588754a2-cc8c-4ea3-9671-d9f7875e0631',
-        title: 'Un título',
-        audio: 'http://127.0.0.1:8000/media/audio/snippets07_s4Lk4jE.mp3'
-    };
-
-    const renderStep = () => {
-        switch (recordingStep) {
-            case 1:
-                return (
-                    <>
-                        <Info>
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: page.step1_instruction
-                                }}
-                            />
-                        </Info>
-                    </>
-                );
-            case 2:
-                return (
-                    <>
-                        <Info>
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: page.step2_instruction
-                                }}
-                            />
-                        </Info>
-                    </>
-                );
-            case 3:
-                return (
-                    <>
-                        <Info>
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: page.step3_instruction
-                                }}
-                            />
-                        </Info>
-                    </>
-                );
-            case 4:
-                return (
-                    <>
-                        <Info>
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: page.step4_instruction
-                                }}
-                            />
-                        </Info>
-                    </>
-                );
-            case 5:
-                return (
-                    <>
-                        <Box share_post={post}>
-                            <Info>
-                                <span
-                                    dangerouslySetInnerHTML={{
-                                        __html: page.confirmation_pre_title
-                                    }}
-                                />
-                            </Info>
-                        </Box>
-
-                        <Info>
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: page.confirmation_post_title
-                                }}
-                            />
-                        </Info>
-                        <Link className="button" href="/">
-                            Home
-                        </Link>
-                        <Info warning>
-                            <Link
-                                href="delete"
-                                dangerouslySetInnerHTML={{
-                                    __html: page.confirmation_regret
-                                }}
-                            ></Link>
-                        </Info>
-                        <Info highlight>
-                            <span
-                                dangerouslySetInnerHTML={{
-                                    __html: page.confirmation_remember
-                                }}
-                            />
-                        </Info>
-                    </>
-                );
-            default:
-                return null;
+    useEffect(() => {
+        if (recordingStep == 2) {
+            setRecordingStatus('recording');
+        } else {
+            setRecordingStatus('inactive');
         }
+    }, [recordingStep]);
+
+    useEffect(() => {
+        // initially save data so that footer recordingStepper can use it
+        setRecordPageStaticData(page);
+
+        // set window sizes
+        setWindowSize([window.innerWidth, window.innerHeight]);
+    }, []);
+
+    const saveFile = (e) => {
+        const blob = window.URL.createObjectURL(e);
+
+        // save blob
+        setAudioBlob(blob);
+
+        // start Tone.js
+        const player = new Player(blob).toDestination();
+
+        // play as soon as the buffer is loaded
+        player.autostart = true;
     };
 
-    return <Layout>{renderStep()}</Layout>;
+    function handleChangeEffect(event, data) {
+        console.log(event, data);
+    }
+
+    return (
+        <Layout>
+            {recordingStep == 1 && <Step1_Prepare page={page} />}
+            {recordingStep == 2 && <Step2_Record page={page} />}
+            {recordingStep == 3 && (
+                <Step3_Effect
+                    page={page}
+                    emitChangeEffect={handleChangeEffect}
+                />
+            )}
+            {recordingStep == 4 && <Step4_Title page={page} />}
+            {recordingStep == 5 && <Step5_Confirmation page={page} />}
+            <AudioAnalyser
+                className={`${styles.audioAnalyzer} ${
+                    recordingStep > 2 ? styles.hide : ''
+                }`}
+                status={recordingStatus}
+                audioType="audio/mp3"
+                backgroundColor="rgba(0, 0, 0, 0)"
+                strokeColor="rgb(112, 108, 115)"
+                width={2 * windowSize[0]}
+                height={0.5 * windowSize[1]}
+                stopCallback={saveFile}
+            />
+            <div className={styles.localData}>
+                recordingStatus : {recordingStatus} <br />
+                audioBlob : {audioBlob} <br />
+            </div>
+        </Layout>
+    );
 }

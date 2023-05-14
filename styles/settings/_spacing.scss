@@ -2,8 +2,10 @@
     @return calc(1em * $factor);
 }
 
-$pad-x: spacer(2);
+$pad-x: spacer(1);
 $pad-y: spacer(4);
+
+$margin-top-audios: spacer(1.7);
 
 @mixin default-padding {
     padding: $pad-y $pad-x;

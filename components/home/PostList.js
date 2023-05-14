@@ -1,16 +1,14 @@
 import styles from './PostList.module.scss';
-import AudioPlayer from './AudioPlayer';
+import AudioPlayer from '../common/AudioPlayer';
 
 export default function PostList({ posts }) {
     return (
         <ul className={styles.list}>
-            {posts.map((post) => {
-                return (
-                    <li key={post.id}>
-                        <AudioPlayer post={post} />
-                    </li>
-                );
-            })}
+            {posts.map((post) => (
+                <li key={post.id}>
+                    <AudioPlayer post={post} />
+                </li>
+            ))}
         </ul>
     );
 }

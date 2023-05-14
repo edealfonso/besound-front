@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 
 import Link from 'next/link';
 import Image from 'next/image';
-import AudioPlayer from '../home/AudioPlayer';
+import AudioPlayer from './AudioPlayer';
 
 import styles from './Box.module.scss';
 

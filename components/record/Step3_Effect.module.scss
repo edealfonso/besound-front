@@ -1,0 +1,11 @@
+.effects {
+    margin-top: $margin-top-audios;
+
+    .item {
+        max-width: fit-content;
+
+        &.selected {
+            background: blue;
+        }
+    }
+}

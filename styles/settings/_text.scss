@@ -20,6 +20,12 @@
     font-weight: 400;
     text-decoration: underline;
     letter-spacing: 0;
+
+    &:hover,
+    &:focus,
+    &:active {
+        @include theme('color', $color-text-highlight);
+    }
 }
 
 @mixin f-button {

@@ -1,19 +1,24 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import styles from './Splash.module.scss';
 import Info from '../common/Info';
-
-const SPLASH_TIME = 150;
+import styles from './Splash.module.scss';
 
 export default function Splash({ motto }) {
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
-        let show_timer = setTimeout(() => setShow(false), SPLASH_TIME);
-        return () => {
-            clearTimeout(show_timer);
-        };
+        const isSplashShown = sessionStorage.getItem('isSplashShown');
+        if (!isSplashShown) {
+            setShow(true);
+            sessionStorage.setItem('isSplashShown', 'true');
+            let show_timer = setTimeout(() => {
+                setShow(false);
+            }, 1500);
+            return () => {
+                clearTimeout(show_timer);
+            };
+        }
     }, []);
 
     return (
