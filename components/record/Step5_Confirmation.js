@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 // import styles from './Step5.module.scss';
 
 export default function Step5_Confirmation({ page }) {
-    router = useRouter();
+    const router = useRouter();
 
     const post = {
         id: '588754a2-cc8c-4ea3-9671-d9f7875e0631',
