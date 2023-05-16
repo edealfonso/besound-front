@@ -4,19 +4,27 @@ import { getHomePageAPI, getPostsListAPI } from '@/lib/api';
 import Splash from '@/components/home/Splash';
 import PostList from '@/components/home/PostList';
 import Container from '@/components/common/Container';
+import { useContext, useEffect } from 'react';
+import { AppContext } from '@/lib/contexts/AppContext';
 
 export async function getServerSideProps() {
-    const posts = await getPostsListAPI();
     const page = await getHomePageAPI();
+    const posts = await getPostsListAPI();
     return {
         props: {
-            posts,
-            page
+            page,
+            posts
         }
     };
 }
 
 export default function Home({ posts, page }) {
+    const { setRecordingStep } = useContext(AppContext);
+
+    useEffect(() => {
+        setRecordingStep(0);
+    }, []);
+
     return (
         <Layout noPaddings>
             <Splash motto={page.motto} />

@@ -1,6 +1,4 @@
-import { useEffect, useContext } from 'react';
-import { useRouter } from 'next/router';
-
+import { useContext } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
 
 import styles from './Footer.module.scss';
@@ -8,18 +6,7 @@ import Rec from './Rec';
 import FooterStepper from './FooterStepper';
 
 export default function Footer() {
-    const router = useRouter();
-    const { recordingStep, setRecordingStep } = useContext(AppContext);
-
-    useEffect(() => {
-        if (router.pathname == '/') {
-            console.log('Home');
-            setRecordingStep(0);
-        } else if (router.pathname == '/record') {
-            console.log('Record');
-            setRecordingStep(1);
-        }
-    }, []);
+    const { recordingStep } = useContext(AppContext);
 
     return (
         <footer className={styles.footer}>

@@ -9,8 +9,6 @@ export default function Rec() {
     const { recordingStep, setRecordingStep } = useContext(AppContext);
 
     function handleClickHome() {
-        // must chech auth
-        nextStep();
         router.push('/record');
     }
 

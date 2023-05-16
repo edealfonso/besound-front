@@ -1,16 +1,10 @@
 import Info from '../common/Info';
 import styles from './Step3_Effect.module.scss';
 import EffectPlayer from '../common/EffectPlayer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Step3_Effect({ page, emitChangeEffect }) {
     const [effect, setEffect] = useState(0);
-
-    function changeEffect(index) {
-        console.log('eff ind', index);
-        setEffect(index);
-        emitChangeEffect(index);
-    }
 
     const effects = [
         {
@@ -27,6 +21,15 @@ export default function Step3_Effect({ page, emitChangeEffect }) {
         }
     ];
 
+    function changeEffect(index) {
+        setEffect(index);
+        emitChangeEffect(index);
+    }
+
+    useEffect(() => {
+        setEffect(0);
+    }, []);
+
     return (
         <>
             <Info>
@@ -38,13 +41,9 @@ export default function Step3_Effect({ page, emitChangeEffect }) {
             </Info>
             <ul className={styles.effects}>
                 {effects.map(({ name }, i) => (
-                    <li
-                        key={i}
-                        className={`${styles.item} ${
-                            i == effect ? styles.selected : ''
-                        }`}
-                    >
+                    <li key={i}>
                         <EffectPlayer
+                            selected={i == effect}
                             name={name}
                             index={i}
                             emitClick={changeEffect}

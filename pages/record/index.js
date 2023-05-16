@@ -14,11 +14,16 @@ import Step5_Confirmation from '@/components/record/Step5_Confirmation';
 import dynamic from 'next/dynamic';
 const AudioAnalyser = dynamic(import('react-audio-analyser'), { ssr: false }); // Async API cannot be server-side rendered
 
-import { Player } from 'tone';
-
 import styles from '@/styles/pages/Record.module.scss';
+import {
+    preparePlayer,
+    noEffect,
+    addCaveEffect,
+    addRandomEffect,
+    addLoBatEffect
+} from '@/lib/audio';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const page = await getRecordPageAPI();
     return {
         props: {
@@ -31,7 +36,8 @@ export default function Record({ page }) {
     const [windowSize, setWindowSize] = useState([0, 0]);
     const [recordingStatus, setRecordingStatus] = useState('');
     const [audioBlob, setAudioBlob] = useState(null);
-    const { setRecordPageStaticData, recordingStep } = useContext(AppContext);
+    const { setRecordPageStaticData, recordingStep, setRecordingStep } =
+        useContext(AppContext);
 
     useEffect(() => {
         if (recordingStep == 2) {
@@ -42,6 +48,9 @@ export default function Record({ page }) {
     }, [recordingStep]);
 
     useEffect(() => {
+        // set initial recording step
+        setRecordingStep(1);
+
         // initially save data so that footer recordingStepper can use it
         setRecordPageStaticData(page);
 
@@ -56,14 +65,27 @@ export default function Record({ page }) {
         setAudioBlob(blob);
 
         // start Tone.js
-        const player = new Player(blob).toDestination();
-
-        // play as soon as the buffer is loaded
-        player.autostart = true;
+        preparePlayer(blob);
     };
 
-    function handleChangeEffect(event, data) {
-        console.log(event, data);
+    function handleChangeEffect(effect) {
+        switch (effect) {
+            case 0:
+                noEffect();
+                break;
+
+            case 1:
+                addCaveEffect();
+                break;
+
+            case 2:
+                addRandomEffect();
+                break;
+
+            case 3:
+                addLoBatEffect();
+                break;
+        }
     }
 
     return (
