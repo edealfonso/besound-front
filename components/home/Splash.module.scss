@@ -19,9 +19,12 @@
     transition: opacity 0s ease;
 
     &.hide {
-        transition: opacity 1.5s ease;
         opacity: 0;
         pointer-events: none;
+    }
+
+    &.transition {
+        transition: opacity 1.5s ease;
     }
 }
 

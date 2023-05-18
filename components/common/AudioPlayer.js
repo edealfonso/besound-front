@@ -3,17 +3,18 @@ import useSound from 'use-sound';
 
 import styles from './AudioPlayer.module.scss';
 
-export default function AudioPlayer({ post }) {
+export default function AudioPlayer({ post, selected, index, emitClick }) {
     const [played, setPlayed] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
 
     const soundUrl = post.audio;
 
-    // const [play, { stop, isPlaying }] = useSound(soundUrl, {
-    //     // playbackRate: 0.3,
-    //     volume: 0.25,
-    //     interrupt: true
-    // });
+    // turn off when another sound is selected
+    useEffect(() => {
+        if (!selected) {
+            stopPlayer();
+        }
+    }, [selected]);
 
     const [play, { sound, stop, duration }] = useSound(soundUrl, {
         // playbackRate: 0.3,
@@ -21,22 +22,33 @@ export default function AudioPlayer({ post }) {
         interrupt: true
     });
 
-    const handleClick = async (event) => {
+    // click action depends on if sound is currently playing
+    function handleClick() {
+        emitClick(index);
+
         if (!isPlaying) {
-            setIsPlaying(true);
-            setPlayed(true);
-            play();
+            startPlayer();
         } else {
-            setIsPlaying(false);
-            stop();
+            stopPlayer();
         }
-    };
+    }
+
+    function startPlayer() {
+        setIsPlaying(true);
+        setPlayed(true);
+        play();
+    }
+
+    function stopPlayer() {
+        setIsPlaying(false);
+        stop();
+    }
 
     return (
         <a
-            onClick={handleClick} // className={`${styles.audioPlayer} ${played ? styles.played : ''}}`}
+            onClick={handleClick}
             className={`${styles.audioPlayer} ${played ? styles.played : ''} ${
-                isPlaying ? styles.active : ''
+                selected ? styles.active : ''
             }`}
             id={post.id}
         >
