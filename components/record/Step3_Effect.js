@@ -3,7 +3,11 @@ import styles from './Step3_Effect.module.scss';
 import EffectPlayer from '../common/EffectPlayer';
 import { useEffect, useState } from 'react';
 
-export default function Step3_Effect({ page, emitChangeEffect }) {
+export default function Step3_Effect({
+    page,
+    emitChangeEffect,
+    emitToggleSound
+}) {
     const [effect, setEffect] = useState(0);
 
     const effects = [
@@ -21,9 +25,13 @@ export default function Step3_Effect({ page, emitChangeEffect }) {
         }
     ];
 
-    function changeEffect(index) {
-        setEffect(index);
-        emitChangeEffect(index);
+    function changeEffect(index, isPlaying) {
+        if (index !== effect) {
+            setEffect(index);
+            emitChangeEffect(index);
+        } else {
+            emitToggleSound();
+        }
     }
 
     useEffect(() => {

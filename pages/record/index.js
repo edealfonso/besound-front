@@ -20,7 +20,8 @@ import {
     noEffect,
     addCaveEffect,
     addRandomEffect,
-    addLoBatEffect
+    addLoBatEffect,
+    toggleAudio
 } from '@/lib/audio';
 
 export async function getStaticProps() {
@@ -88,6 +89,11 @@ export default function Record({ page }) {
         }
     }
 
+    function handleToggleSound() {
+        console.log('togge');
+        toggleAudio();
+    }
+
     return (
         <Layout>
             {recordingStep == 1 && <Step1_Prepare page={page} />}
@@ -96,6 +102,7 @@ export default function Record({ page }) {
                 <Step3_Effect
                     page={page}
                     emitChangeEffect={handleChangeEffect}
+                    emitToggleSound={handleToggleSound}
                 />
             )}
             {recordingStep == 4 && <Step4_Title page={page} />}

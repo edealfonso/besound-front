@@ -1,10 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styles from './AudioPlayer.module.scss';
 
 export default function EffectPlayer({ name, index, emitClick, selected }) {
-    // const [isPlaying, setIsPlaying] = useState(false);
-
     // const [play, { sound, stop, duration }] = useSound(soundUrl, {
     //     // playbackRate: 0.3,
     //     volume: 0.25,
@@ -13,14 +11,6 @@ export default function EffectPlayer({ name, index, emitClick, selected }) {
 
     const handleClick = async () => {
         emitClick(index);
-
-        // if (!isPlaying) {
-        //     setIsPlaying(true);
-        //     // play();
-        // } else {
-        //     setIsPlaying(false);
-        //     // stop();
-        // }
     };
 
     // return (
