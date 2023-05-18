@@ -5,7 +5,7 @@ export default function Step1_Prepare({ page }) {
         <Info>
             <span
                 dangerouslySetInnerHTML={{
-                    __html: page.step1_instruction
+                    __html: page.recordingStep1_instruction
                 }}
             />
         </Info>

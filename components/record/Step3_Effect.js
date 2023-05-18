@@ -1,16 +1,13 @@
 import Info from '../common/Info';
 import styles from './Step3_Effect.module.scss';
 import EffectPlayer from '../common/EffectPlayer';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
+import { AppContext } from '@/lib/contexts/AppContext';
 
-export default function Step3_Effect({
-    page,
-    emitChangeEffect,
-    emitToggleSound
-}) {
-    const [effect, setEffect] = useState(0);
+export default function Step3_Effect({ page }) {
+    const { setEffect } = useContext(AppContext);
 
-    const effects = [
+    const effect_list = [
         {
             name: 'no-effect'
         },
@@ -25,15 +22,6 @@ export default function Step3_Effect({
         }
     ];
 
-    function changeEffect(index, isPlaying) {
-        if (index !== effect) {
-            setEffect(index);
-            emitChangeEffect(index);
-        } else {
-            emitToggleSound();
-        }
-    }
-
     useEffect(() => {
         setEffect(0);
     }, []);
@@ -43,19 +31,14 @@ export default function Step3_Effect({
             <Info>
                 <span
                     dangerouslySetInnerHTML={{
-                        __html: page.step3_instruction
+                        __html: page.recordingStep3_instruction
                     }}
                 />
             </Info>
             <ul className={styles.effects}>
-                {effects.map(({ name }, i) => (
+                {effect_list.map(({ name }, i) => (
                     <li key={i}>
-                        <EffectPlayer
-                            selected={i == effect}
-                            name={name}
-                            index={i}
-                            emitClick={changeEffect}
-                        />
+                        <EffectPlayer name={name} index={i} />
                     </li>
                 ))}
             </ul>

@@ -1,36 +1,53 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '@/lib/contexts/AppContext';
 
 import styles from './AudioPlayer.module.scss';
+import {
+    addCaveEffect,
+    addLoBatEffect,
+    addRandomEffect,
+    noEffect,
+    toggleAudio
+} from '@/lib/audio';
 
-export default function EffectPlayer({ name, index, emitClick, selected }) {
-    // const [play, { sound, stop, duration }] = useSound(soundUrl, {
-    //     // playbackRate: 0.3,
-    //     volume: 0.25,
-    //     interrupt: true
-    // });
+export default function EffectPlayer({ name, index }) {
+    const { effect, setEffect } = useContext(AppContext);
 
     const handleClick = async () => {
-        emitClick(index);
+        if (effect == index) {
+            toggleAudio();
+        } else {
+            setEffect(index);
+            changeEffect(index);
+        }
     };
 
-    // return (
-    //     <a
-    //         onClick={handleClick}
-    //         className={`${styles.audioPlayer} ${
-    //             isPlaying ? styles.played : ''
-    //         } ${selected ? styles.active : ''}`}
-    //         id={name}
-    //     >
-    //         <span className={styles.title} data-title={`#${name}`}>
-    //             #{name}
-    //         </span>
-    //     </a>
-    // );
+    function changeEffect(effect) {
+        switch (effect) {
+            case 0:
+                noEffect();
+                break;
+
+            case 1:
+                addCaveEffect();
+                break;
+
+            case 2:
+                addRandomEffect();
+                break;
+
+            case 3:
+                addLoBatEffect();
+                break;
+        }
+    }
 
     return (
         <a
             onClick={handleClick}
-            className={`${styles.audioPlayer} ${selected ? styles.active : ''}`}
+            className={`${styles.audioPlayer} ${
+                effect == index ? styles.active : ''
+            }`}
             id={name}
         >
             <span className={styles.title} data-title={`#${name}`}>

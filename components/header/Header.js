@@ -25,7 +25,7 @@ const transitionStyles = {
 export default function Header({ long, search }) {
     const [isAboutOpen, setIsAboutOpen] = useState(false);
     const nodeRef = useRef(null);
-    const { isAuthenticated, recordingStep, recordingStatus, recordingBlob } =
+    const { isAuthenticated, recordingStep, status, recordingBlob } =
         useContext(AppContext);
 
     return (

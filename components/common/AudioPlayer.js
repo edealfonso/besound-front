@@ -16,6 +16,13 @@ export default function AudioPlayer({ post, selected, index, emitClick }) {
         }
     }, [selected]);
 
+    // stop audio when component is unmounted
+    useEffect(() => {
+        return () => {
+            stop();
+        };
+    }, []);
+
     const [play, { sound, stop, duration }] = useSound(soundUrl, {
         // playbackRate: 0.3,
         volume: 0.25,

@@ -15,14 +15,7 @@ import dynamic from 'next/dynamic';
 const AudioAnalyser = dynamic(import('react-audio-analyser'), { ssr: false }); // Async API cannot be server-side rendered
 
 import styles from '@/styles/pages/Record.module.scss';
-import {
-    preparePlayer,
-    noEffect,
-    addCaveEffect,
-    addRandomEffect,
-    addLoBatEffect,
-    toggleAudio
-} from '@/lib/audio';
+import { preparePlayer } from '@/lib/audio';
 
 export async function getStaticProps() {
     const page = await getRecordPageAPI();
@@ -35,21 +28,21 @@ export async function getStaticProps() {
 
 export default function Record({ page }) {
     const [windowSize, setWindowSize] = useState([0, 0]);
-    const [recordingStatus, setRecordingStatus] = useState('');
+    const [status, setStatus] = useState('');
     const [audioBlob, setAudioBlob] = useState(null);
-    const { setRecordPageStaticData, recordingStep, setRecordingStep } =
+    const { setRecordPageStaticData, recordingStep, setRecordingStep, effect } =
         useContext(AppContext);
 
     useEffect(() => {
         if (recordingStep == 2) {
-            setRecordingStatus('recording');
+            setStatus('recording');
         } else {
-            setRecordingStatus('inactive');
+            setStatus('inactive');
         }
     }, [recordingStep]);
 
     useEffect(() => {
-        // set initial recording step
+        // set initial recording recordingStep
         setRecordingStep(1);
 
         // initially save data so that footer recordingStepper can use it
@@ -69,49 +62,18 @@ export default function Record({ page }) {
         preparePlayer(blob);
     };
 
-    function handleChangeEffect(effect) {
-        switch (effect) {
-            case 0:
-                noEffect();
-                break;
-
-            case 1:
-                addCaveEffect();
-                break;
-
-            case 2:
-                addRandomEffect();
-                break;
-
-            case 3:
-                addLoBatEffect();
-                break;
-        }
-    }
-
-    function handleToggleSound() {
-        console.log('togge');
-        toggleAudio();
-    }
-
     return (
         <Layout>
             {recordingStep == 1 && <Step1_Prepare page={page} />}
             {recordingStep == 2 && <Step2_Record page={page} />}
-            {recordingStep == 3 && (
-                <Step3_Effect
-                    page={page}
-                    emitChangeEffect={handleChangeEffect}
-                    emitToggleSound={handleToggleSound}
-                />
-            )}
+            {recordingStep == 3 && <Step3_Effect page={page} />}
             {recordingStep == 4 && <Step4_Title page={page} />}
             {recordingStep == 5 && <Step5_Confirmation page={page} />}
             <AudioAnalyser
                 className={`${styles.audioAnalyzer} ${
                     recordingStep > 2 ? styles.hide : ''
                 }`}
-                status={recordingStatus}
+                status={status}
                 audioType="audio/mp3"
                 backgroundColor="rgba(0, 0, 0, 0)"
                 strokeColor="rgb(112, 108, 115)"
@@ -120,8 +82,9 @@ export default function Record({ page }) {
                 stopCallback={saveFile}
             />
             <div className={styles.localData}>
-                recordingStatus : {recordingStatus} <br />
+                status : {status} <br />
                 audioBlob : {audioBlob} <br />
+                effect : {effect} <br />
             </div>
         </Layout>
     );
