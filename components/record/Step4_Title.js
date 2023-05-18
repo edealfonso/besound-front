@@ -6,7 +6,7 @@ export default function Step4_Title({ page }) {
         <Info>
             <span
                 dangerouslySetInnerHTML={{
-                    __html: page.recordingStep4_instruction
+                    __html: page.step4_instruction
                 }}
             />
         </Info>

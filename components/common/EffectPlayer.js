@@ -7,11 +7,12 @@ import {
     addLoBatEffect,
     addRandomEffect,
     noEffect,
-    toggleAudio
+    toggleAudio,
+    stopAudio
 } from '@/lib/audio';
 
 export default function EffectPlayer({ name, index }) {
-    const { effect, setEffect } = useContext(AppContext);
+    const { effect, setEffect, recordingStep } = useContext(AppContext);
 
     const handleClick = async () => {
         if (effect == index) {

@@ -1,11 +1,21 @@
+import { useContext, useEffect } from 'react';
 import Info from '../common/Info';
+import { createChain } from '@/lib/audio';
+import { AppContext } from '@/lib/contexts/AppContext';
 
 export default function Step2_Record({ page }) {
+    const { setEffect } = useContext(AppContext);
+
+    useEffect(() => {
+        // set initial effect whether user comes from  step 1 or has selected an effect in step 3
+        setEffect(0);
+    }, []);
+
     return (
         <Info>
             <span
                 dangerouslySetInnerHTML={{
-                    __html: page.recordingStep2_instruction
+                    __html: page.step2_instruction
                 }}
             />
         </Info>

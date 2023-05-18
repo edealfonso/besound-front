@@ -15,7 +15,7 @@ import dynamic from 'next/dynamic';
 const AudioAnalyser = dynamic(import('react-audio-analyser'), { ssr: false }); // Async API cannot be server-side rendered
 
 import styles from '@/styles/pages/Record.module.scss';
-import { preparePlayer } from '@/lib/audio';
+import { preparePlayer, stopAudio } from '@/lib/audio';
 
 export async function getStaticProps() {
     const page = await getRecordPageAPI();
@@ -30,15 +30,24 @@ export default function Record({ page }) {
     const [windowSize, setWindowSize] = useState([0, 0]);
     const [status, setStatus] = useState('');
     const [audioBlob, setAudioBlob] = useState(null);
-    const { setRecordPageStaticData, recordingStep, setRecordingStep, effect } =
-        useContext(AppContext);
+    const {
+        setRecordPageStaticData,
+        recordingStep,
+        setRecordingStep,
+        effect,
+        setEffect
+    } = useContext(AppContext);
 
     useEffect(() => {
+        // set status
         if (recordingStep == 2) {
             setStatus('recording');
         } else {
             setStatus('inactive');
         }
+
+        // stop all audio when we move around steps
+        stopAudio();
     }, [recordingStep]);
 
     useEffect(() => {
@@ -52,11 +61,8 @@ export default function Record({ page }) {
         setWindowSize([window.innerWidth, window.innerHeight]);
     }, []);
 
-    const saveFile = (e) => {
+    const loadAudio = (e) => {
         const blob = window.URL.createObjectURL(e);
-
-        // save blob
-        setAudioBlob(blob);
 
         // start Tone.js
         preparePlayer(blob);
@@ -79,11 +85,10 @@ export default function Record({ page }) {
                 strokeColor="rgb(112, 108, 115)"
                 width={2 * windowSize[0]}
                 height={0.5 * windowSize[1]}
-                stopCallback={saveFile}
+                stopCallback={loadAudio}
             />
             <div className={styles.localData}>
                 status : {status} <br />
-                audioBlob : {audioBlob} <br />
                 effect : {effect} <br />
             </div>
         </Layout>
