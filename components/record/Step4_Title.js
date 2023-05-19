@@ -4,7 +4,7 @@ import { TextField } from '@mui/material';
 import { AppContext } from '@/lib/contexts/AppContext';
 // import styles from './Step4.module.scss';
 
-export default function Step4_Title({ page, emitTitle, emitSubmitForm }) {
+export default function Step4_Title({ page, emitTitle }) {
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
     const { isFormOK, setIsFormOK } = useContext(AppContext);
@@ -50,13 +50,6 @@ export default function Step4_Title({ page, emitTitle, emitSubmitForm }) {
         }
     }
 
-    function handleInputKeyDown(e) {
-        // if enter is pressed, form is submitted
-        if (e.which == 10 || e.which == 13) {
-            if (isFormOK) emitSubmitForm();
-        }
-    }
-
     return (
         <>
             <Info>
@@ -75,7 +68,6 @@ export default function Step4_Title({ page, emitTitle, emitSubmitForm }) {
                     required
                     variant="standard"
                     onChange={handleInputChange}
-                    onKeyDown={handleInputKeyDown}
                     InputProps={{
                         startAdornment: <>#</>
                     }}

@@ -1,10 +1,28 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
 import styles from './FooterStepper.module.scss';
 
 export default function FooterStepper() {
     const { recordingStep, setRecordingStep, recordPageStaticData, isFormOK } =
         useContext(AppContext);
+
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [recordingStep]);
+
+    function handleKeyPress(e) {
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            setRecordingStep(recordingStep - 1);
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+            setRecordingStep(recordingStep + 1);
+        }
+    }
 
     function nextStep(e) {
         setRecordingStep(recordingStep + 1);
@@ -28,8 +46,6 @@ export default function FooterStepper() {
             prevStep();
         }
     }
-
-    function createPost() {}
 
     return (
         <>
