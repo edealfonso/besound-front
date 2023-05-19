@@ -1,16 +1,13 @@
 import Link from 'next/link';
 import Info from '../common/Info';
 import Box from '../common/Box';
-import { useRouter } from 'next/router';
 // import styles from './Step5.module.scss';
 
-export default function Step5_Confirmation({ page }) {
-    const router = useRouter();
-
+export default function Step5_Confirmation({ page, title, audio }) {
     const post = {
         id: '588754a2-cc8c-4ea3-9671-d9f7875e0631',
-        title: 'Un título',
-        audio: 'http://127.0.0.1:8000/media/audio/snippets07_s4Lk4jE.mp3'
+        title: title,
+        audio: audio
     };
 
     return (

@@ -30,6 +30,8 @@ export default function Record({ page }) {
     const [windowSize, setWindowSize] = useState([0, 0]);
     const [status, setStatus] = useState('');
     const [audioBlob, setAudioBlob] = useState(null);
+    const [postTitle, setPostTitle] = useState(null);
+
     const {
         setRecordPageStaticData,
         recordingStep,
@@ -61,20 +63,39 @@ export default function Record({ page }) {
         setWindowSize([window.innerWidth, window.innerHeight]);
     }, []);
 
-    const loadAudio = (e) => {
+    function loadAudio(e) {
         const blob = window.URL.createObjectURL(e);
+
+        // save value
+        setAudioBlob(blob);
 
         // start Tone.js
         preparePlayer(blob);
-    };
+    }
+
+    function setTitle(title) {
+        setPostTitle(title);
+    }
 
     return (
         <Layout>
             {recordingStep == 1 && <Step1_Prepare page={page} />}
             {recordingStep == 2 && <Step2_Record page={page} />}
             {recordingStep == 3 && <Step3_Effect page={page} />}
-            {recordingStep == 4 && <Step4_Title page={page} />}
-            {recordingStep == 5 && <Step5_Confirmation page={page} />}
+            {recordingStep == 4 && (
+                <Step4_Title
+                    page={page}
+                    emitTitle={setTitle}
+                    blob={audioBlob}
+                />
+            )}
+            {recordingStep == 5 && (
+                <Step5_Confirmation
+                    page={page}
+                    title={postTitle}
+                    audio={audioBlob}
+                />
+            )}
             <AudioAnalyser
                 className={`${styles.audioAnalyzer} ${
                     recordingStep > 2 ? styles.hide : ''

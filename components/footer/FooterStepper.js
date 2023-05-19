@@ -3,14 +3,26 @@ import { AppContext } from '@/lib/contexts/AppContext';
 import styles from './FooterStepper.module.scss';
 
 export default function FooterStepper() {
-    const { recordingStep, setRecordingStep, recordPageStaticData } =
+    const { recordingStep, setRecordingStep, recordPageStaticData, isFormOK } =
         useContext(AppContext);
 
-    function nextStep() {
+    function nextStep(e) {
         setRecordingStep(recordingStep + 1);
     }
 
-    function prevStep() {
+    function formSubmit(e) {
+        if (isFormOK) {
+            const form_val = document.forms['post-create-form']['name'].value;
+            console.log(form_val, 'form_val');
+            setTimeout(() => {
+                setRecordingStep(recordingStep + 1);
+            }, 3000);
+        } else {
+            console.log('form_invalid');
+        }
+    }
+
+    function prevStep(e) {
         setRecordingStep(recordingStep - 1);
     }
 
@@ -20,6 +32,8 @@ export default function FooterStepper() {
             prevStep();
         }
     }
+
+    function createPost() {}
 
     return (
         <>
@@ -38,7 +52,13 @@ export default function FooterStepper() {
                     <a className={styles.back} onClick={prevStep}>
                         {recordPageStaticData.step4_back}
                     </a>
-                    <button className="alt no-margin" onClick={nextStep}>
+
+                    <button
+                        className={`alt no-margin ${
+                            isFormOK ? '' : 'disabled'
+                        }`}
+                        onClick={formSubmit}
+                    >
                         {recordPageStaticData.step4_forward}
                     </button>
                 </nav>
