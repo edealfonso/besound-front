@@ -1,4 +1,4 @@
-import Layout from '@/components/common/Layout';
+import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
 import Container from '@/components/common/Container';
 

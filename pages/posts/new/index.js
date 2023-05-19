@@ -1,14 +1,11 @@
-import Head from "next/head";
-import Layout from "@/components/common/Layout"
-import { useState } from "react";
-import Button
-from "@/components/common/Button";
+import Head from 'next/head';
+import Layout from '@/components/Layout';
+import { useState } from 'react';
+import Button from '@/components/common/Button';
 
-import { createPostAPI } from "@/lib/api"
+import { createPostAPI } from '@/lib/api';
 
-
-export default function CreatePost({  }) {
-
+export default function CreatePost({}) {
     const [title, setTitle] = useState(null);
     const [audio, setAudio] = useState(null);
     const [APIResponse, setAPIResponse] = useState({
@@ -28,11 +25,18 @@ export default function CreatePost({  }) {
         // body.append("title", title);
         // body.append("audio", audio);
 
-        formData.append("title", 'Un título2222');
-        let blob = await fetch('http://127.0.0.1:8000/media/audio/Besound_db1_LNFAeVr.png')
-            .then(r => r.blob())
-            .then(blobFile => new File([blobFile], "Besound_db1_LNFAeVr.png", { type: "image/png" }));
-        formData.append("audio", blob);
+        formData.append('title', 'Un título2222');
+        let blob = await fetch(
+            'http://127.0.0.1:8000/media/audio/Besound_db1_LNFAeVr.png'
+        )
+            .then((r) => r.blob())
+            .then(
+                (blobFile) =>
+                    new File([blobFile], 'Besound_db1_LNFAeVr.png', {
+                        type: 'image/png'
+                    })
+            );
+        formData.append('audio', blob);
 
         const responseData = await createPostAPI(formData);
 
@@ -43,12 +47,9 @@ export default function CreatePost({  }) {
         // if (APIResponse.status == 'error'){
         //     setError(APIResponse.statusText);
         // }else if (APIResponse.status == 'success'){
-        //     Router.push('/');  
+        //     Router.push('/');
         // }
-
     };
-
-
 
     return (
         <Layout>
@@ -56,18 +57,20 @@ export default function CreatePost({  }) {
                 <title>{`Let's see`}</title>
             </Head>
             <section>
-                <h3>API returned:</h3><br />
+                <h3>API returned:</h3>
+                <br />
                 {/* {APIResponse.status}<br />
                 {APIResponse.statusText}<br /> */}
 
-                <button className="alt" onClick={handleSubmitPost}>Create post</button> 
-                <button className="alt" >Create post</button> 
-                <Button url="http://google.es" alt={true}>Hello</Button>
-
+                <button className="alt" onClick={handleSubmitPost}>
+                    Create post
+                </button>
+                <button className="alt">Create post</button>
+                <Button url="http://google.es" alt={true}>
+                    Hello
+                </Button>
             </section>
-            <section>
-                Error: {error}
-            </section>
+            <section>Error: {error}</section>
         </Layout>
     );
 }

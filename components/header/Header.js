@@ -24,8 +24,7 @@ const transitionStyles = {
 
 export default function Header({ long, search }) {
     const [isAboutOpen, setIsAboutOpen] = useState(false);
-    const nodeRef = useRef(null);
-    const { isAuthenticated, recordingStep, status, recordingBlob } =
+    const { isAuthenticated, recordingStep, effect, isFormOK } =
         useContext(AppContext);
 
     return (
@@ -33,9 +32,11 @@ export default function Header({ long, search }) {
             <header className={styles.header}>
                 <Link href="/" className={styles.logo}></Link>
                 <div className={styles.contextData}>
-                    isAuthenticated : {isAuthenticated ? 'true' : 'false'}{' '}
+                    isAuthenticated : {isAuthenticated ? 'true' : 'false'}
                     <br />
                     recordingStep : {recordingStep} <br />
+                    effect : {effect} <br />
+                    isFormOK : {isFormOK} <br />
                 </div>
             </header>
             {/* <Transition nodeRef={nodeRef} in={isAboutOpen} timeout={duration}>

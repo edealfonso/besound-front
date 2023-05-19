@@ -1,15 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true,
+    reactStrictMode: false,
     images: {
         loader: 'custom',
         loaderFile: './lib/image_loaders.js',
-        domains: ['localhost:8888'],
+        domains: ['localhost:8888']
     },
     sassOptions: {
         includePaths: ['./components'],
-        prependData: `@import "./styles/settings/__settings.scss";`,
+        prependData: `@import "./styles/settings/__settings.scss";`
     }
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

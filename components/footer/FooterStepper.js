@@ -12,13 +12,12 @@ export default function FooterStepper() {
 
     function formSubmit(e) {
         if (isFormOK) {
-            const form_val = document.forms['post-create-form']['name'].value;
-            console.log(form_val, 'form_val');
+            console.log('form submit');
             setTimeout(() => {
                 setRecordingStep(recordingStep + 1);
-            }, 3000);
+            }, 500);
         } else {
-            console.log('form_invalid');
+            console.log('form invalid');
         }
     }
 

@@ -1,10 +1,10 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
 
 import Head from 'next/head';
 
-import Header from '../header/Header';
-import Footer from '../footer/Footer';
+import Header from './header/Header';
+import Footer from './footer/Footer';
 
 import styles from './Layout.module.scss';
 
@@ -12,6 +12,15 @@ import { siteTitle, siteDescription } from '@/lib/constants';
 
 export default function Layout({ children, recordPage, homePage, noPaddings }) {
     const { recordingStep } = useContext(AppContext);
+    const [bodyClasses, setBodyClasses] = useState(styles.bodyContainer);
+
+    useEffect(() => {
+        setBodyClasses(
+            `${styles.bodyContainer} ${noPaddings ? styles.noPaddings : ''} ${
+                recordingStep == 2 ? styles.noPaddings : ''
+            }`
+        );
+    }, [noPaddings, recordingStep]);
 
     return (
         <>
@@ -21,11 +30,7 @@ export default function Layout({ children, recordPage, homePage, noPaddings }) {
                 <meta name="og:title" content={siteTitle} />
                 <title>{siteTitle}</title>
             </Head>
-            <div
-                className={`${styles.bodyContainer} ${
-                    noPaddings ? styles.noPaddings : ''
-                } ${recordingStep == 2 ? styles.noPaddings : ''}`}
-            >
+            <div className={bodyClasses}>
                 {/* Header */}
                 {recordingStep >= 1 && recordingStep <= 5 && (
                     <Header long={true} />

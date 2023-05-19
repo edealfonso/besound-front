@@ -1,4 +1,4 @@
-import Layout from '@/components/common/Layout';
+import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
 import { getHomePageAPI, getPostsListAPI } from '@/lib/api';
 import Splash from '@/components/home/Splash';
@@ -6,6 +6,7 @@ import PostList from '@/components/home/PostList';
 import Container from '@/components/common/Container';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
+import Footer from '@/components/footer/Footer';
 
 export async function getServerSideProps() {
     const page = await getHomePageAPI();

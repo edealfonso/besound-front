@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
 
-import Layout from '@/components/common/Layout';
+import Layout from '@/components/Layout';
 
 import { getRecordPageAPI } from '@/lib/api';
 
@@ -16,6 +16,7 @@ const AudioAnalyser = dynamic(import('react-audio-analyser'), { ssr: false }); /
 
 import styles from '@/styles/pages/Record.module.scss';
 import { preparePlayer, stopAudio } from '@/lib/audio';
+import Footer from '@/components/footer/Footer';
 
 export async function getStaticProps() {
     const page = await getRecordPageAPI();
@@ -27,31 +28,30 @@ export async function getStaticProps() {
 }
 
 export default function Record({ page }) {
-    const [windowSize, setWindowSize] = useState([0, 0]);
-    const [status, setStatus] = useState('');
-    const [audioBlob, setAudioBlob] = useState(null);
+    const [recordingStatus, setRecordingStatus] = useState('');
     const [postTitle, setPostTitle] = useState(null);
+    const [dimensions, setDimensions] = useState({
+        height: typeof window !== 'undefined' && window.innerHeight,
+        width: typeof window !== 'undefined' && window.innerWidth
+    });
 
-    const {
-        setRecordPageStaticData,
-        recordingStep,
-        setRecordingStep,
-        effect,
-        setEffect
-    } = useContext(AppContext);
+    const { setRecordPageStaticData, recordingStep, setRecordingStep, effect } =
+        useContext(AppContext);
 
+    // on recordingStep change
     useEffect(() => {
-        // set status
+        // update AudioAnalyser status
         if (recordingStep == 2) {
-            setStatus('recording');
+            setRecordingStatus('recording');
         } else {
-            setStatus('inactive');
+            setRecordingStatus('inactive');
         }
 
         // stop all audio when we move around steps
         stopAudio();
     }, [recordingStep]);
 
+    // init
     useEffect(() => {
         // set initial recording recordingStep
         setRecordingStep(1);
@@ -59,18 +59,20 @@ export default function Record({ page }) {
         // initially save data so that footer recordingStepper can use it
         setRecordPageStaticData(page);
 
-        // set window sizes
-        setWindowSize([window.innerWidth, window.innerHeight]);
+        // set window dimensions
+        const handleResize = () => {
+            setDimensions({
+                height: window.innerHeight,
+                width: window.innerWidth
+            });
+        };
+        window.addEventListener('resize', handleResize);
     }, []);
 
-    function loadAudio(e) {
-        const blob = window.URL.createObjectURL(e);
-
-        // save value
-        setAudioBlob(blob);
-
-        // start Tone.js
-        preparePlayer(blob);
+    // start Tone.js
+    function startToneJS(e) {
+        const blob_URL = window.URL.createObjectURL(e);
+        preparePlayer(blob_URL);
     }
 
     function setTitle(title) {
@@ -79,39 +81,37 @@ export default function Record({ page }) {
 
     return (
         <Layout>
+            {/* debug info */}
+            <div className={styles.localData}>
+                recordingStatus : {recordingStatus} <br />
+                postTitle : {postTitle} <br />
+                dimensions.width : {dimensions.width} <br />
+            </div>
+
+            {/* particular step elements */}
             {recordingStep == 1 && <Step1_Prepare page={page} />}
             {recordingStep == 2 && <Step2_Record page={page} />}
             {recordingStep == 3 && <Step3_Effect page={page} />}
             {recordingStep == 4 && (
-                <Step4_Title
-                    page={page}
-                    emitTitle={setTitle}
-                    blob={audioBlob}
-                />
+                <Step4_Title page={page} emitTitle={setTitle} />
             )}
             {recordingStep == 5 && (
-                <Step5_Confirmation
-                    page={page}
-                    title={postTitle}
-                    audio={audioBlob}
-                />
+                <Step5_Confirmation page={page} title={postTitle} />
             )}
+
+            {/* common elements */}
             <AudioAnalyser
                 className={`${styles.audioAnalyzer} ${
                     recordingStep > 2 ? styles.hide : ''
                 }`}
-                status={status}
+                status={recordingStatus}
                 audioType="audio/mp3"
                 backgroundColor="rgba(0, 0, 0, 0)"
                 strokeColor="rgb(112, 108, 115)"
-                width={2 * windowSize[0]}
-                height={0.5 * windowSize[1]}
-                stopCallback={loadAudio}
+                width={2 * dimensions.width}
+                height={0.5 * dimensions.height}
+                stopCallback={startToneJS}
             />
-            <div className={styles.localData}>
-                status : {status} <br />
-                effect : {effect} <br />
-            </div>
         </Layout>
     );
 }
