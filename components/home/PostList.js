@@ -6,7 +6,6 @@ export default function PostList({ posts }) {
     const [selected, setSelected] = useState(null);
 
     const handleClick = async (i) => {
-        console.log(i);
         setSelected(i);
     };
 

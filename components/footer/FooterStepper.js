@@ -12,12 +12,9 @@ export default function FooterStepper() {
 
     function formSubmit(e) {
         if (isFormOK) {
-            console.log('form submit');
             setTimeout(() => {
                 setRecordingStep(recordingStep + 1);
             }, 500);
-        } else {
-            console.log('form invalid');
         }
     }
 

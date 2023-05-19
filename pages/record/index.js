@@ -16,7 +16,6 @@ const AudioAnalyser = dynamic(import('react-audio-analyser'), { ssr: false }); /
 
 import styles from '@/styles/pages/Record.module.scss';
 import { preparePlayer, stopAudio } from '@/lib/audio';
-import Footer from '@/components/footer/Footer';
 
 export async function getStaticProps() {
     const page = await getRecordPageAPI();
@@ -35,7 +34,7 @@ export default function Record({ page }) {
         width: typeof window !== 'undefined' && window.innerWidth
     });
 
-    const { setRecordPageStaticData, recordingStep, setRecordingStep, effect } =
+    const { setRecordPageStaticData, recordingStep, setRecordingStep } =
         useContext(AppContext);
 
     // on recordingStep change
@@ -75,8 +74,15 @@ export default function Record({ page }) {
         preparePlayer(blob_URL);
     }
 
+    // form handlers
     function setTitle(title) {
         setPostTitle(title);
+    }
+
+    function submitForm() {
+        setTimeout(() => {
+            setRecordingStep(recordingStep + 1);
+        }, 500);
     }
 
     return (
@@ -93,7 +99,11 @@ export default function Record({ page }) {
             {recordingStep == 2 && <Step2_Record page={page} />}
             {recordingStep == 3 && <Step3_Effect page={page} />}
             {recordingStep == 4 && (
-                <Step4_Title page={page} emitTitle={setTitle} />
+                <Step4_Title
+                    page={page}
+                    emitTitle={setTitle}
+                    emitSubmitForm={submitForm}
+                />
             )}
             {recordingStep == 5 && (
                 <Step5_Confirmation page={page} title={postTitle} />

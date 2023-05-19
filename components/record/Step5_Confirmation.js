@@ -27,8 +27,7 @@ export default function Step5_Confirmation({ page, title }) {
     });
 
     useEffect(() => {
-        // declare the async function
-        // if avoids double useEffect executions
+        // if statement avoids double useEffect executions
         if (!response || response.status == '') {
             castAndPost().catch(console.error);
         }
@@ -36,7 +35,7 @@ export default function Step5_Confirmation({ page, title }) {
 
     const castAndPost = async () => {
         await soundcastingPrepare();
-        setTimeout(soundcastingStopEventListener, 100);
+        setTimeout(soundcastingStopEventListener, 200);
     };
 
     function soundcastingStopEventListener() {
@@ -52,9 +51,12 @@ export default function Step5_Confirmation({ page, title }) {
                 const url = URL.createObjectURL(recording);
                 console.log('Tone.js Recorder Blob URL:', url);
 
+                // dispose recorder
+                await recorder.dispose();
+
                 // create post from url
                 await createPost(url);
-            }, fade_time);
+            }, fade_time + 200);
         };
     }
 
@@ -83,22 +85,17 @@ export default function Step5_Confirmation({ page, title }) {
         formData.append('audio', audioBlob, filename);
 
         // send request
-        console.log('launch createPostAPI', audioBlob);
-
         const responseData = await createPostAPI(formData);
-
-        console.log('get responseData');
 
         // log and save response
         setResponse(responseData);
-        setNewPost(responseData.data);
 
         // error handing
-        // if (APIResponse.status == 'error'){
-        //     setError(APIResponse.statusText);
-        // }else if (APIResponse.status == 'success'){
-        //     Router.push('/');
-        // }
+        if (responseData.status == '201') {
+            setNewPost(responseData.data);
+        } else {
+            setError(responseData.statusText);
+        }
     }
 
     function renderSendingData() {

@@ -34,7 +34,11 @@ export default function Box({ share_post = false, children }) {
                     ></AudioPlayer>
 
                     <div className={styles.share}>
-                        <Link href={share_post.audio} target="_blank">
+                        <Link
+                            href={share_post.audio}
+                            download="besound.mp3"
+                            target="_blank"
+                        >
                             <Image
                                 src="icon-download.svg"
                                 width={31}
@@ -59,7 +63,7 @@ export default function Box({ share_post = false, children }) {
                         popupShow ? styles.show : ''
                     }`}
                 >
-                    <span>Your post URL has been copied to clipboard.</span>
+                    <span>Your post URL has been copied to the clipboard.</span>
                 </div>
             )}
         </div>
