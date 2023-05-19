@@ -7,6 +7,7 @@ import { deletePostAPI } from '@/lib/api';
 import Info from '@/components/common/Info';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
+import Link from 'next/link';
 
 export async function getServerSideProps({ params }) {
     const APIResponse = await deletePostAPI(params.id);
@@ -45,6 +46,9 @@ export default function DeletePost({ APIResponse }) {
                         <span>bs-{new Date().getTime().toString()}</span>
                     </Info>
                 ))}
+            <Link className="button" href="/">
+                Home
+            </Link>
         </Layout>
     );
 }
