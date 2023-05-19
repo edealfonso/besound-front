@@ -16,6 +16,7 @@ const AudioAnalyser = dynamic(import('react-audio-analyser'), { ssr: false }); /
 
 import styles from '@/styles/pages/Record.module.scss';
 import { preparePlayer, stopAudio } from '@/lib/audio';
+import Head from 'next/head';
 
 export async function getStaticProps() {
     const page = await getRecordPageAPI();
@@ -81,6 +82,10 @@ export default function Record({ page }) {
 
     return (
         <Layout>
+            <Head>
+                <title>besound · CREATE</title>
+            </Head>
+
             {/* debug info */}
             <div className={styles.localData}>
                 recordingStatus : {recordingStatus} <br />

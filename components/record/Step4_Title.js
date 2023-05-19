@@ -7,7 +7,7 @@ import { AppContext } from '@/lib/contexts/AppContext';
 export default function Step4_Title({ page, emitTitle }) {
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
-    const { isFormOK, setIsFormOK } = useContext(AppContext);
+    const { setIsFormOK } = useContext(AppContext);
 
     const input_pattern = /^[a-zA-Z0-9!@^*()_+\-=\[\]{};:\\|,.\/]*$/;
 

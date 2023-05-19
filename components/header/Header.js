@@ -24,8 +24,13 @@ const transitionStyles = {
 
 export default function Header({ long, search }) {
     const [isAboutOpen, setIsAboutOpen] = useState(false);
-    const { isAuthenticated, recordingStep, effect, isFormOK } =
-        useContext(AppContext);
+    const {
+        isAuthenticated,
+        recordingStep,
+        effect,
+        isFormOK,
+        recordPageStaticData
+    } = useContext(AppContext);
 
     return (
         <>
@@ -36,7 +41,12 @@ export default function Header({ long, search }) {
                     <br />
                     recordingStep : {recordingStep} <br />
                     effect : {effect} <br />
-                    isFormOK : {isFormOK} <br />
+                    isFormOK : {isFormOK ? 'true' : 'false'} <br />
+                    recordPageStaticData :{' '}
+                    {recordPageStaticData
+                        ? recordPageStaticData.delete_success
+                        : 'no data'}{' '}
+                    <br />
                 </div>
             </header>
             {/* <Transition nodeRef={nodeRef} in={isAboutOpen} timeout={duration}>

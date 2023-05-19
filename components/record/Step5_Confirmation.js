@@ -89,6 +89,7 @@ export default function Step5_Confirmation({ page, title }) {
 
         // log and save response
         setResponse(responseData);
+        console.log(responseData);
 
         // error handing
         if (responseData.status == '201') {
@@ -102,7 +103,11 @@ export default function Step5_Confirmation({ page, title }) {
         return (
             <Box>
                 <Info highlight>
-                    <span>Soundcasting</span>
+                    <span
+                        dangerouslySetInnerHTML={{
+                            __html: page.confirmation_generating
+                        }}
+                    ></span>
                 </Info>
             </Box>
         );
@@ -133,7 +138,7 @@ export default function Step5_Confirmation({ page, title }) {
                 </Link>
                 <Info warning>
                     <Link
-                        href="delete"
+                        href={`/delete/${newPost.id}`}
                         dangerouslySetInnerHTML={{
                             __html: page.confirmation_regret
                         }}
