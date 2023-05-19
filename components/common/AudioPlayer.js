@@ -7,7 +7,10 @@ export default function AudioPlayer({ post, selected, index, emitClick }) {
     const [played, setPlayed] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false);
 
-    const soundUrl = post.audio;
+    // define useSound
+    const [play, { stop }] = useSound(post.audio, {
+        interrupt: true
+    });
 
     // turn off when another sound is selected
     useEffect(() => {
@@ -23,15 +26,9 @@ export default function AudioPlayer({ post, selected, index, emitClick }) {
         };
     }, []);
 
-    const [play, { sound, stop, duration }] = useSound(soundUrl, {
-        // playbackRate: 0.3,
-        volume: 0.25,
-        interrupt: true
-    });
-
     // click action depends on if sound is currently playing
     function handleClick() {
-        emitClick(index);
+        if (emitClick) emitClick(index);
 
         if (!isPlaying) {
             startPlayer();

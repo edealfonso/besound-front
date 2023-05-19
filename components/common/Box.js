@@ -8,8 +8,11 @@ import styles from './Box.module.scss';
 
 export default function Box({ share_post = false, children }) {
     const copyToClipboard = (e) => {
+        // url to post
+        const post_url = window.location.host + '#' + share_post.id;
+
         // copy to clipboard
-        navigator.clipboard.writeText(window.location.toString());
+        navigator.clipboard.writeText(post_url);
 
         // show message popup for 1s
         setPopupShow(true);
@@ -25,7 +28,11 @@ export default function Box({ share_post = false, children }) {
             {children}
             {share_post && (
                 <>
-                    <AudioPlayer post={share_post}></AudioPlayer>
+                    <AudioPlayer
+                        post={share_post}
+                        selected={true}
+                    ></AudioPlayer>
+
                     <div className={styles.share}>
                         <Link href={share_post.audio} target="_blank">
                             <Image
@@ -44,14 +51,16 @@ export default function Box({ share_post = false, children }) {
                             />
                         </a>
                     </div>
-                    <div
-                        className={`${styles.sharePopup} ${
-                            popupShow ? styles.show : ''
-                        }`}
-                    >
-                        Your post URL has been copied to clipboard.
-                    </div>
                 </>
+            )}
+            {share_post && (
+                <div
+                    className={`${styles.sharePopup} ${
+                        popupShow ? styles.show : ''
+                    }`}
+                >
+                    <span>Your post URL has been copied to clipboard.</span>
+                </div>
             )}
         </div>
     );

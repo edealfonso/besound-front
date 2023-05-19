@@ -1,6 +1,5 @@
 import { useContext, useEffect } from 'react';
 import Info from '../common/Info';
-import { createChain } from '@/lib/audio';
 import { AppContext } from '@/lib/contexts/AppContext';
 
 export default function Step2_Record({ page }) {

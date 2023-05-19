@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: false,
+    reactStrictMode: true,
     images: {
         loader: 'custom',
         loaderFile: './lib/image_loaders.js',

@@ -13,6 +13,13 @@ export default function Step4_Title({ page, emitTitle }) {
     function handleInputChange(e) {
         const val = e.target.value;
 
+        // replace spaces by dashes to avoid frustration
+        if (val.substr(-1) == ' ') {
+            e.target.value = val.slice(0, -1) + '-';
+            handleInputChange(e);
+            return;
+        }
+
         // check max length
         if (val.length > 40) {
             setIsFormOK(false);
