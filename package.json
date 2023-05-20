@@ -1,31 +1,33 @@
 {
-  "name": "besound",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "fulldev": "NODE_OPTIONS='--inspect' next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.13.1",
-    "eslint": "8.39.0",
-    "eslint-config-next": "13.3.2",
-    "next": "13.3.2",
-    "react": "18.2.0",
-    "react-audio-analyser": "^1.0.0",
-    "react-dom": "18.2.0",
-    "react-transition-group": "^4.4.5",
-    "tone": "^14.7.77",
-    "use-sound": "^4.0.1"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.23",
-    "sass": "^1.62.1"
-  }
+    "name": "besound",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "fulldev": "NODE_OPTIONS='--inspect' next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.11.0",
+        "@emotion/styled": "^11.11.0",
+        "@mui/material": "^5.13.1",
+        "eslint": "8.39.0",
+        "eslint-config-next": "13.3.2",
+        "next": "13.3.2",
+        "react": "18.2.0",
+        "react-audio-analyser": "^1.0.0",
+        "react-dom": "18.2.0",
+        "tone": "^14.7.77",
+        "use-sound": "^4.0.1"
+    },
+    "devDependencies": {
+        "sass": "^1.62.1"
+    },
+    "browserslist": [
+        ">0.3%",
+        "not dead",
+        "not ie 11"
+    ]
 }

@@ -16,6 +16,8 @@ export default function AudioPlayer({ post, selected, index, emitClick }) {
     useEffect(() => {
         if (!selected) {
             stopPlayer();
+        } else {
+            startPlayer();
         }
     }, [selected]);
 
@@ -54,11 +56,8 @@ export default function AudioPlayer({ post, selected, index, emitClick }) {
             className={`${styles.audioPlayer} ${played ? styles.played : ''} ${
                 selected ? styles.active : ''
             }`}
-            id={post.id}
         >
-            <span className={styles.title} data-title={`#${post.title}`}>
-                #{post.title}
-            </span>
+            <span className={styles.title}>#{post.title}</span>
         </a>
     );
 }

@@ -2,7 +2,8 @@
     display: block;
     width: max-content;
     @include f-audio;
-    padding-bottom: 0.6em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
 
     @include cursor-play;
 
