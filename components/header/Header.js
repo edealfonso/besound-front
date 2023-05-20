@@ -26,9 +26,9 @@ export default function Header({ long, search }) {
     const [isAboutOpen, setIsAboutOpen] = useState(false);
     const {
         isAuthenticated,
-        recordingStep,
         effect,
         isFormOK,
+        recordingStep,
         recordPageStaticData
     } = useContext(AppContext);
 

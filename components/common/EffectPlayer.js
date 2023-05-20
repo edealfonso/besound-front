@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '@/lib/contexts/AppContext';
+import { RecordContext } from '@/lib/contexts/RecordContext';
 
 import styles from './AudioPlayer.module.scss';
 import {
@@ -12,7 +12,7 @@ import {
 } from '@/lib/audio';
 
 export default function EffectPlayer({ name, index }) {
-    const { effect, setEffect, recordingStep } = useContext(AppContext);
+    const { effect, setEffect } = useContext(RecordContext);
 
     const handleClick = async () => {
         if (effect == index) {

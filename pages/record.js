@@ -1,10 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
+import Head from 'next/head';
+
+import { RecordContext } from '@/lib/contexts/RecordContext';
+import { RecordProvider } from '@/lib/contexts/RecordContext';
 import { AppContext } from '@/lib/contexts/AppContext';
 
-import Layout from '@/components/Layout';
-
 import { getRecordPageAPI } from '@/lib/api';
+import { preparePlayer, stopAudio } from '@/lib/audio';
 
+import Layout from '@/components/Layout';
 import Step1_Prepare from '@/components/record/Step1_Prepare';
 import Step2_Record from '@/components/record/Step2_Record';
 import Step3_Effect from '@/components/record/Step3_Effect';
@@ -15,8 +19,6 @@ import dynamic from 'next/dynamic';
 const AudioAnalyser = dynamic(import('react-audio-analyser'), { ssr: false }); // Async API cannot be server-side rendered
 
 import styles from '@/styles/pages/Record.module.scss';
-import { preparePlayer, stopAudio } from '@/lib/audio';
-import Head from 'next/head';
 
 export async function getStaticProps() {
     const page = await getRecordPageAPI();
@@ -81,42 +83,48 @@ export default function Record({ page }) {
     }
 
     return (
-        <Layout>
-            <Head>
-                <title>besound · CREATE</title>
-            </Head>
+        <RecordProvider>
+            <Layout
+                noPaddings={recordingStep == 2}
+                recordPage
+                footerStepper={recordingStep >= 3}
+            >
+                <Head>
+                    <title>besound · CREATE</title>
+                </Head>
 
-            {/* debug info */}
-            <div className={styles.localData}>
-                recordingStatus : {recordingStatus} <br />
-                postTitle : {postTitle} <br />
-                dimensions.width : {dimensions.width} <br />
-            </div>
+                {/* debug info */}
+                <div className={styles.localData}>
+                    recordingStatus : {recordingStatus} <br />
+                    postTitle : {postTitle} <br />
+                    dimensions.width : {dimensions.width} <br />
+                </div>
 
-            {/* particular step elements */}
-            {recordingStep == 1 && <Step1_Prepare page={page} />}
-            {recordingStep == 2 && <Step2_Record page={page} />}
-            {recordingStep == 3 && <Step3_Effect page={page} />}
-            {recordingStep == 4 && (
-                <Step4_Title page={page} emitTitle={setTitle} />
-            )}
-            {recordingStep == 5 && (
-                <Step5_Confirmation page={page} title={postTitle} />
-            )}
+                {/* particular step elements */}
+                {recordingStep == 1 && <Step1_Prepare page={page} />}
+                {recordingStep == 2 && <Step2_Record page={page} />}
+                {recordingStep == 3 && <Step3_Effect page={page} />}
+                {recordingStep == 4 && (
+                    <Step4_Title page={page} emitTitle={setTitle} />
+                )}
+                {recordingStep == 5 && (
+                    <Step5_Confirmation page={page} title={postTitle} />
+                )}
 
-            {/* common elements */}
-            <AudioAnalyser
-                className={`${styles.audioAnalyzer} ${
-                    recordingStep > 2 ? styles.hide : ''
-                }`}
-                status={recordingStatus}
-                audioType="audio/mp3"
-                backgroundColor="rgba(0, 0, 0, 0)"
-                strokeColor="rgb(112, 108, 115)"
-                width={2 * dimensions.width}
-                height={0.5 * dimensions.height}
-                stopCallback={startToneJS}
-            />
-        </Layout>
+                {/* common elements */}
+                <AudioAnalyser
+                    className={`${styles.audioAnalyzer} ${
+                        recordingStep > 2 ? styles.hide : ''
+                    }`}
+                    status={recordingStatus}
+                    audioType="audio/mp3"
+                    backgroundColor="rgba(0, 0, 0, 0)"
+                    strokeColor="rgb(112, 108, 115)"
+                    width={2 * dimensions.width}
+                    height={0.5 * dimensions.height}
+                    stopCallback={startToneJS}
+                />
+            </Layout>
+        </RecordProvider>
     );
 }

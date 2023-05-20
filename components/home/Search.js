@@ -3,12 +3,12 @@ import Image from 'next/image';
 
 import styles from './Search.module.scss';
 import { TextField } from '@mui/material';
-import { AppContext } from '@/lib/contexts/AppContext';
+import { HomeContext } from '@/lib/contexts/HomeContext';
 
 export default function Search() {
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
-    const { setSearchString } = useContext(AppContext);
+    const { setSearchString } = useContext(HomeContext);
 
     const input_pattern = /^[a-zA-Z0-9!@^*()_+\-=\[\]{};:\\|,.\/]*$/;
 

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '@/lib/contexts/AppContext';
+import { RecordContext } from '@/lib/contexts/RecordContext';
 
 import Head from 'next/head';
 
@@ -11,17 +11,6 @@ import styles from './Layout.module.scss';
 import { siteTitle, siteDescription } from '@/lib/constants';
 
 export default function Layout({ children, recordPage, homePage, noPaddings }) {
-    const { recordingStep } = useContext(AppContext);
-    const [bodyClasses, setBodyClasses] = useState(styles.bodyContainer);
-
-    useEffect(() => {
-        setBodyClasses(
-            `${styles.bodyContainer} ${noPaddings ? styles.noPaddings : ''} ${
-                recordingStep == 2 ? styles.noPaddings : ''
-            }`
-        );
-    }, [noPaddings, recordingStep]);
-
     return (
         <>
             <Head>
@@ -30,26 +19,28 @@ export default function Layout({ children, recordPage, homePage, noPaddings }) {
                 <meta name="og:title" content={siteTitle} />
                 <title>{siteTitle}</title>
             </Head>
-            <div className={bodyClasses}>
+            <div
+                className={`${styles.bodyContainer} ${
+                    noPaddings ? styles.noPaddings : ''
+                }`}
+            >
                 {/* Header */}
-                {recordingStep == 0 && <Header search={true} />}
-                {recordingStep >= 1 && recordingStep <= 5 && (
-                    <Header long={true} />
-                )}
-                {recordingStep == null && <Header />}
+                {homePage && <Header search={true} />}
+                {recordPage && <Header long={true} />}
+                {!homePage && !recordPage && <Header />}
 
                 {/* Main */}
-                {recordingStep == 0 && (
+                {homePage && (
                     <main className={`${styles.main} ${styles.home}`}>
                         {children}
                     </main>
                 )}
-                {recordingStep >= 1 && recordingStep <= 5 && (
+                {recordPage <= 5 && (
                     <main className={`${styles.main} ${styles.short}`}>
                         {children}
                     </main>
                 )}
-                {recordingStep == null && (
+                {!homePage && !recordPage && (
                     <main className={styles.main}>{children}</main>
                 )}
 

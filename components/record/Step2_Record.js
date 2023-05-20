@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import Info from '../common/Info';
-import { AppContext } from '@/lib/contexts/AppContext';
+import { RecordContext } from '@/lib/contexts/RecordContext';
 
 export default function Step2_Record({ page }) {
-    const { setEffect } = useContext(AppContext);
+    const { setEffect } = useContext(RecordContext);
 
     useEffect(() => {
         // set initial effect whether user comes from  step 1 or has selected an effect in step 3

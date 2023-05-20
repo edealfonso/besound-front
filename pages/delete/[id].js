@@ -5,9 +5,9 @@ import Layout from '@/components/Layout';
 
 import { deletePostAPI } from '@/lib/api';
 import Info from '@/components/common/Info';
-import { useContext, useEffect } from 'react';
-import { AppContext } from '@/lib/contexts/AppContext';
+import { useContext } from 'react';
 import Link from 'next/link';
+import { AppContext } from '@/lib/contexts/AppContext';
 
 export async function getServerSideProps({ params }) {
     const APIResponse = await deletePostAPI(params.id);

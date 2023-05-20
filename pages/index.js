@@ -4,10 +4,10 @@ import { getHomePageAPI, getPostsListAPI } from '@/lib/api';
 import Splash from '@/components/home/Splash';
 import PostList from '@/components/home/PostList';
 import Container from '@/components/common/Container';
+import Search from '@/components/home/Search';
+import { HomeProvider } from '@/lib/contexts/HomeContext';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
-import Footer from '@/components/footer/Footer';
-import Search from '@/components/home/Search';
 
 export async function getServerSideProps() {
     const page = await getHomePageAPI();
@@ -28,13 +28,15 @@ export default function Home({ posts, page }) {
     }, []);
 
     return (
-        <Layout noPaddings>
-            <Search />
-            <Splash motto={page.motto} />
-            <Container onlyHorizontal>
-                <Info>{page.instruction}</Info>
-            </Container>
-            <PostList posts={posts} />
-        </Layout>
+        <HomeProvider>
+            <Layout noPaddings homePage>
+                <Search />
+                <Splash motto={page.motto} />
+                <Container onlyHorizontal>
+                    <Info>{page.instruction}</Info>
+                </Container>
+                <PostList posts={posts} />
+            </Layout>
+        </HomeProvider>
     );
 }

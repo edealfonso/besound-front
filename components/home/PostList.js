@@ -1,14 +1,14 @@
 import styles from './PostList.module.scss';
 import AudioPlayer from '../common/AudioPlayer';
 import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '@/lib/contexts/AppContext';
 import { useRouter } from 'next/router';
+import { HomeContext } from '@/lib/contexts/HomeContext';
 
 export default function PostList({ posts }) {
     const router = useRouter();
     const [selected, setSelected] = useState(null);
     const [isAnchor, setIsAnchor] = useState(null);
-    const { searchString } = useContext(AppContext);
+    const { searchString } = useContext(HomeContext);
 
     const path = router.asPath;
 

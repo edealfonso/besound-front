@@ -1,9 +1,8 @@
-import { useContext } from 'react';
-import { AppContext } from '@/lib/contexts/AppContext';
-
 import styles from './Footer.module.scss';
 import Rec from './Rec';
 import FooterStepper from './FooterStepper';
+import { useContext } from 'react';
+import { AppContext } from '@/lib/contexts/AppContext';
 
 export default function Footer() {
     const { recordingStep } = useContext(AppContext);
