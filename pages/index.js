@@ -7,6 +7,7 @@ import Container from '@/components/common/Container';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
 import Footer from '@/components/footer/Footer';
+import Search from '@/components/home/Search';
 
 export async function getServerSideProps() {
     const page = await getHomePageAPI();
@@ -28,6 +29,7 @@ export default function Home({ posts, page }) {
 
     return (
         <Layout noPaddings>
+            <Search />
             <Splash motto={page.motto} />
             <Container onlyHorizontal>
                 <Info>{page.instruction}</Info>

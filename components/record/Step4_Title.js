@@ -25,14 +25,14 @@ export default function Step4_Title({ page, emitTitle }) {
         if (val.length > 40) {
             setIsFormOK(false);
             setError(true);
-            setMessage('You cannot exceed 40 characters');
+            setMessage('Titles cannot exceed 40 characters');
 
             // check pattern
         } else if (!input_pattern.test(val)) {
             setIsFormOK(false);
             setError(true);
             setMessage(
-                'You can only use letters, numbers and !@^*()_+-=[]{};:|,./'
+                'Titles can only use letters, numbers and !@^*()_+-=[]{};:|,./'
             );
 
             // check empty required

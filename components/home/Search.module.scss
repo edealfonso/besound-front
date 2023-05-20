@@ -1,0 +1,14 @@
+.search {
+    height: 5rem;
+
+    margin-bottom: spacer(2.5);
+    padding-left: $pad-x;
+    padding-right: $pad-x;
+
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+    align-items: center;
+
+    @include theme('background-color', $color-bg-card);
+}

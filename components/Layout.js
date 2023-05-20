@@ -32,20 +32,22 @@ export default function Layout({ children, recordPage, homePage, noPaddings }) {
             </Head>
             <div className={bodyClasses}>
                 {/* Header */}
+                {recordingStep == 0 && <Header search={true} />}
                 {recordingStep >= 1 && recordingStep <= 5 && (
                     <Header long={true} />
                 )}
-                {recordingStep == 0 && <Header search={true} />}
                 {recordingStep == null && <Header />}
 
                 {/* Main */}
+                {recordingStep == 0 && (
+                    <main className={`${styles.main} ${styles.home}`}>
+                        {children}
+                    </main>
+                )}
                 {recordingStep >= 1 && recordingStep <= 5 && (
                     <main className={`${styles.main} ${styles.short}`}>
                         {children}
                     </main>
-                )}
-                {recordingStep == 0 && (
-                    <main className={styles.main}>{children}</main>
                 )}
                 {recordingStep == null && (
                     <main className={styles.main}>{children}</main>

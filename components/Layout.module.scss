@@ -18,6 +18,12 @@
         display: grid;
         align-content: start;
         gap: spacer(2);
+
+        position: relative;
+
+        &.home {
+            padding-top: 0;
+        }
     }
 
     &.noPaddings {
