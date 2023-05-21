@@ -1,13 +1,23 @@
 .audioPlayer {
     display: block;
-    width: max-content;
     @include f-audio;
     padding-top: 0.3em;
     padding-bottom: 0.3em;
 
     @include cursor-play;
 
+    // x scroll
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
     .title {
+        // x scroll
+        width: max-content;
+        padding-left: $pad-x;
+        padding-right: $pad-x;
+
         display: block;
         position: relative;
         &::after {

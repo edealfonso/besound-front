@@ -46,6 +46,7 @@ export default function Search() {
         <div className={styles.search}>
             <Image src="icon-search.svg" width={24} height={24} alt="Search" />
             <TextField
+                classes={{ notchedOutline: styles.dashed }}
                 name="search"
                 error={error}
                 helperText={message}
