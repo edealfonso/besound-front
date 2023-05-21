@@ -2,12 +2,15 @@ import { useState, useContext } from 'react';
 import Info from '../common/Info';
 import { TextField } from '@mui/material';
 import { AppContext } from '@/lib/contexts/AppContext';
+import { RecordContext } from '@/lib/contexts/RecordContext';
 // import styles from './Step4.module.scss';
 
-export default function Step4_Title({ page, emitTitle }) {
+export default function Step4_Title() {
+    const { recordPageStaticData, setIsFormOK } = useContext(AppContext);
+    const { setTitle } = useContext(RecordContext);
+
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
-    const { setIsFormOK } = useContext(AppContext);
 
     const input_pattern = /^[a-zA-Z0-9!@^*()_+\-=\[\]{};:\\|,.\/]*$/;
 
@@ -46,7 +49,7 @@ export default function Step4_Title({ page, emitTitle }) {
             setIsFormOK(true);
             setError(false);
             setMessage('');
-            emitTitle(val);
+            setTitle(val);
         }
     }
 
@@ -55,7 +58,7 @@ export default function Step4_Title({ page, emitTitle }) {
             <Info>
                 <span
                     dangerouslySetInnerHTML={{
-                        __html: page.step4_instruction
+                        __html: recordPageStaticData.step4_instruction
                     }}
                 />
             </Info>

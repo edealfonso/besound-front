@@ -1,8 +1,12 @@
 import Info from '../common/Info';
 import styles from './Step3_Effect.module.scss';
 import EffectPlayer from '../common/EffectPlayer';
+import { useContext } from 'react';
+import { AppContext } from '@/lib/contexts/AppContext';
 
-export default function Step3_Effect({ page }) {
+export default function Step3_Effect() {
+    const { recordPageStaticData } = useContext(AppContext);
+
     const effect_list = [
         {
             name: 'no-effect'
@@ -23,7 +27,7 @@ export default function Step3_Effect({ page }) {
             <Info>
                 <span
                     dangerouslySetInnerHTML={{
-                        __html: page.step3_instruction
+                        __html: recordPageStaticData.step3_instruction
                     }}
                 />
             </Info>

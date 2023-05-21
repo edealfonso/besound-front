@@ -7,8 +7,7 @@ import {
     addLoBatEffect,
     addRandomEffect,
     noEffect,
-    toggleAudio,
-    stopAudio
+    toggleAudio
 } from '@/lib/audio';
 
 export default function EffectPlayer({ name, index }) {
@@ -16,29 +15,29 @@ export default function EffectPlayer({ name, index }) {
 
     const handleClick = async () => {
         if (effect == index) {
-            toggleAudio();
+            await toggleAudio();
         } else {
             setEffect(index);
-            changeEffect(index);
+            await changeEffect(index);
         }
     };
 
-    function changeEffect(effect) {
+    async function changeEffect(effect) {
         switch (effect) {
             case 0:
-                noEffect();
+                await noEffect();
                 break;
 
             case 1:
-                addCaveEffect();
+                await addCaveEffect();
                 break;
 
             case 2:
-                addRandomEffect();
+                await addRandomEffect();
                 break;
 
             case 3:
-                addLoBatEffect();
+                await addLoBatEffect();
                 break;
         }
     }

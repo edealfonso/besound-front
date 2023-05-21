@@ -31,7 +31,6 @@ export async function getStaticProps() {
 
 export default function Record({ page }) {
     const [recordingStatus, setRecordingStatus] = useState('');
-    const [postTitle, setPostTitle] = useState(null);
     const [dimensions, setDimensions] = useState({
         height: typeof window !== 'undefined' && window.innerHeight,
         width: typeof window !== 'undefined' && window.innerWidth
@@ -69,17 +68,15 @@ export default function Record({ page }) {
             });
         };
         window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
 
     // start Tone.js
     function startToneJS(e) {
         const blob_URL = window.URL.createObjectURL(e);
         preparePlayer(blob_URL);
-    }
-
-    // form emit handlers
-    function setTitle(title) {
-        setPostTitle(title);
     }
 
     return (
@@ -95,21 +92,15 @@ export default function Record({ page }) {
 
                 {/* debug info */}
                 <div className={styles.localData}>
-                    recordingStatus : {recordingStatus} <br />
-                    postTitle : {postTitle} <br />
                     dimensions.width : {dimensions.width} <br />
                 </div>
 
                 {/* particular step elements */}
-                {recordingStep == 1 && <Step1_Prepare page={page} />}
-                {recordingStep == 2 && <Step2_Record page={page} />}
-                {recordingStep == 3 && <Step3_Effect page={page} />}
-                {recordingStep == 4 && (
-                    <Step4_Title page={page} emitTitle={setTitle} />
-                )}
-                {recordingStep == 5 && (
-                    <Step5_Confirmation page={page} title={postTitle} />
-                )}
+                {recordingStep == 1 && <Step1_Prepare />}
+                {recordingStep == 2 && <Step2_Record />}
+                {recordingStep == 3 && <Step3_Effect />}
+                {recordingStep == 4 && <Step4_Title />}
+                {recordingStep == 5 && <Step5_Confirmation />}
 
                 {/* common elements */}
                 <AudioAnalyser

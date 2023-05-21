@@ -42,10 +42,6 @@ export default function PostList({ posts }) {
         }, 400);
     };
 
-    const handleClick = async (i) => {
-        setSelected(i);
-    };
-
     const handleSearch = (str) => {
         posts.forEach((post) => {
             const isVisible = post.title
@@ -65,7 +61,7 @@ export default function PostList({ posts }) {
                         post={post}
                         selected={i === selected}
                         index={i}
-                        emitClick={handleClick}
+                        emitClick={setSelected}
                     />
                 </li>
             ))}

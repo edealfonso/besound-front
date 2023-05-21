@@ -4,7 +4,7 @@ import Box from '../common/Box';
 // import styles from './Step5.module.scss';
 import { API_URL } from '@/lib/constants';
 import { createPostAPI } from '@/lib/api';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
     castSound,
     fade_time,
@@ -13,8 +13,14 @@ import {
     soundcastingPrepare,
     stopAudio
 } from '@/lib/audio';
+import { RecordContext } from '@/lib/contexts/RecordContext';
+import { AppContext } from '@/lib/contexts/AppContext';
+import ShareBox from '../common/ShareBox';
 
-export default function Step5_Confirmation({ page, title }) {
+export default function Step5_Confirmation() {
+    const { recordPageStaticData } = useContext(AppContext);
+    const { title } = useContext(RecordContext);
+
     const [response, setResponse] = useState({
         status: '',
         statusText: ''
@@ -105,7 +111,7 @@ export default function Step5_Confirmation({ page, title }) {
                 <Info highlight>
                     <span
                         dangerouslySetInnerHTML={{
-                            __html: page.confirmation_generating
+                            __html: recordPageStaticData.confirmation_generating
                         }}
                     ></span>
                 </Info>
@@ -116,20 +122,19 @@ export default function Step5_Confirmation({ page, title }) {
     function renderResponseOK() {
         return (
             <>
-                <Box share_post={newPost}>
+                <ShareBox post={newPost}>
                     <Info>
                         <span
                             dangerouslySetInnerHTML={{
-                                __html: page.confirmation_pre_title
+                                __html: recordPageStaticData.confirmation_pre_title
                             }}
                         />
                     </Info>
-                </Box>
-
+                </ShareBox>
                 <Info>
                     <span
                         dangerouslySetInnerHTML={{
-                            __html: page.confirmation_post_title
+                            __html: recordPageStaticData.confirmation_post_title
                         }}
                     />
                 </Info>
@@ -140,14 +145,14 @@ export default function Step5_Confirmation({ page, title }) {
                     <Link
                         href={`/delete/${newPost.id}`}
                         dangerouslySetInnerHTML={{
-                            __html: page.confirmation_regret
+                            __html: recordPageStaticData.confirmation_regret
                         }}
                     ></Link>
                 </Info>
                 <Info highlight>
                     <span
                         dangerouslySetInnerHTML={{
-                            __html: page.confirmation_remember
+                            __html: recordPageStaticData.confirmation_remember
                         }}
                     />
                 </Info>

@@ -3,9 +3,15 @@ import useSound from 'use-sound';
 
 import styles from './AudioPlayer.module.scss';
 
-export default function AudioPlayer({ post, selected, index, emitClick }) {
-    const [played, setPlayed] = useState(false);
-    const [isPlaying, setIsPlaying] = useState(false);
+export default function AudioPlayer({
+    post,
+    selected,
+    index,
+    emitClick,
+    independent
+}) {
+    const [isActive, setIsActive] = useState(false);
+    const [played, setPlayed] = useState(independent);
 
     // define useSound
     const [play, { stop }] = useSound(post.audio, {
@@ -32,7 +38,7 @@ export default function AudioPlayer({ post, selected, index, emitClick }) {
     function handleClick() {
         if (emitClick) emitClick(index);
 
-        if (!isPlaying) {
+        if (!isActive) {
             startPlayer();
         } else {
             stopPlayer();
@@ -40,13 +46,15 @@ export default function AudioPlayer({ post, selected, index, emitClick }) {
     }
 
     function startPlayer() {
-        setIsPlaying(true);
         setPlayed(true);
+        setIsActive(true);
+
         play();
     }
 
     function stopPlayer() {
-        setIsPlaying(false);
+        setIsActive(false);
+
         stop();
     }
 
@@ -54,7 +62,7 @@ export default function AudioPlayer({ post, selected, index, emitClick }) {
         <a
             onClick={handleClick}
             className={`${styles.audioPlayer} ${played ? styles.played : ''} ${
-                selected ? styles.active : ''
+                isActive ? styles.active : ''
             }`}
         >
             <span className={styles.title}>#{post.title}</span>
