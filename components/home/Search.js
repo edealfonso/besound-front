@@ -12,7 +12,7 @@ export default function Search() {
 
     const input_pattern = /^[a-zA-Z0-9!@^*()_+\-=\[\]{};:\\|,.\/]*$/;
 
-    function handleSearch(e) {
+    function handleSearchChange(e) {
         const val = e.target.value;
 
         // replace spaces by dashes to avoid frustration
@@ -46,12 +46,11 @@ export default function Search() {
         <div className={styles.search}>
             <Image src="icon-search.svg" width={24} height={24} alt="Search" />
             <TextField
-                classes={{ notchedOutline: styles.dashed }}
                 name="search"
                 error={error}
                 helperText={message}
                 variant="standard"
-                onChange={handleSearch}
+                onChange={handleSearchChange}
                 InputProps={{
                     startAdornment: <>#</>
                 }}

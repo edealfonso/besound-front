@@ -1,5 +1,5 @@
 @function spacer($factor: 1) {
-    @return calc(1.5rem * $factor);
+    @return calc(1.7rem * $factor);
 }
 
 $pad-x: spacer(1);

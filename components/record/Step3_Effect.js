@@ -1,6 +1,6 @@
 import Info from '../common/Info';
 import styles from './Step3_Effect.module.scss';
-import EffectPlayer from '../common/EffectPlayer';
+import EffectPlayer from './EffectPlayer';
 import { useContext } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
 

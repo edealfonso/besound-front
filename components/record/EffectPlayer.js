@@ -1,7 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { RecordContext } from '@/lib/contexts/RecordContext';
 
-import styles from './AudioPlayer.module.scss';
+import stylesAudioPlayer from '../common/AudioPlayer.module.scss';
+import styles from './EffectPlayer.module.scss';
+
 import {
     addCaveEffect,
     addLoBatEffect,
@@ -45,12 +47,12 @@ export default function EffectPlayer({ name, index }) {
     return (
         <a
             onClick={handleClick}
-            className={`${styles.audioPlayer} ${
-                effect == index ? styles.active : ''
+            className={`${stylesAudioPlayer.audioPlayer} ${
+                effect == index ? stylesAudioPlayer.active : ''
             }`}
             id={name}
         >
-            <span className={styles.title} data-title={`#${name}`}>
+            <span className={`${stylesAudioPlayer.title} ${styles.noPadding} `}>
                 #{name}
             </span>
         </a>

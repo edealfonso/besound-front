@@ -17,15 +17,19 @@ export default function FooterStepper() {
     function handleKeyPress(e) {
         if (e.key === 'Escape') {
             e.preventDefault();
-            setRecordingStep(recordingStep - 1);
+            prevStep();
         } else if (e.key === 'Enter') {
             e.preventDefault();
-            setRecordingStep(recordingStep + 1);
+            nextStep();
         }
     }
 
-    function nextStep(e) {
+    function nextStep() {
         setRecordingStep(recordingStep + 1);
+    }
+
+    function prevStep() {
+        setRecordingStep(recordingStep - 1);
     }
 
     function formSubmit(e) {
@@ -34,10 +38,6 @@ export default function FooterStepper() {
                 setRecordingStep(recordingStep + 1);
             }, 500);
         }
-    }
-
-    function prevStep(e) {
-        setRecordingStep(recordingStep - 1);
     }
 
     function handleBack() {

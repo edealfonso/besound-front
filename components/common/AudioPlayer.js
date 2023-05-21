@@ -14,7 +14,7 @@ export default function AudioPlayer({
     const [played, setPlayed] = useState(independent);
 
     // define useSound
-    const [play, { stop }] = useSound(post.audio, {
+    const [play, { stop, duration }] = useSound(post.audio, {
         interrupt: true
     });
 
