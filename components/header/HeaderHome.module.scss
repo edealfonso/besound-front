@@ -1,0 +1,25 @@
+.header {
+    justify-content: space-between;
+}
+
+.logo {
+    width: 14.7rem;
+    height: 3rem;
+    max-width: 40vw;
+
+    @include theme('background-image', $url-logo);
+    @include bg-contain;
+    background-position: center bottom;
+}
+
+.searchIcon {
+    transition: opacity 0.2s ease;
+    &.hide {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+.aboutLink {
+    display: flex;
+}

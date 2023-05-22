@@ -1,25 +1,9 @@
-.header {
-    $header_h: max(11rem, 7vh);
-
-    position: relative;
-
-    width: 100%;
-    height: $header_h;
-    padding: spacer(1) spacer(2);
-
-    display: grid;
-    justify-content: center;
-    align-items: end;
-
-    @include theme('background-color', $color-bg-alt);
-
-    .contextData {
-        position: absolute;
-        top: spacer(1);
-        right: spacer(1);
-        color: white;
-        @include f-small;
-    }
+.contextData {
+    position: absolute;
+    top: spacer(1);
+    right: spacer(1);
+    color: white;
+    @include f-small;
 }
 
 .logo {

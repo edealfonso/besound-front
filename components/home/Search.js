@@ -8,7 +8,8 @@ import { HomeContext } from '@/lib/contexts/HomeContext';
 export default function Search() {
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
-    const { setSearchString } = useContext(HomeContext);
+    const { setSearchString, isSearchOpen, setIsSearchOpen } =
+        useContext(HomeContext);
 
     const input_pattern = /^[a-zA-Z0-9!@^*()_+\-=\[\]{};:\\|,.\/]*$/;
 
@@ -43,8 +44,16 @@ export default function Search() {
     }
 
     return (
-        <div className={styles.search}>
-            <Image src="icon-search.svg" width={24} height={24} alt="Search" />
+        <div className={`${styles.search} ${isSearchOpen ? styles.open : ''}`}>
+            <Image
+                src="icon-search.svg"
+                width={24}
+                height={24}
+                alt="Search"
+                onClick={() => {
+                    setIsSearchOpen(false);
+                }}
+            />
             <TextField
                 name="search"
                 error={error}

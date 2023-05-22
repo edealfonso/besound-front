@@ -16,6 +16,23 @@ a {
     cursor: pointer;
 }
 
+header {
+    $header_h: max(11rem, 7vh);
+
+    position: relative;
+    z-index: 10;
+
+    width: 100%;
+    height: $header_h;
+    padding: spacer(1);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    @include theme('background-color', $color-bg-alt);
+}
+
 footer {
     position: fixed;
     bottom: 0;

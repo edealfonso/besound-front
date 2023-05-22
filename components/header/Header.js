@@ -1,12 +1,10 @@
-import { useState, useRef, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import { Transition } from 'react-transition-group';
 import { AppContext } from '@/lib/contexts/AppContext';
 
 import Link from 'next/link';
-import Image from 'next/image';
 
 import styles from './Header.module.scss';
-import About from './About';
 
 const duration = 300;
 
@@ -22,8 +20,7 @@ const transitionStyles = {
     exited: { left: '-50rem' }
 };
 
-export default function Header({ long, search }) {
-    const [isAboutOpen, setIsAboutOpen] = useState(false);
+export default function Header({ long }) {
     const {
         isAuthenticated,
         effect,
@@ -34,7 +31,7 @@ export default function Header({ long, search }) {
 
     return (
         <>
-            <header className={styles.header}>
+            <header>
                 <Link href="/" className={styles.logo}></Link>
                 <div className={styles.contextData}>
                     isAuthenticated : {isAuthenticated ? 'true' : 'false'}

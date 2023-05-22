@@ -1,4 +1,3 @@
-import styles from './Footer.module.scss';
 import Rec from './Rec';
 import FooterStepper from './FooterStepper';
 import { useContext } from 'react';
@@ -8,7 +7,7 @@ export default function Footer() {
     const { recordingStep } = useContext(AppContext);
 
     return (
-        <footer className={styles.footer}>
+        <footer>
             {recordingStep >= 0 && recordingStep < 3 && <Rec />}
             {recordingStep >= 3 && <FooterStepper />}
         </footer>

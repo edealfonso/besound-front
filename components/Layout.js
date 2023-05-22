@@ -9,8 +9,15 @@ import Footer from './footer/Footer';
 import styles from './Layout.module.scss';
 
 import { siteTitle, siteDescription } from '@/lib/constants';
+import HeaderHome from './header/HeaderHome';
 
-export default function Layout({ children, recordPage, homePage, noPaddings }) {
+export default function Layout({
+    children,
+    recordPage,
+    homePage,
+    aboutPage,
+    noPaddings
+}) {
     return (
         <>
             <Head>
@@ -25,7 +32,7 @@ export default function Layout({ children, recordPage, homePage, noPaddings }) {
                 }`}
             >
                 {/* Header */}
-                {homePage && <Header search={true} />}
+                {homePage && <HeaderHome />}
                 {recordPage && <Header long={true} />}
                 {!homePage && !recordPage && <Header />}
 
@@ -44,7 +51,8 @@ export default function Layout({ children, recordPage, homePage, noPaddings }) {
                     <main className={styles.main}>{children}</main>
                 )}
 
-                <Footer />
+                {/* Footer */}
+                {!aboutPage && <Footer />}
             </div>
         </>
     );

@@ -5,7 +5,7 @@ import Splash from '@/components/home/Splash';
 import PostList from '@/components/home/PostList';
 import Container from '@/components/common/Container';
 import Search from '@/components/home/Search';
-import { HomeProvider } from '@/lib/contexts/HomeContext';
+import { HomeContext, HomeProvider } from '@/lib/contexts/HomeContext';
 import { useContext, useEffect } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
 

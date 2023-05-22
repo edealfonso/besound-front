@@ -5,11 +5,14 @@ export default function Info({
     splash = false,
     warning = false,
     large = false,
+    box = false,
     children
 }) {
     const classes = `${styles.info} ${highlight ? styles.highlight : ''} ${
         splash ? styles.splash : ''
-    } ${warning ? styles.warning : ''} ${large ? styles.large : ''}`;
+    } ${warning ? styles.warning : ''} ${large ? styles.large : ''} ${
+        box ? styles.box : ''
+    }`;
 
     return <div className={classes}>{children}</div>;
 }

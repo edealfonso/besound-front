@@ -21,6 +21,10 @@
         text-align: left;
     }
 
+    &.box {
+        padding: spacer(1) spacer(1.5);
+    }
+
     b,
     strong {
         color: $red;

@@ -22,7 +22,8 @@
     gap: spacer(1);
 
     @include theme('background-color', $color-bg-card);
-    border-radius: $border-radius;
+    border-radius: $border-radius-xl;
     border: 2px dashed;
-    padding: spacer(1) spacer(1);
+    padding: spacer(2) spacer(1);
+    margin: spacer(1.5) spacer(1);
 }
