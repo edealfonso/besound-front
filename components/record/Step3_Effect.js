@@ -1,8 +1,11 @@
-import Info from '../common/Info';
-import styles from './Step3_Effect.module.scss';
-import EffectPlayer from './EffectPlayer';
 import { useContext } from 'react';
+
 import { AppContext } from '@/lib/contexts/AppContext';
+
+import Info from '../common/Info';
+import EffectPlayer from './EffectPlayer';
+
+import styles from './Step3_Effect.module.scss';
 
 export default function Step3_Effect() {
     const { recordPageStaticData } = useContext(AppContext);

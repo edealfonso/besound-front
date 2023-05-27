@@ -1,7 +1,8 @@
 import { useContext, useEffect } from 'react';
-import Info from '../common/Info';
-import { RecordContext } from '@/lib/contexts/RecordContext';
 import { AppContext } from '@/lib/contexts/AppContext';
+import { RecordContext } from '@/lib/contexts/RecordContext';
+
+import Info from '../common/Info';
 
 export default function Step2_Record() {
     const { setEffect } = useContext(RecordContext);

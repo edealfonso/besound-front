@@ -1,13 +1,12 @@
-import { useState, useRef, useEffect, useContext } from 'react';
-import { Transition } from 'react-transition-group';
-import { AppContext } from '@/lib/contexts/AppContext';
+import { useContext } from 'react';
 
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { HomeContext } from '@/lib/contexts/HomeContext';
+
 import stylesHeader from './Header.module.scss';
 import styles from './HeaderHome.module.scss';
-import { HomeContext } from '@/lib/contexts/HomeContext';
 
 const duration = 300;
 

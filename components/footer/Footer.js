@@ -1,7 +1,7 @@
-import Rec from './Rec';
-import FooterStepper from './FooterStepper';
 import { useContext } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
+import FooterStepper from './FooterStepper';
+import Rec from './Rec';
 
 export default function Footer() {
     const { recordingStep } = useContext(AppContext);

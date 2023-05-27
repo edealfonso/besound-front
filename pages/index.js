@@ -1,13 +1,15 @@
+import { useContext, useEffect } from 'react';
+
+import { HomeProvider } from '@/lib/contexts/HomeContext';
+import { AppContext } from '@/lib/contexts/AppContext';
+import { getHomePageAPI, getPostsListAPI } from '@/lib/api';
+
 import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
-import { getHomePageAPI, getPostsListAPI } from '@/lib/api';
 import Splash from '@/components/home/Splash';
 import PostList from '@/components/home/PostList';
 import Container from '@/components/common/Container';
 import Search from '@/components/home/Search';
-import { HomeContext, HomeProvider } from '@/lib/contexts/HomeContext';
-import { useContext, useEffect } from 'react';
-import { AppContext } from '@/lib/contexts/AppContext';
 
 export async function getServerSideProps() {
     const page = await getHomePageAPI();
@@ -20,23 +22,31 @@ export async function getServerSideProps() {
     };
 }
 
-export default function Home({ posts, page }) {
+export default function HomePage({ posts, page }) {
     const { setRecordingStep } = useContext(AppContext);
 
     useEffect(() => {
         setRecordingStep(0);
     }, []);
 
-    return (
-        <HomeProvider>
-            <Layout noPaddings homePage>
-                <Search />
-                <Splash motto={page.motto} />
-                <Container onlyHorizontal>
-                    <Info>{page.instruction}</Info>
-                </Container>
-                <PostList posts={posts} />
-            </Layout>
-        </HomeProvider>
-    );
+    if (posts == null || page.error) {
+        return (
+            <Container>
+                <Info warning>{page.error}</Info>
+            </Container>
+        );
+    } else {
+        return (
+            <HomeProvider>
+                <Layout noPaddings homePage>
+                    <Search />
+                    <Splash motto={page.motto} />
+                    <Container onlyHorizontal>
+                        <Info>{page.instruction}</Info>
+                    </Container>
+                    <PostList posts={posts} />
+                </Layout>
+            </HomeProvider>
+        );
+    }
 }

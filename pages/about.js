@@ -1,12 +1,12 @@
-import { getAboutPageAPI } from '@/lib/api';
-
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from 'next/head';
+
+import { getAboutPageAPI } from '@/lib/api';
 
 import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
 import Box from '@/components/common/Box';
-import { useRouter } from 'next/router';
 
 export async function getServerSideProps() {
     const page = await getAboutPageAPI();
@@ -17,7 +17,7 @@ export async function getServerSideProps() {
     };
 }
 
-export default function About({ page }) {
+export default function AboutPage({ page }) {
     const router = useRouter();
 
     return (

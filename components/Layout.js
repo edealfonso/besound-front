@@ -1,15 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
-import { RecordContext } from '@/lib/contexts/RecordContext';
-
 import Head from 'next/head';
 
+import { siteTitle, siteDescription } from '@/lib/constants';
+
 import Header from './header/Header';
+import HeaderHome from './header/HeaderHome';
 import Footer from './footer/Footer';
 
 import styles from './Layout.module.scss';
-
-import { siteTitle, siteDescription } from '@/lib/constants';
-import HeaderHome from './header/HeaderHome';
 
 export default function Layout({
     children,

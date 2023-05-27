@@ -1,9 +1,11 @@
-import styles from './PostList.module.scss';
-import AudioPlayer from '../common/AudioPlayer';
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+
 import { HomeContext } from '@/lib/contexts/HomeContext';
-import { AppContext } from '@/lib/contexts/AppContext';
+
+import AudioPlayer from '../common/AudioPlayer';
+
+import styles from './PostList.module.scss';
 
 export default function PostList({ posts }) {
     const router = useRouter();

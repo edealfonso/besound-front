@@ -1,9 +1,10 @@
 import { useContext, useState } from 'react';
+import { HomeContext } from '@/lib/contexts/HomeContext';
+
 import Image from 'next/image';
 
 import styles from './Search.module.scss';
 import { TextField } from '@mui/material';
-import { HomeContext } from '@/lib/contexts/HomeContext';
 
 export default function Search() {
     const [error, setError] = useState(false);
@@ -51,6 +52,7 @@ export default function Search() {
                 height={24}
                 alt="Search"
                 onClick={() => {
+                    setSearchString('');
                     setIsSearchOpen(false);
                 }}
             />

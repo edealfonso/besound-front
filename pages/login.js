@@ -1,10 +1,14 @@
+import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { TextField } from '@mui/material';
+
+import { getLoginPageAPI, loginUserAPI } from '@/lib/api';
+
+import nookies from 'nookies';
+
+import Link from 'next/link';
 import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
-import Container from '@/components/common/Container';
-
-import { getLoginPageAPI } from '@/lib/api';
-import { AppContext } from '@/lib/contexts/AppContext';
-import { useContext } from 'react';
 
 export async function getServerSideProps() {
     const page = await getLoginPageAPI();
@@ -15,19 +19,141 @@ export async function getServerSideProps() {
     };
 }
 
-export default function Login({ page }) {
-    const { setIsAuthenticated } = useContext(AppContext);
+export default function LoginPage({ page }) {
+    const router = useRouter();
+    const submitButton = useRef();
+    const [formError, setFormError] = useState(false);
+    const [errors, setErrors] = useState({
+        email: null,
+        password: null
+    });
 
-    const handleLogin = () => {
-        // Perform authentication logic
-        console.log('auth');
-        setIsAuthenticated(true);
-    };
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyPress);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, []);
+
+    function handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            submitButton.current.focus();
+            submitButton.current.click();
+        }
+    }
+
+    // from https://regexr.com/3e48o
+    const email_pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+    function handleEmailChange(e) {
+        const val = e.target.value;
+        setFormError(false);
+
+        // check valid mail
+        if (!email_pattern.test(val)) {
+            setErrors({
+                ...errors,
+                email: 'Please enter valid email'
+            });
+        } else {
+            setErrors({
+                ...errors,
+                email: null
+            });
+        }
+    }
+
+    function handlePasswordChange(e) {
+        const val = e.target.value;
+        setFormError(false);
+
+        // check max length
+        if (val.length > 40) {
+            setErrors({
+                ...errors,
+                password: 'Password must be less than 40 characters'
+            });
+        } else {
+            setErrors({
+                ...errors,
+                password: null
+            });
+        }
+    }
+
+    async function handleLogin(e) {
+        if (!errors.email && !errors.password) {
+            // Stop the form from submitting and refreshing the page.
+            e.preventDefault();
+
+            // Append form data
+            let formData = new FormData();
+            formData.append('username', e.target.email.value);
+            formData.append('password', e.target.password.value);
+
+            // fetch API request
+            const responseData = await loginUserAPI(formData);
+
+            // If server returns token, that means the form works.
+            const token = responseData.token;
+            if (token) {
+                nookies.set(null, 'token', token);
+                router.push('/record');
+            } else {
+                setFormError(true);
+            }
+        }
+    }
 
     return (
         <Layout>
-            <Info>{page.instruction}</Info>
-            <button onClick={handleLogin}>{page.button}</button>
+            <Info highlight>
+                {page.intro || 'only registered users can post sounds'}
+            </Info>
+            <Info box>{page.instruction}</Info>
+            <form onSubmit={handleLogin} method="post">
+                <Info box large>
+                    <TextField
+                        name="email"
+                        type="email"
+                        errors={errors.email}
+                        helperText={errors.email}
+                        autoFocus
+                        required
+                        variant="standard"
+                        onChange={handleEmailChange}
+                        fullWidth
+                        label="Email"
+                    />
+                </Info>
+                <Info box large>
+                    <TextField
+                        name="password"
+                        type="password"
+                        errors={errors.password}
+                        helperText={errors.password}
+                        required
+                        variant="standard"
+                        onChange={handlePasswordChange}
+                        fullWidth
+                        label="Password"
+                    />
+                </Info>
+                <Info>
+                    <button type="submit" ref={submitButton}>
+                        {page.button}
+                    </button>
+                    {formError && (
+                        <Info warning>{`Email and password don't match.`}</Info>
+                    )}
+                </Info>
+            </form>
+            <Info box>
+                not registered yet? <br />
+                <Link href="/register">sign up here</Link>
+            </Info>
         </Layout>
     );
 }

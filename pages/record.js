@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import Head from 'next/head';
 
-import { RecordContext } from '@/lib/contexts/RecordContext';
 import { RecordProvider } from '@/lib/contexts/RecordContext';
 import { AppContext } from '@/lib/contexts/AppContext';
 
@@ -9,6 +8,7 @@ import { getRecordPageAPI } from '@/lib/api';
 import { preparePlayer, stopAudio } from '@/lib/audio';
 
 import Layout from '@/components/Layout';
+import Container from '@/components/common/Container';
 import Step1_Prepare from '@/components/record/Step1_Prepare';
 import Step2_Record from '@/components/record/Step2_Record';
 import Step3_Effect from '@/components/record/Step3_Effect';
@@ -18,18 +18,41 @@ import Step5_Confirmation from '@/components/record/Step5_Confirmation';
 import dynamic from 'next/dynamic';
 const AudioAnalyser = dynamic(import('react-audio-analyser'), { ssr: false }); // Async API cannot be server-side rendered
 
-import styles from '@/styles/pages/Record.module.scss';
+import nookies from 'nookies';
 
-export async function getStaticProps() {
-    const page = await getRecordPageAPI();
+import styles from '@/styles/pages/RecordPage.module.scss';
+
+export async function getServerSideProps(context) {
+    const cookies = nookies.get(context);
+    const token = cookies.token;
+
+    if (token) {
+        const data = await getRecordPageAPI(token);
+        if (!data.error) {
+            if (data.status == 200) {
+                return {
+                    props: {
+                        page: data.body
+                    }
+                };
+            }
+        } else {
+            return {
+                props: {
+                    error: data.error
+                }
+            };
+        }
+    }
     return {
-        props: {
-            page
+        redirect: {
+            permanent: false,
+            destination: `/login`
         }
     };
 }
 
-export default function Record({ page }) {
+export default function RecordPgae({ page, error }) {
     const [recordingStatus, setRecordingStatus] = useState('');
     const [dimensions, setDimensions] = useState({
         height: typeof window !== 'undefined' && window.innerHeight,
@@ -54,6 +77,9 @@ export default function Record({ page }) {
 
     // init
     useEffect(() => {
+        if (page == 'error') {
+            router;
+        }
         // set initial recording recordingStep
         setRecordingStep(1);
 
@@ -79,43 +105,47 @@ export default function Record({ page }) {
         preparePlayer(blob_URL);
     }
 
-    return (
-        <RecordProvider>
-            <Layout
-                noPaddings={recordingStep == 2}
-                recordPage
-                footerStepper={recordingStep >= 3}
-            >
-                <Head>
-                    <title>besound · CREATE</title>
-                </Head>
+    if (error) {
+        return <Container>{error}</Container>;
+    } else {
+        return (
+            <RecordProvider>
+                <Layout
+                    noPaddings={recordingStep == 2}
+                    recordPage
+                    footerStepper={recordingStep >= 3}
+                >
+                    <Head>
+                        <title>besound · CREATE</title>
+                    </Head>
 
-                {/* debug info */}
-                <div className={styles.localData}>
-                    dimensions.width : {dimensions.width} <br />
-                </div>
+                    {/* debug info */}
+                    <div className={styles.localData}>
+                        dimensions.width : {dimensions.width} <br />
+                    </div>
 
-                {/* particular step elements */}
-                {recordingStep == 1 && <Step1_Prepare />}
-                {recordingStep == 2 && <Step2_Record />}
-                {recordingStep == 3 && <Step3_Effect />}
-                {recordingStep == 4 && <Step4_Title />}
-                {recordingStep == 5 && <Step5_Confirmation />}
+                    {/* particular step elements */}
+                    {recordingStep == 1 && <Step1_Prepare />}
+                    {recordingStep == 2 && <Step2_Record />}
+                    {recordingStep == 3 && <Step3_Effect />}
+                    {recordingStep == 4 && <Step4_Title />}
+                    {recordingStep == 5 && <Step5_Confirmation />}
 
-                {/* common elements */}
-                <AudioAnalyser
-                    className={`${styles.audioAnalyzer} ${
-                        recordingStep > 2 ? styles.hide : ''
-                    }`}
-                    status={recordingStatus}
-                    audioType="audio/mp3"
-                    backgroundColor="rgba(0, 0, 0, 0)"
-                    strokeColor="rgb(112, 108, 115)"
-                    width={2 * dimensions.width}
-                    height={0.5 * dimensions.height}
-                    stopCallback={startToneJS}
-                />
-            </Layout>
-        </RecordProvider>
-    );
+                    {/* common elements */}
+                    <AudioAnalyser
+                        className={`${styles.audioAnalyzer} ${
+                            recordingStep > 2 ? styles.hide : ''
+                        }`}
+                        status={recordingStatus}
+                        audioType="audio/mp3"
+                        backgroundColor="rgba(0, 0, 0, 0)"
+                        strokeColor="rgb(112, 108, 115)"
+                        width={2 * dimensions.width}
+                        height={0.5 * dimensions.height}
+                        stopCallback={startToneJS}
+                    />
+                </Layout>
+            </RecordProvider>
+        );
+    }
 }

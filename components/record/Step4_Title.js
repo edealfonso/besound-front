@@ -1,8 +1,12 @@
 import { useState, useContext } from 'react';
-import Info from '../common/Info';
-import { TextField } from '@mui/material';
+
 import { AppContext } from '@/lib/contexts/AppContext';
 import { RecordContext } from '@/lib/contexts/RecordContext';
+
+import Info from '../common/Info';
+
+import { TextField } from '@mui/material';
+
 // import styles from './Step4.module.scss';
 
 export default function Step4_Title() {

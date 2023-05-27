@@ -21,20 +21,14 @@ const transitionStyles = {
 };
 
 export default function Header({ long }) {
-    const {
-        isAuthenticated,
-        effect,
-        isFormOK,
-        recordingStep,
-        recordPageStaticData
-    } = useContext(AppContext);
+    const { effect, isFormOK, recordingStep, recordPageStaticData } =
+        useContext(AppContext);
 
     return (
         <>
             <header>
                 <Link href="/" className={styles.logo}></Link>
                 <div className={styles.contextData}>
-                    isAuthenticated : {isAuthenticated ? 'true' : 'false'}
                     <br />
                     recordingStep : {recordingStep} <br />
                     effect : {effect} <br />

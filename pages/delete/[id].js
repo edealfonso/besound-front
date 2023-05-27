@@ -1,54 +1,81 @@
-import Head from 'next/head';
-import Layout from '@/components/Layout';
+import { useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 
-// import styles from "@/styles/pages/DeletePost.module.scss"
-
-import { deletePostAPI } from '@/lib/api';
-import Info from '@/components/common/Info';
-import { useContext } from 'react';
-import Link from 'next/link';
 import { AppContext } from '@/lib/contexts/AppContext';
+import { deletePostAPI } from '@/lib/api';
 
-export async function getServerSideProps({ params }) {
-    const APIResponse = await deletePostAPI(params.id);
+import Head from 'next/head';
+import Link from 'next/link';
+import Layout from '@/components/Layout';
+import Info from '@/components/common/Info';
+
+import nookies from 'nookies';
+
+export async function getServerSideProps(context) {
+    const cookies = nookies.get(context);
+    const token = cookies.token;
+
+    if (token) {
+        const APIResponse = await deletePostAPI(token, context.params.id);
+        return {
+            props: {
+                APIResponse
+            }
+        };
+    }
     return {
-        props: {
-            APIResponse
+        redirect: {
+            permanent: false,
+            destination: `/login`
         }
     };
 }
 
-export default function DeletePost({ APIResponse }) {
+export default function DeletePage({ APIResponse }) {
+    const router = useRouter();
     const { recordPageStaticData } = useContext(AppContext);
 
+    // redirect to record page if not visited yet
+    useEffect(() => {
+        if (!recordPageStaticData) {
+            router.push('/record');
+        }
+    }, []);
+
     return (
-        <Layout>
-            <Head>
-                <title>besound · DELETE</title>
-            </Head>
-            {APIResponse && APIResponse.status == 204 && (
-                <Info>
-                    <span
-                        dangerouslySetInnerHTML={{
-                            __html: recordPageStaticData.delete_success
-                        }}
-                    />
-                </Info>
+        <>
+            {recordPageStaticData && (
+                <Layout>
+                    <Head>
+                        <title>besound · DELETE</title>
+                    </Head>
+                    {APIResponse && APIResponse.status == 204 && (
+                        <Info>
+                            <span
+                                dangerouslySetInnerHTML={{
+                                    __html: recordPageStaticData.delete_success
+                                }}
+                            />
+                        </Info>
+                    )}
+                    {!APIResponse ||
+                        (APIResponse.status !== 204 && (
+                            <Info>
+                                <span
+                                    dangerouslySetInnerHTML={{
+                                        __html: recordPageStaticData.delete_ko
+                                    }}
+                                />
+                                <span>
+                                    bs-{new Date().getTime().toString()}
+                                </span>
+                            </Info>
+                        ))}
+                    <Link className="button" href="/">
+                        Home
+                    </Link>
+                </Layout>
             )}
-            {!APIResponse ||
-                (APIResponse.status !== 204 && (
-                    <Info>
-                        <span
-                            dangerouslySetInnerHTML={{
-                                __html: recordPageStaticData.delete_ko
-                            }}
-                        />
-                        <span>bs-{new Date().getTime().toString()}</span>
-                    </Info>
-                ))}
-            <Link className="button" href="/">
-                Home
-            </Link>
-        </Layout>
+        </>
     );
 }

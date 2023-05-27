@@ -29,4 +29,6 @@
     strong {
         color: $red;
     }
+
+    @include a-underline;
 }

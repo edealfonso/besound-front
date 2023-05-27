@@ -1,41 +1,39 @@
+import { useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
+
 import Info from '../common/Info';
 import Box from '../common/Box';
-// import styles from './Step5.module.scss';
-import { API_URL } from '@/lib/constants';
+import ShareBox from '../common/ShareBox';
+
+import { RecordContext } from '@/lib/contexts/RecordContext';
+import { AppContext } from '@/lib/contexts/AppContext';
 import { createPostAPI } from '@/lib/api';
-import { useContext, useEffect, useState } from 'react';
 import {
-    castSound,
     fade_time,
     player,
     recorder,
     soundcastingPrepare,
     stopAudio
 } from '@/lib/audio';
-import { RecordContext } from '@/lib/contexts/RecordContext';
-import { AppContext } from '@/lib/contexts/AppContext';
-import ShareBox from '../common/ShareBox';
+
+import { parseCookies } from 'nookies';
 
 export default function Step5_Confirmation() {
+    const router = useRouter();
+
     const { recordPageStaticData } = useContext(AppContext);
     const { title } = useContext(RecordContext);
 
-    const [response, setResponse] = useState({
-        status: '',
-        statusText: ''
-    });
+    const [soundcastingStarted, setSoundcastingStarted] = useState(false);
     const [error, setError] = useState('');
-    const [newPost, setNewPost] = useState({
-        id: '',
-        title: '',
-        audio: ''
-    });
+    const [newPost, setNewPost] = useState(null);
 
     useEffect(() => {
         // if statement avoids double useEffect executions
-        if (!response || response.status == '') {
+        if (!soundcastingStarted) {
             castAndPost().catch(console.error);
+            setSoundcastingStarted(true);
         }
     }, []);
 
@@ -90,18 +88,22 @@ export default function Step5_Confirmation() {
             );
         formData.append('audio', audioBlob, filename);
 
-        // send request
-        const responseData = await createPostAPI(formData);
+        // parse token
+        const cookies = parseCookies();
+        const token = cookies.token;
 
-        // log and save response
-        setResponse(responseData);
-        console.log(responseData);
+        if (token) {
+            // send request
+            const responseData = await createPostAPI(token, formData);
 
-        // error handing
-        if (responseData.status == '201') {
-            setNewPost(responseData.data);
+            // error handing
+            if (responseData.status == '201') {
+                setNewPost(responseData.body);
+            } else {
+                setError(responseData.statusText);
+            }
         } else {
-            setError(responseData.statusText);
+            router.push('/login');
         }
     }
 
@@ -162,8 +164,8 @@ export default function Step5_Confirmation() {
 
     return (
         <>
-            {(!response || response.status == '') && renderSendingData()}
-            {response && response.status == 201 && renderResponseOK()}
+            {!newPost && renderSendingData()}
+            {newPost && renderResponseOK()}
         </>
     );
 }

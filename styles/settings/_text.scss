@@ -68,4 +68,22 @@
     @include theme('-webkit-text-stroke-color', $color-audio-active);
 }
 
-//
+@mixin a-underline {
+    a {
+        text-decoration: underline;
+        text-decoration-style: dashed;
+        text-underline-offset: 0.29em;
+        line-height: 1.6;
+
+        &:hover,
+        &:focus,
+        &:active {
+            text-decoration-style: solid;
+        }
+
+        &:focus,
+        &:active {
+            text-decoration-color: $darkgreen;
+        }
+    }
+}

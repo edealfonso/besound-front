@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+
 import useSound from 'use-sound';
 
 import styles from './AudioPlayer.module.scss';
