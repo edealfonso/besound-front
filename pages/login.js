@@ -84,10 +84,10 @@ export default function LoginPage({ page }) {
     }
 
     async function handleLogin(e) {
-        if (!errors.email && !errors.password) {
-            // Stop the form from submitting and refreshing the page.
-            e.preventDefault();
+        // Stop the form from submitting and refreshing the page.
+        e.preventDefault();
 
+        if (!errors.email && !errors.password) {
             // Append form data
             let formData = new FormData();
             formData.append('username', e.target.email.value);
@@ -102,8 +102,10 @@ export default function LoginPage({ page }) {
                 nookies.set(null, 'token', token);
                 router.push('/record');
             } else {
-                setFormError(true);
+                setFormError(`Email and password don't match.`);
             }
+        } else {
+            setFormError(`Please, check invalid fields.`);
         }
     }
 
@@ -145,9 +147,7 @@ export default function LoginPage({ page }) {
                     <button type="submit" ref={submitButton}>
                         {page.button}
                     </button>
-                    {formError && (
-                        <Info warning>{`Email and password don't match.`}</Info>
-                    )}
+                    {formError && <Info warning>{formError}</Info>}
                 </Info>
             </form>
             <Info box>

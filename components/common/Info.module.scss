@@ -1,6 +1,6 @@
 .info {
     margin: 0 auto;
-    max-width: 15em;
+    width: clamp(13em, 75%, 23em);
     text-align: center;
 
     &.highlight {
@@ -9,6 +9,7 @@
 
     &.warning {
         color: $red;
+        font-size: 0.9em;
     }
 
     &.splash {

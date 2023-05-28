@@ -7,6 +7,7 @@ import { HomeContext } from '@/lib/contexts/HomeContext';
 
 import stylesHeader from './Header.module.scss';
 import styles from './HeaderHome.module.scss';
+import AboutButton from './AboutButton';
 
 const duration = 300;
 
@@ -41,15 +42,7 @@ export default function HeaderHome() {
                     }`}
                 />
                 <Link href="/" className={stylesHeader.logo}></Link>
-                <Link href="/about" className={styles.aboutLink}>
-                    <Image
-                        src="icon-help-light.svg"
-                        width={24}
-                        height={24}
-                        alt="Search"
-                        className={styles.help}
-                    />
-                </Link>
+                <AboutButton />
             </header>
             {/* <Transition nodeRef={nodeRef} in={isAboutOpen} timeout={duration}>
                 {(state) => (

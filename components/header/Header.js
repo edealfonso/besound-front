@@ -1,10 +1,12 @@
 import { useContext } from 'react';
-import { Transition } from 'react-transition-group';
 import { AppContext } from '@/lib/contexts/AppContext';
 
 import Link from 'next/link';
+import AboutButton from './AboutButton';
 
 import styles from './Header.module.scss';
+
+import { Transition } from 'react-transition-group';
 
 const duration = 300;
 
@@ -20,25 +22,32 @@ const transitionStyles = {
     exited: { left: '-50rem' }
 };
 
-export default function Header({ long }) {
+export default function Header({ recordPage, aboutPage }) {
     const { effect, isFormOK, recordingStep, recordPageStaticData } =
         useContext(AppContext);
 
+    console.log('aboutPage Header', aboutPage);
+
     return (
         <>
-            <header>
+            <header
+                className={`${recordPage ? styles.long : ''} ${
+                    aboutPage ? styles.invert : ''
+                }`}
+            >
                 <Link href="/" className={styles.logo}></Link>
                 <div className={styles.contextData}>
                     <br />
                     recordingStep : {recordingStep} <br />
                     effect : {effect} <br />
                     isFormOK : {isFormOK ? 'true' : 'false'} <br />
-                    recordPageStaticData :{' '}
+                    recordPageStaticData :
                     {recordPageStaticData
                         ? recordPageStaticData.delete_success
-                        : 'no data'}{' '}
+                        : 'no data'}
                     <br />
                 </div>
+                {recordPage && <AboutButton floating dark />}
             </header>
             {/* <Transition nodeRef={nodeRef} in={isAboutOpen} timeout={duration}>
                 {(state) => (

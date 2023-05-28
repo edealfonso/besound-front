@@ -15,3 +15,15 @@
     @include bg-contain;
     background-position: center bottom;
 }
+
+.long {
+    height: $header-h-l;
+}
+
+.invert {
+    @include theme('background-color', $color-bg);
+
+    .logo {
+        @include theme('background-image', $url-logo-inv);
+    }
+}

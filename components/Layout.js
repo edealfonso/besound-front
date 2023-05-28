@@ -30,8 +30,9 @@ export default function Layout({
             >
                 {/* Header */}
                 {homePage && <HeaderHome />}
-                {recordPage && <Header long={true} />}
-                {!homePage && !recordPage && <Header />}
+                {!homePage && (
+                    <Header recordPage={recordPage} aboutPage={aboutPage} />
+                )}
 
                 {/* Main */}
                 {homePage && (
