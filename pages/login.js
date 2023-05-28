@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { TextField } from '@mui/material';
 
-import { getLoginPageAPI, loginUserAPI } from '@/lib/api';
+import { getLoginPageAPI, loginUserAPI } from '@/utils/api';
 
 import nookies from 'nookies';
 

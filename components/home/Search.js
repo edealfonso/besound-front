@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { HomeContext } from '@/lib/contexts/HomeContext';
+import { HomeContext } from '@/utils/contexts/HomeContext';
 
 import Image from 'next/image';
 

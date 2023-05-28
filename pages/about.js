@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Head from 'next/head';
 
-import { getAboutPageAPI } from '@/lib/api';
+import { getAboutPageAPI } from '@/utils/api';
 
 import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';

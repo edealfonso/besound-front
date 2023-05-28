@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useContext } from 'react';
 
 import styles from './Rec.module.scss';
-import { AppContext } from '@/lib/contexts/AppContext';
+import { AppContext } from '@/utils/contexts/AppContext';
 
 export default function Rec() {
     const router = useRouter();

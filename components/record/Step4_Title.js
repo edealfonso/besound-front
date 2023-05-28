@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 
-import { AppContext } from '@/lib/contexts/AppContext';
-import { RecordContext } from '@/lib/contexts/RecordContext';
+import { AppContext } from '@/utils/contexts/AppContext';
+import { RecordContext } from '@/utils/contexts/RecordContext';
 
 import Info from '../common/Info';
 

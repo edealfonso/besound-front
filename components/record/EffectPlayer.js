@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { RecordContext } from '@/lib/contexts/RecordContext';
+import { RecordContext } from '@/utils/contexts/RecordContext';
 
 import stylesAudioPlayer from '../common/AudioPlayer.module.scss';
 import styles from './EffectPlayer.module.scss';
@@ -10,7 +10,7 @@ import {
     addRandomEffect,
     noEffect,
     toggleAudio
-} from '@/lib/audio';
+} from '@/utils/audio';
 
 export default function EffectPlayer({ name, index }) {
     const { effect, setEffect } = useContext(RecordContext);
