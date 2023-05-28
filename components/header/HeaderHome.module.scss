@@ -13,11 +13,39 @@
 }
 
 .searchIcon {
+    cursor: pointer;
     transition: opacity 0.2s ease;
     &.hide {
         opacity: 0;
         pointer-events: none;
     }
+
+    // z-index: 0;
+
+    // &:after {
+    //     content: '';
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     height: 100%;
+    //     width: 100%;
+    //     opacity: 0;
+    //     transition: opacity 0.15s ease;
+
+    //     background-image: url('../../public/icon-help-light-lightbg.svg');
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+    //     background-size: contain;
+    //     z-index: º;
+    // }
+
+    // &:hover,
+    // &:active,
+    // &:focus {
+    //     &:after {
+    //         opacity: 1;
+    //     }
+    // }
 }
 
 .aboutLink {
