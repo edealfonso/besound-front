@@ -110,7 +110,7 @@ export default function LoginPage({ page }) {
     }
 
     return (
-        <Layout>
+        <Layout userPages>
             <Info highlight>{page.intro}</Info>
             <Info box>{page.instruction}</Info>
             <form onSubmit={handleLogin} method="post">

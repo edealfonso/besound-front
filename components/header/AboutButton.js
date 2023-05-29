@@ -1,23 +1,35 @@
-import Link from 'next/link';
 import Image from 'next/image';
 
 import styles from './AboutButton.module.scss';
 
+import { useContext } from 'react';
+import { AppContext } from '@/utils/contexts/AppContext';
+import About from './About';
+
 export default function AboutButton({ dark, floating }) {
+    const { setIsAboutOpen } = useContext(AppContext);
+
+    const aboutToggle = () => {
+        setIsAboutOpen((current) => !current);
+    };
+
     return (
-        <Link
-            href="/about"
-            className={`${styles.aboutButton} ${
-                floating ? styles.floating : ''
-            }`}
-        >
-            <Image
-                src={`icon-help${dark ? '' : '-light'}.svg`}
-                width={24}
-                height={24}
-                alt="Search"
-                className={styles.help}
-            />
-        </Link>
+        <>
+            <div
+                className={`${styles.aboutButton} ${
+                    floating ? styles.floating : ''
+                }`}
+                onClick={aboutToggle}
+            >
+                <Image
+                    src={`icon-help${dark ? '' : '-light'}.svg`}
+                    width={24}
+                    height={24}
+                    alt="Search"
+                    className={styles.help}
+                />
+            </div>
+            <About />
+        </>
     );
 }

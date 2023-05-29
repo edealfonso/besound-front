@@ -13,6 +13,7 @@ export default function Layout({
     recordPage,
     homePage,
     aboutPage,
+    userPages,
     noPaddings
 }) {
     return (
@@ -31,7 +32,11 @@ export default function Layout({
                 {/* Header */}
                 {homePage && <HeaderHome />}
                 {!homePage && (
-                    <Header recordPage={recordPage} aboutPage={aboutPage} />
+                    <Header
+                        recordPage={recordPage}
+                        aboutPage={aboutPage}
+                        userPages={userPages}
+                    />
                 )}
 
                 {/* Main */}
@@ -50,7 +55,7 @@ export default function Layout({
                 )}
 
                 {/* Footer */}
-                {!aboutPage && <Footer />}
+                {!aboutPage && !userPages && <Footer />}
             </div>
         </>
     );

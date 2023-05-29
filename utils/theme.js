@@ -21,15 +21,19 @@ export const theme = createTheme({
         fontWeightRegular: 500
     },
     components: {
-        MuiInputBase: {
+        MuiInput: {
             styleOverrides: {
                 root: {
                     fontSize: 18,
                     '&:before': {
-                        borderBottom: '2px dashed #706c73!important'
+                        borderBottomStyle: 'dashed',
+                        borderBottomWidth: '2px'
                     },
                     '&:after': {
-                        transition: 'none!important'
+                        transition: 'none'
+                    },
+                    '&.Mui-error': {
+                        color: '#eb4e44'
                     }
                 },
                 input: {
@@ -69,7 +73,8 @@ export const theme = createTheme({
         MuiInputAdornment: {
             styleOverrides: {
                 positionEnd: {
-                    width: '2em'
+                    width: '2em',
+                    marginBottom: '0.4em'
                 }
             }
         },

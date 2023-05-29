@@ -1,0 +1,19 @@
+.aboutPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 100vh;
+    overflow: auto;
+    z-index: 200;
+
+    pointer-events: none;
+    transition: all 0.35s ease;
+    transform: translateY(101vh);
+}
+
+.open {
+    transition: transform 0.5s ease;
+    transform: translateY(0);
+    pointer-events: all;
+}

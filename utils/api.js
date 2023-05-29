@@ -35,6 +35,11 @@ export const getAPIResponse = async (opt = {}) => {
         if (simpleResponse) {
             return responseBody;
         } else {
+            console.log({
+                body: responseBody,
+                status: response.status,
+                statusText: response.statusText
+            });
             return {
                 body: responseBody,
                 status: response.status,
@@ -133,7 +138,7 @@ export async function loginUserAPI(formData) {
 
 // register
 
-export async function registerUserAPI() {
+export async function registerUserAPI(formData) {
     return await getAPIResponse({
         endpoint: 'register',
         method: 'POST',

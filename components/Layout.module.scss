@@ -13,6 +13,7 @@
 
     .main {
         @include default-padding;
+
         flex-grow: 1;
 
         display: grid;
@@ -23,6 +24,12 @@
 
         &.home {
             padding-top: 0;
+            margin-bottom: 7rem;
+        }
+
+        &.short {
+            padding-top: 0;
+            margin-bottom: 7rem;
         }
     }
 

@@ -22,9 +22,14 @@ const transitionStyles = {
     exited: { left: '-50rem' }
 };
 
-export default function Header({ recordPage, aboutPage }) {
-    const { effect, isFormOK, recordingStep, recordPageStaticData } =
-        useContext(AppContext);
+export default function Header({ recordPage, aboutPage, userPages }) {
+    const {
+        effect,
+        isFormOK,
+        isAboutOpen,
+        recordingStep,
+        recordPageStaticData
+    } = useContext(AppContext);
 
     return (
         <>
@@ -33,9 +38,11 @@ export default function Header({ recordPage, aboutPage }) {
                     aboutPage ? styles.invert : ''
                 }`}
             >
-                <Link href="/" className={styles.logo}></Link>
+                {!aboutPage && <Link href="/" className={styles.logo}></Link>}
+                {aboutPage && <div className={styles.logo}></div>}
                 <div className={styles.contextData}>
                     <br />
+                    isAboutOpen : {isAboutOpen ? 'true' : 'false'} <br />
                     recordingStep : {recordingStep} <br />
                     effect : {effect} <br />
                     isFormOK : {isFormOK ? 'true' : 'false'} <br />
@@ -45,7 +52,7 @@ export default function Header({ recordPage, aboutPage }) {
                         : 'no data'}
                     <br />
                 </div>
-                {recordPage && <AboutButton floating dark />}
+                {(recordPage || userPages) && <AboutButton floating dark />}
             </header>
             {/* <Transition nodeRef={nodeRef} in={isAboutOpen} timeout={duration}>
                 {(state) => (

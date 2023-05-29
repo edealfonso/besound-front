@@ -1,5 +1,6 @@
 .aboutButton {
     display: flex;
+    cursor: pointer;
 
     &.floating {
         position: absolute;

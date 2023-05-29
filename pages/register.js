@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
-import { useRouter } from 'next/router';
 
-import { TextField, Select, MenuItem, Autocomplete } from '@mui/material';
+import { TextField, Autocomplete } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -12,6 +11,7 @@ import { getRegisterPageAPI, registerUserAPI } from '@/utils/api';
 import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
 import Link from 'next/link';
+import UserConfirmation from '@/components/user/UserConfirmation';
 
 export async function getServerSideProps() {
     const page = await getRegisterPageAPI();
@@ -23,17 +23,23 @@ export async function getServerSideProps() {
 }
 
 export default function RegisterPage({ page }) {
-    const router = useRouter();
     const submitButton = useRef();
-    const [selectedCountry, setSelectedCountry] = useState('');
     const countries = useMemo(() => countryList().getData(), []);
-    const [formError, setFormError] = useState(false);
-    const [errors, setErrors] = useState({
-        email: null,
-        password: null
-    });
 
-    const selectCountryHandler = (value) => setSelectedCountry(value);
+    const [formData, setFormData] = useState({
+        email: '',
+        first_name: '',
+        last_name: '',
+        nationality: '',
+        birth_date: '',
+        password: '',
+        password_confirm: ''
+    });
+    const [errors, setErrors] = useState({});
+    const [touched, setTouched] = useState({});
+    const [formError, setFormError] = useState(false);
+    const [datePickerError, setDatePickerError] = useState(null);
+    const [userCreatedOK, setUserCreatedOK] = useState(false);
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyPress);
@@ -51,113 +57,137 @@ export default function RegisterPage({ page }) {
         }
     }
 
-    // from https://regexr.com/3e48o
+    const handleChange = (name, value) => {
+        // update data state
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+
+        // update touched state
+        // short delay to avoid visual glitch
+        setTimeout(() => {
+            setTouched((prev) => ({
+                ...prev,
+                [name]: true
+            }));
+        }, 500);
+    };
+
+    const handleTextFieldChange = (e) => {
+        // default values for TextField can be taken from event data
+        handleChange(e.target.name, e.target.value);
+    };
+
+    // source https://regexr.com/3e48o
     const email_pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+    // source: https://www.section.io/engineering-education/password-strength-checker-javascript/
+    const password_pattern =
+        /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
 
-    function handleEmailChange(e) {
-        const val = e.target.value;
+    // re-run validation on each form data change
+    useEffect(() => {
         setFormError(false);
 
-        // check valid mail
-        if (!email_pattern.test(val)) {
-            setErrors({
-                ...errors,
-                email: 'Please enter valid email'
-            });
-        } else {
-            setErrors({
-                ...errors,
-                email: null
-            });
+        const errors = {};
+
+        // Validate email
+        if (!formData.email) {
+            errors.email = 'This field is required';
+        } else if (!email_pattern.test(formData.email)) {
+            errors.email = 'Enter a valid email';
         }
-    }
 
-    function handlePasswordChange(e) {
-        const val = e.target.value;
-        setFormError(false);
-
-        // check max length
-        if (val.length > 40) {
-            setErrors({
-                ...errors,
-                password: 'Password must be less than 40 characters'
-            });
-        } else {
-            setErrors({
-                ...errors,
-                password: null
-            });
+        // Validate first_name
+        if (!formData.first_name) {
+            errors.first_name = 'This field is required';
+        } else if (formData.first_name.length > 40) {
+            errors.first_name = `This field can't exceed 40 characters`;
         }
-    }
 
-    function handleTextInputChange(e) {
-        const el = e.target;
-        const val = el.value;
-        setFormError(false);
-
-        console.log('handleTextInputChange', el, val);
-        // check max length
-        if (val.length > 5) {
-            el.errors = true;
-            el.helperText = 'This field must be less than 40 characters';
-        } else {
-            el.errors = false;
+        // Validate last_name
+        if (!formData.last_name) {
+            errors.last_name = 'This field is required';
+        } else if (formData.last_name.length > 40) {
+            errors.last_name = `This field can't exceed 40 characters`;
         }
-    }
 
-    function handleRequiredInputChange(e) {
-        console.log('handleRequiredInputChange');
-        const el = e.target;
-        const val = el.value;
-        setFormError(false);
-
-        // required
-        if (val.length == 0) {
-            el.errors = true;
-            el.helperText = 'Please fill this field.';
-        } else {
-            el.errors = false;
+        // Validate nationality
+        if (!formData.nationality) {
+            errors.nationality = 'This field is required';
         }
-    }
+
+        // Validate birth_date
+        if (!formData.birth_date) {
+            errors.birth_date = 'This field is required';
+        } else if (datePickerError == 'invalidDate') {
+            errors.birth_date = 'Date is not valid';
+        } else if (datePickerError == 'disableFuture') {
+            errors.birth_date = 'You need to be already born';
+        }
+
+        // Validate password
+        if (!formData.password) {
+            errors.password = 'This field is required';
+        } else if (formData.password.length < 8) {
+            errors.password = `This field must be at least 8 characters`;
+        } else if (formData.password.length > 40) {
+            errors.password = `This field can't exceed 40 characters`;
+        } else if (!password_pattern.test(formData.password)) {
+            errors.password =
+                'Password must have at least one of each: uppercase letter, lowercase letter, digit, special character';
+        }
+
+        // Validate password_confirm
+        if (!formData.password_confirm) {
+            errors.password_confirm = 'This field is required';
+        } else if (formData.password_confirm.length > 40) {
+            errors.password_confirm = `This field can't exceed 40 characters`;
+        } else if (formData.password !== formData.password_confirm) {
+            errors.password_confirm = 'Passwords do not match';
+        }
+
+        setErrors(errors);
+    }, [formData, datePickerError]);
+
+    const isFieldTouched = (name) => {
+        return touched[name];
+    };
+
+    const isFieldValid = (name) => {
+        return !errors[name] || !isFieldTouched(name);
+    };
 
     async function handleRegister(e) {
         // Stop the form from submitting and refreshing the page.
         e.preventDefault();
 
-        if (
-            !errors.email &&
-            !errors.first_name &&
-            !errors.last_name &&
-            !errors.nationality &&
-            !errors.birth_date &&
-            !errors.password
-        ) {
+        // If form is valid, send request
+        if (Object.keys(errors).length === 0) {
             // Append form data
-            let formData = new FormData();
-            formData.append('email', e.target.email.value);
-            formData.append('first_name', e.target.first_name.value);
-            formData.append('last_name', e.target.last_name.value);
-            formData.append('nationality', e.target.nationality.value);
-            formData.append('birth_date', e.target.birth_date.value);
-            formData.append('password', e.target.password.value);
+            let reqFormData = new FormData();
+            reqFormData.append('email', formData.email);
+            reqFormData.append('password', formData.password);
+            reqFormData.append('first_name', formData.first_name);
+            reqFormData.append('last_name', formData.last_name);
+            reqFormData.append('nationality', formData.nationality);
+            // date must be processed to be accepted by API
+            reqFormData.append(
+                'birth_date',
+                formData.birth_date.toISOString().split('T')[0]
+            );
 
             // fetch API request
-            const responseData = await registerUserAPI(formData);
+            const responseData = await registerUserAPI(reqFormData);
 
             // Catch errors
             if (responseData.status == '201') {
-                router.push('/login');
-            } else if (responseData.status == '201') {
-                if (
-                    responseData.body.email ==
-                    'custom user with this email already exists.'
-                ) {
-                    setFormError(`This email address is already registered.`);
-                } else {
-                    setFormError(
-                        `There was an unknown error in your request. Please review al fields and try again.`
-                    );
-                }
+                setUserCreatedOK(true);
+            } else if (
+                responseData.body.email ==
+                'custom user with this email already exists.'
+            ) {
+                setFormError(`This email address is already registered.`);
             } else {
                 setFormError(
                     `There was an unknown error in your request. Please try again.`
@@ -168,9 +198,13 @@ export default function RegisterPage({ page }) {
         }
     }
 
+    if (userCreatedOK) {
+        return <UserConfirmation page={page} email={formData.email} />;
+    }
+
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Layout>
+            <Layout userPages>
                 <Info box>
                     {page.login_text}
                     <br />
@@ -184,44 +218,77 @@ export default function RegisterPage({ page }) {
                         <TextField
                             name="first_name"
                             type="text"
+                            error={!isFieldValid('first_name')}
+                            helperText={
+                                isFieldValid('first_name')
+                                    ? ''
+                                    : errors.first_name
+                            }
                             autoFocus
                             required
                             variant="standard"
-                            onChange={handleTextInputChange}
+                            onChange={handleTextFieldChange}
                             fullWidth
                             label="First name"
+                            autoComplete="given-name"
                         />
                         <TextField
                             name="last_name"
                             type="text"
-                            // errors={errors.last_name}
-                            // helperText={errors.last_name}
+                            error={!isFieldValid('last_name')}
+                            helperText={
+                                isFieldValid('last_name')
+                                    ? ''
+                                    : errors.last_name
+                            }
                             autoFocus
                             required
                             variant="standard"
-                            onChange={handleTextInputChange}
+                            onChange={handleTextFieldChange}
                             fullWidth
                             label="Last name"
+                            autoComplete="family-name"
                         />
                         <DatePicker
-                            label="Birth date *"
-                            name="birth_date"
-                            slotProps={{ textField: { variant: 'standard' } }}
-                            onChange={handleRequiredInputChange}
+                            disableFuture
+                            slotProps={{
+                                textField: {
+                                    variant: 'standard',
+                                    error: !isFieldValid('birth_date'),
+                                    helperText: isFieldValid('birth_date')
+                                        ? ''
+                                        : errors.birth_date,
+                                    required: true,
+                                    label: 'Birth date',
+                                    autoComplete: 'bday'
+                                }
+                            }}
+                            onChange={(value) =>
+                                handleChange('birth_date', value)
+                            }
+                            onError={(newError) => setDatePickerError(newError)}
                         />
                         <Autocomplete
-                            disablePortal
-                            id="nationality"
                             options={countries}
-                            slotProps={{ textField: { variant: 'standard' } }}
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
-                                    label="Nationality *"
+                                    name="nationality"
+                                    label="Nationality"
                                     variant="standard"
+                                    required
+                                    error={!isFieldValid('nationality')}
+                                    helperText={
+                                        isFieldValid('nationality')
+                                            ? ''
+                                            : errors.nationality
+                                    }
+                                    autoComplete="country"
                                 />
                             )}
-                            required
+                            onChange={(event, value) => {
+                                handleChange('nationality', value?.value);
+                            }}
                         />
                     </Info>
                     <Info box highlight top>
@@ -231,39 +298,50 @@ export default function RegisterPage({ page }) {
                         <TextField
                             name="email"
                             type="email"
-                            errors={errors.email}
-                            helperText={errors.email}
+                            // errors={!!errors.email}
+                            // helperText={errors.email}
                             autoFocus
                             required
                             variant="standard"
-                            onChange={handleEmailChange}
+                            onChange={handleTextFieldChange}
                             fullWidth
                             label="Email"
+                            error={!isFieldValid('email')}
+                            helperText={
+                                isFieldValid('email') ? '' : errors.email
+                            }
+                            autoComplete="email"
                         />
                         <TextField
                             name="password"
                             type="password"
-                            errors={errors.password}
-                            helperText={errors.password}
+                            error={!isFieldValid('password')}
+                            helperText={
+                                isFieldValid('password') ? '' : errors.password
+                            }
                             required
                             variant="standard"
-                            onChange={handlePasswordChange}
+                            onChange={handleTextFieldChange}
                             fullWidth
                             label="Password"
                         />
                         <TextField
                             name="password_confirm"
                             type="password"
-                            errors={errors.password_confirm}
-                            helperText={errors.password_confirm}
+                            error={!isFieldValid('password_confirm')}
+                            helperText={
+                                isFieldValid('password_confirm')
+                                    ? ''
+                                    : errors.password_confirm
+                            }
                             required
                             variant="standard"
-                            onChange={handlePasswordChange}
+                            onChange={handleTextFieldChange}
                             fullWidth
                             label="Password confirm"
                         />
                     </Info>
-                    <Info>
+                    <Info box>
                         <button type="submit" ref={submitButton}>
                             {page.button_end}
                         </button>

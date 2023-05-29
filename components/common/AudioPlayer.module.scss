@@ -1,16 +1,6 @@
 .audioPlayer {
-    display: block;
-    @include f-audio;
-    padding-top: 0.3em;
-    padding-bottom: 0.3em;
-
+    @include big-letters;
     @include cursor-play;
-
-    // x scroll
-    overflow-x: auto;
-    &::-webkit-scrollbar {
-        display: none;
-    }
 
     .title {
         // x scroll

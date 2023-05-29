@@ -28,3 +28,16 @@
     margin: spacer(1.5) auto;
     max-width: 26em;
 }
+
+@mixin big-letters {
+    display: block;
+    @include f-audio;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+
+    // x scroll
+    overflow-x: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
