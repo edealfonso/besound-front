@@ -49,8 +49,8 @@ export const getAPIResponse = async (opt = {}) => {
     }
 };
 
-// STATIC
-// ------
+// STATIC PAGES
+// ------------
 
 export async function getHomePageAPI() {
     return await getAPIResponse({
@@ -73,8 +73,8 @@ export async function getRegisterPageAPI() {
     });
 }
 
-// STATIC + AUTH
-// -------------
+// STATIC PAGE + AUTH
+// ------------------
 
 export async function getRecordPageAPI(token) {
     return await getAPIResponse({
@@ -119,7 +119,9 @@ export async function deletePostAPI(token, id) {
 }
 
 // USERS
-// ------------
+// -----
+
+// login
 
 export async function loginUserAPI(formData) {
     return await getAPIResponse({
@@ -128,6 +130,14 @@ export async function loginUserAPI(formData) {
         formData: formData
     });
 }
+
+// register
+
 export async function registerUserAPI() {
-    return await APIGETRequest('register');
+    return await getAPIResponse({
+        endpoint: 'register',
+        method: 'POST',
+        simpleResponse: false,
+        formData: formData
+    });
 }

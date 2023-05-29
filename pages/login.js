@@ -111,9 +111,7 @@ export default function LoginPage({ page }) {
 
     return (
         <Layout>
-            <Info highlight>
-                {page.intro || 'only registered users can post sounds'}
-            </Info>
+            <Info highlight>{page.intro}</Info>
             <Info box>{page.instruction}</Info>
             <form onSubmit={handleLogin} method="post">
                 <Info box large>
@@ -151,8 +149,9 @@ export default function LoginPage({ page }) {
                 </Info>
             </form>
             <Info box>
-                not registered yet? <br />
-                <Link href="/register">sign up here</Link>
+                {page.signup_intro}
+                <br />
+                <Link href="/register">{page.signup_link}</Link>
             </Info>
         </Layout>
     );

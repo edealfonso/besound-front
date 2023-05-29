@@ -21,16 +21,15 @@ export const theme = createTheme({
         fontWeightRegular: 500
     },
     components: {
-        MuiInput: {
+        MuiInputBase: {
             styleOverrides: {
                 root: {
                     fontSize: 18,
                     '&:before': {
-                        borderBottomStyle: 'dashed',
-                        borderBottomWidth: '2px'
+                        borderBottom: '2px dashed #706c73!important'
                     },
                     '&:after': {
-                        transition: 'none'
+                        transition: 'none!important'
                     }
                 },
                 input: {
@@ -39,10 +38,12 @@ export const theme = createTheme({
                 }
             }
         },
-        MuiFormLabel: {
+        MuiInputLabel: {
             styleOverrides: {
                 root: {
-                    fontSize: 18,
+                    fontSize: 18
+                },
+                standard: {
                     top: '-4px!important'
                 }
             }
@@ -52,6 +53,38 @@ export const theme = createTheme({
                 root: {
                     color: '#eb4e44',
                     fontSize: 12
+                }
+            }
+        },
+        MuiButtonBase: {
+            styleOverrides: {
+                root: {
+                    '&:hover': {
+                        boxShadow: 'none',
+                        backgroundColor: 'rgb(112, 108, 115)'
+                    }
+                }
+            }
+        },
+        MuiInputAdornment: {
+            styleOverrides: {
+                positionEnd: {
+                    width: '2em'
+                }
+            }
+        },
+        MuiAutocomplete: {
+            styleOverrides: {
+                inputRoot: {
+                    overflow: 'hidden'
+                },
+                endAdornment: {
+                    width: '1.45em'
+                },
+                root: {
+                    '& label': {
+                        top: '0px!important'
+                    }
                 }
             }
         }

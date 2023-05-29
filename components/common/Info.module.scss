@@ -26,6 +26,16 @@
         padding: spacer(1) spacer(1.5);
     }
 
+    &.flex {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    &.top {
+        padding-top: 7rem;
+    }
+
     b,
     strong {
         color: $red;

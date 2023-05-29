@@ -26,8 +26,6 @@ export default function Header({ recordPage, aboutPage }) {
     const { effect, isFormOK, recordingStep, recordPageStaticData } =
         useContext(AppContext);
 
-    console.log('aboutPage Header', aboutPage);
-
     return (
         <>
             <header
