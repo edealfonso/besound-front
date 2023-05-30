@@ -45,7 +45,7 @@ export default function Layout({
                         {children}
                     </main>
                 )}
-                {recordPage <= 5 && (
+                {recordPage && (
                     <main className={`${styles.main} ${styles.short}`}>
                         {children}
                     </main>

@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 
-import { HomeProvider } from '@/utils/contexts/HomeContext';
+import { HomeContext, HomeProvider } from '@/utils/contexts/HomeContext';
 import { AppContext } from '@/utils/contexts/AppContext';
 import { getHomePageAPI, getPostsListAPI } from '@/utils/api';
 
@@ -23,10 +23,11 @@ export async function getServerSideProps() {
 }
 
 export default function HomePage({ posts, page }) {
-    const { setRecordingStep } = useContext(AppContext);
+    const { setRecordingStep, setStopHomeSounds } = useContext(AppContext);
 
     useEffect(() => {
         setRecordingStep(0);
+        setStopHomeSounds(false);
     }, []);
 
     if (posts == null || page.error) {

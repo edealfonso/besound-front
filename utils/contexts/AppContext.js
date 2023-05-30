@@ -7,6 +7,7 @@ export const AppProvider = ({ children }) => {
     const [recordPageStaticData, setRecordPageStaticData] = useState(null);
     const [isFormOK, setIsFormOK] = useState(false);
     const [isAboutOpen, setIsAboutOpen] = useState(false);
+    const [stopHomeSounds, setStopHomeSounds] = useState(false);
 
     return (
         <AppContext.Provider
@@ -18,7 +19,9 @@ export const AppProvider = ({ children }) => {
                 isFormOK,
                 setIsFormOK,
                 isAboutOpen,
-                setIsAboutOpen
+                setIsAboutOpen,
+                stopHomeSounds,
+                setStopHomeSounds
             }}
         >
             {children}

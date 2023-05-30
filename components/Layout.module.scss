@@ -28,15 +28,12 @@
         }
 
         &.short {
-            padding-top: 0;
             margin-bottom: 7rem;
         }
     }
 
-    &.noPaddings {
-        .main {
-            padding-right: 0;
-            padding-left: 0;
-        }
+    &.noPaddings > .main {
+        padding-right: 0;
+        padding-left: 0;
     }
 }

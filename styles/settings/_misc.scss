@@ -36,7 +36,8 @@
     padding-bottom: 0.3em;
 
     // x scroll
-    overflow-x: auto;
+    overflow: auto hidden;
+
     &::-webkit-scrollbar {
         display: none;
     }

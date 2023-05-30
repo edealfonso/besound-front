@@ -59,8 +59,12 @@ export default function RecordPgae({ page, error }) {
         width: typeof window !== 'undefined' && window.innerWidth
     });
 
-    const { setRecordPageStaticData, recordingStep, setRecordingStep } =
-        useContext(AppContext);
+    const {
+        recordPageStaticData,
+        setRecordPageStaticData,
+        recordingStep,
+        setRecordingStep
+    } = useContext(AppContext);
 
     // on recordingStep change
     useEffect(() => {
@@ -77,9 +81,6 @@ export default function RecordPgae({ page, error }) {
 
     // init
     useEffect(() => {
-        if (page == 'error') {
-            router;
-        }
         // set initial recording recordingStep
         setRecordingStep(1);
 
@@ -107,6 +108,8 @@ export default function RecordPgae({ page, error }) {
 
     if (error) {
         return <Container>{error}</Container>;
+    } else if (!recordPageStaticData) {
+        return <Container>Loading</Container>;
     } else {
         return (
             <RecordProvider>

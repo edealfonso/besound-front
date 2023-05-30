@@ -1,48 +1,72 @@
 .audioPlayer {
     @include big-letters;
     @include cursor-play;
+    max-width: 100%;
 
-    .title {
+    .titleWrap {
         // x scroll
         width: max-content;
-        padding-left: $pad-x;
-        padding-right: $pad-x;
+        margin-left: $pad-x;
+        margin-right: $pad-x;
 
         display: block;
         position: relative;
-        &::after {
+
+        .base {
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+
+        .over {
             position: absolute;
-            top: 0;
+            z-index: 2;
+            display: none;
+
+            padding-top: 2rem;
+            top: -2rem;
             left: 0;
             width: 0;
-            height: 100%;
+            height: 200%;
+
             overflow: hidden;
-            content: attr(data-title);
+
+            pointer-events: none;
+
             @include f-audio-active;
+            font-weight: inherit;
+
+            .inner {
+                display: block;
+                width: max-content;
+            }
         }
+    }
+
+    &.played {
+        @include f-audio-played;
+
+        // .titleWrap {
+        //     .over {
+        //         width: 6rem;
+        //     }
+        // }
     }
 
     &:hover {
         @include f-audio-hover;
     }
 
-    &.played {
-        @include f-audio-played;
-
-        .title {
-            &::after {
-                width: 6rem;
+    &.active {
+        .titleWrap {
+            .over {
+                display: block;
+                // width: 30px;
             }
         }
     }
 
-    &.active {
+    &.activeForce {
         @include f-audio-active;
-
-        .title {
-            &::after {
-                width: fit-content;
-            }
-        }
     }
 }

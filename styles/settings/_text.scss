@@ -42,10 +42,10 @@
 }
 
 @mixin f-audio {
-    font-size: 4.7rem;
+    font-size: 4.5rem;
     line-height: 0.85;
     font-weight: 500;
-    letter-spacing: 0.005em;
+    letter-spacing: -0.005em;
 
     -webkit-text-stroke-width: 1px;
     @include theme('-webkit-text-fill-color', $color-audio);

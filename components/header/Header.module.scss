@@ -1,9 +1,11 @@
 .contextData {
-    position: absolute;
-    top: spacer(1);
-    right: spacer(1);
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: spacer(1);
     color: white;
     @include f-small;
+    pointer-events: none;
 }
 
 .logo {
@@ -26,11 +28,4 @@
     .logo {
         @include theme('background-image', $url-logo-inv);
     }
-}
-
-.contextData {
-    position: fixed;
-    right: 0;
-    top: 0;
-    padding: 1rem;
 }

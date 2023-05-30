@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useRef } from 'react';
 import { RecordContext } from '@/utils/contexts/RecordContext';
 
 import stylesAudioPlayer from '../common/AudioPlayer.module.scss';
@@ -48,13 +48,15 @@ export default function EffectPlayer({ name, index }) {
         <a
             onClick={handleClick}
             className={`${stylesAudioPlayer.audioPlayer} ${
-                effect == index ? stylesAudioPlayer.active : ''
+                effect == index ? stylesAudioPlayer.activeForce : ''
             }`}
             id={name}
         >
-            <span className={`${stylesAudioPlayer.title} ${styles.noPadding} `}>
-                #{name}
-            </span>
+            <div
+                className={`${stylesAudioPlayer.titleWrap} ${styles.noPadding} `}
+            >
+                <span className={stylesAudioPlayer.base}>#{name}</span>
+            </div>
         </a>
     );
 }

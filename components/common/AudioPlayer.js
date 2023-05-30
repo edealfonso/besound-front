@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import useSound from 'use-sound';
 
 import styles from './AudioPlayer.module.scss';
+import { AppContext } from '@/utils/contexts/AppContext';
+import { HomeContext } from '@/utils/contexts/HomeContext';
 
 export default function AudioPlayer({
     post,
@@ -11,13 +13,28 @@ export default function AudioPlayer({
     emitClick,
     independent
 }) {
+    const overlay = useRef(null);
+    const animation = useRef(null);
+    const { stopHomeSounds } = useContext(AppContext);
+
     const [isActive, setIsActive] = useState(false);
     const [played, setPlayed] = useState(independent);
 
     // define useSound
-    const [play, { stop, duration }] = useSound(post.audio, {
+    const [play, { stop, sound }] = useSound(post.audio, {
         interrupt: true
     });
+
+    function updateWidth() {
+        console.log('update w');
+        if (sound.playing() && overlay.current) {
+            let width = (sound.seek() / sound.duration()) * 100;
+            overlay.current.style.width = `${width}%`;
+            animation.current = window.requestAnimationFrame(updateWidth);
+        } else {
+            window.cancelAnimationFrame(animation.current);
+        }
+    }
 
     // turn off when another sound is selected
     useEffect(() => {
@@ -28,12 +45,13 @@ export default function AudioPlayer({
         }
     }, [selected]);
 
-    // stop audio when component is unmounted
+    // stop audio when we move to another page
     useEffect(() => {
-        return () => {
-            stop();
-        };
-    }, []);
+        if (stopHomeSounds && sound) {
+            stopPlayer();
+            sound.unload();
+        }
+    }, [stopHomeSounds]);
 
     // click action depends on if sound is currently playing
     function handleClick() {
@@ -47,15 +65,15 @@ export default function AudioPlayer({
     }
 
     function startPlayer() {
+        animation.current = window.requestAnimationFrame(updateWidth);
         setPlayed(true);
         setIsActive(true);
-
         play();
     }
 
     function stopPlayer() {
+        cancelAnimationFrame(animation.current);
         setIsActive(false);
-
         stop();
     }
 
@@ -66,7 +84,12 @@ export default function AudioPlayer({
                 isActive ? styles.active : ''
             }`}
         >
-            <span className={styles.title}>#{post.title}</span>
+            <div className={styles.titleWrap}>
+                <span className={styles.base}>#{post.title}</span>
+                <span className={styles.over} ref={overlay}>
+                    <strong className={styles.inner}>#{post.title}</strong>
+                </span>
+            </div>
         </a>
     );
 }

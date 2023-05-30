@@ -3,12 +3,15 @@ import { useContext } from 'react';
 
 import styles from './Rec.module.scss';
 import { AppContext } from '@/utils/contexts/AppContext';
+import { HomeContext } from '@/utils/contexts/HomeContext';
 
 export default function Rec() {
     const router = useRouter();
-    const { recordingStep, setRecordingStep } = useContext(AppContext);
+    const { recordingStep, setRecordingStep, setStopHomeSounds } =
+        useContext(AppContext);
 
     function handleClickHome() {
+        setStopHomeSounds(true);
         router.push('/record');
     }
 

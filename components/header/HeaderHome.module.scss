@@ -51,3 +51,13 @@
 .aboutLink {
     display: flex;
 }
+
+.contextData {
+    position: fixed;
+    right: 0;
+    top: 0;
+    padding: spacer(1);
+    color: white;
+    @include f-small;
+    pointer-events: none;
+}

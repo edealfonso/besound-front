@@ -32,8 +32,8 @@ export default function Step5_Confirmation() {
     useEffect(() => {
         // if statement avoids double useEffect executions
         if (!soundcastingStarted) {
-            castAndPost().catch(console.error);
             setSoundcastingStarted(true);
+            castAndPost().catch(console.error);
         }
     }, []);
 

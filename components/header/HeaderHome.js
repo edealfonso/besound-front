@@ -8,6 +8,7 @@ import { HomeContext } from '@/utils/contexts/HomeContext';
 import stylesHeader from './Header.module.scss';
 import styles from './HeaderHome.module.scss';
 import AboutButton from './AboutButton';
+import { AppContext } from '@/utils/contexts/AppContext';
 
 const duration = 300;
 
@@ -25,10 +26,29 @@ const transitionStyles = {
 
 export default function HeaderHome() {
     const { isSearchOpen, setIsSearchOpen } = useContext(HomeContext);
+    const {
+        effect,
+        isFormOK,
+        isAboutOpen,
+        recordingStep,
+        recordPageStaticData
+    } = useContext(AppContext);
 
     return (
         <>
             <header className={styles.header}>
+                <div className={styles.contextData}>
+                    <br />
+                    isAboutOpen : {isAboutOpen ? 'true' : 'false'} <br />
+                    recordingStep : {recordingStep} <br />
+                    effect : {effect} <br />
+                    isFormOK : {isFormOK ? 'true' : 'false'} <br />
+                    recordPageStaticData :
+                    {recordPageStaticData
+                        ? recordPageStaticData.delete_success
+                        : 'no data'}
+                    <br />
+                </div>
                 <Image
                     src="icon-search-light.svg"
                     width={24}
