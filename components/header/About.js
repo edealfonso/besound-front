@@ -47,9 +47,6 @@ export default function About() {
             className={`${styles.aboutPopup} ${isAboutOpen ? styles.open : ''}`}
         >
             <Layout aboutPage noPaddings={false}>
-                <Head>
-                    <title>besound · ABOUT</title>
-                </Head>
                 <Info highlight>
                     <span
                         dangerouslySetInnerHTML={{

@@ -31,6 +31,14 @@ export default function Header({ recordPage, aboutPage, userPages }) {
         recordPageStaticData
     } = useContext(AppContext);
 
+    if (aboutPage) {
+        return (
+            <div className={styles.invert}>
+                <Link href="/" className={styles.logo}></Link>
+            </div>
+        );
+    }
+
     return (
         <>
             <header
@@ -41,7 +49,6 @@ export default function Header({ recordPage, aboutPage, userPages }) {
                 {!aboutPage && <Link href="/" className={styles.logo}></Link>}
                 {aboutPage && <div className={styles.logo}></div>}
                 <div className={styles.contextData}>
-                    <br />
                     isAboutOpen : {isAboutOpen ? 'true' : 'false'} <br />
                     recordingStep : {recordingStep} <br />
                     effect : {effect} <br />

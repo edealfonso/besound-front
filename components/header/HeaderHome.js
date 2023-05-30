@@ -38,7 +38,6 @@ export default function HeaderHome() {
         <>
             <header className={styles.header}>
                 <div className={styles.contextData}>
-                    <br />
                     isAboutOpen : {isAboutOpen ? 'true' : 'false'} <br />
                     recordingStep : {recordingStep} <br />
                     effect : {effect} <br />

@@ -18,12 +18,14 @@ export default function Layout({
 }) {
     return (
         <>
-            <Head>
-                <link rel="icon" href="/favicon.ico" />
-                <meta name="description" content={siteDescription} />
-                <meta name="og:title" content={siteTitle} />
-                <title>{siteTitle}</title>
-            </Head>
+            {!aboutPage && (
+                <Head>
+                    <link rel="icon" href="/favicon.ico" />
+                    <meta name="description" content={siteDescription} />
+                    <meta name="og:title" content={siteTitle} />
+                    <title>{siteTitle}</title>
+                </Head>
+            )}
             <div
                 className={`${styles.bodyContainer} ${
                     noPaddings ? styles.noPaddings : ''
