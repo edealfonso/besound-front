@@ -3,8 +3,8 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import useSound from 'use-sound';
 
 import styles from './AudioPlayer.module.scss';
-import { AppContext } from '@/utils/contexts/AppContext';
-import { HomeContext } from '@/utils/contexts/HomeContext';
+import { AppContext } from '@/lib/contexts/AppContext';
+import { HomeContext } from '@/lib/contexts/HomeContext';
 
 export default function AudioPlayer({
     post,

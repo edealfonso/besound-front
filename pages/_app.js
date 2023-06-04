@@ -1,8 +1,8 @@
 import '@/styles/globals.scss';
-import { AppProvider } from '@/utils/contexts/AppContext';
+import { AppProvider } from '@/lib/contexts/AppContext';
 import { ThemeProvider } from '@mui/material/styles';
-import { theme } from '@/utils/theme';
-import { GT_America } from '@/utils/fonts';
+import { theme } from '@/lib/theme';
+import { GT_America } from '@/lib/fonts';
 
 export default function App({ Component, pageProps }) {
     return (

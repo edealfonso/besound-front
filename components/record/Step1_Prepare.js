@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AppContext } from '@/utils/contexts/AppContext';
+import { AppContext } from '@/lib/contexts/AppContext';
 import Info from '../common/Info';
 
 export default function Step1_Prepare() {

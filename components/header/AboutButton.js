@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from './AboutButton.module.scss';
 
 import { useContext } from 'react';
-import { AppContext } from '@/utils/contexts/AppContext';
+import { AppContext } from '@/lib/contexts/AppContext';
 import About from './About';
 
 export default function AboutButton({ dark, floating }) {

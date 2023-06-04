@@ -2,14 +2,14 @@ import { useState } from 'react';
 
 import Link from 'next/link';
 import Image from 'next/image';
-import AudioPlayer from './AudioPlayer';
+import AudioPlayer from '../common/AudioPlayer';
 
 import styles from './ShareBox.module.scss';
 
 export default function ShareBox({ post, children }) {
     const copyToClipboard = (e) => {
         // url to post
-        const post_url = window.location.host + '#' + post.id;
+        const post_url = window.location.host + '/#' + post.id;
 
         // copy to clipboard
         navigator.clipboard.writeText(post_url);

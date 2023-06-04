@@ -6,7 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import countryList from 'react-select-country-list';
 
-import { getRegisterPageAPI, registerUserAPI } from '@/utils/api';
+import { getRegisterPageAPI, registerUserAPI } from '@/lib/api';
 
 import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';

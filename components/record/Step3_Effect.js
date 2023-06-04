@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { AppContext } from '@/utils/contexts/AppContext';
+import { AppContext } from '@/lib/contexts/AppContext';
 
 import Info from '../common/Info';
 import EffectPlayer from './EffectPlayer';

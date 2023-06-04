@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
 import Head from 'next/head';
 
-import { RecordProvider } from '@/utils/contexts/RecordContext';
-import { AppContext } from '@/utils/contexts/AppContext';
+import { RecordProvider } from '@/lib/contexts/RecordContext';
+import { AppContext } from '@/lib/contexts/AppContext';
 
-import { getRecordPageAPI } from '@/utils/api';
-import { preparePlayer, stopAudio } from '@/utils/audio';
+import { getRecordPageAPI } from '@/lib/api';
+import { preparePlayer, stopAudio } from '@/lib/audio';
 
 import Layout from '@/components/Layout';
 import Container from '@/components/common/Container';

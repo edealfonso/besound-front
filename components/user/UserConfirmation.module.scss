@@ -1,3 +1,11 @@
 .bigDisplay {
     @include big-letters;
+
+    font-size: inherit;
+    text-align: center;
+    text-overflow: ellipsis;
+    max-width: 80vw;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-fill-color: rgb(128, 155, 112);
+    -webkit-text-stroke-color: rgb(128, 155, 112);
 }

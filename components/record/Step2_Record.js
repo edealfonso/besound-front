@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { AppContext } from '@/utils/contexts/AppContext';
-import { RecordContext } from '@/utils/contexts/RecordContext';
+import { AppContext } from '@/lib/contexts/AppContext';
+import { RecordContext } from '@/lib/contexts/RecordContext';
 
 import Info from '../common/Info';
 

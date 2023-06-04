@@ -4,18 +4,18 @@ import Link from 'next/link';
 
 import Info from '../common/Info';
 import Box from '../common/Box';
-import ShareBox from '../common/ShareBox';
+import ShareBox from './ShareBox';
 
-import { RecordContext } from '@/utils/contexts/RecordContext';
-import { AppContext } from '@/utils/contexts/AppContext';
-import { createPostAPI } from '@/utils/api';
+import { RecordContext } from '@/lib/contexts/RecordContext';
+import { AppContext } from '@/lib/contexts/AppContext';
+import { createPostAPI } from '@/lib/api';
 import {
     fade_time,
     player,
     recorder,
     soundcastingPrepare,
     stopAudio
-} from '@/utils/audio';
+} from '@/lib/audio';
 
 import { parseCookies } from 'nookies';
 

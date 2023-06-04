@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { AppContext } from '@/utils/contexts/AppContext';
+import { AppContext } from '@/lib/contexts/AppContext';
 import styles from './FooterStepper.module.scss';
 
 export default function FooterStepper() {

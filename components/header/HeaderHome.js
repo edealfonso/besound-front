@@ -3,12 +3,12 @@ import { useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { HomeContext } from '@/utils/contexts/HomeContext';
+import { HomeContext } from '@/lib/contexts/HomeContext';
 
 import stylesHeader from './Header.module.scss';
 import styles from './HeaderHome.module.scss';
 import AboutButton from './AboutButton';
-import { AppContext } from '@/utils/contexts/AppContext';
+import { AppContext } from '@/lib/contexts/AppContext';
 
 const duration = 300;
 

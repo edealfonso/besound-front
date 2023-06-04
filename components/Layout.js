@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-import { siteTitle, siteDescription } from '@/utils/constants';
+import { siteTitle, siteDescription } from '@/lib/constants';
 
 import Header from './header/Header';
 import HeaderHome from './header/HeaderHome';

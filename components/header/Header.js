@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AppContext } from '@/utils/contexts/AppContext';
+import { AppContext } from '@/lib/contexts/AppContext';
 
 import Link from 'next/link';
 import AboutButton from './AboutButton';
