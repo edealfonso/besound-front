@@ -56,7 +56,7 @@ export default function About() {
                 </Info>
                 <Box>
                     <ul>
-                        {page.steps.map((step, i) => {
+                        {page.steps?.map((step, i) => {
                             return (
                                 <li key={`step-${i}`}>
                                     <Info box highlight={!step.image}>

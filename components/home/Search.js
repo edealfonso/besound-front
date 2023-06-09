@@ -55,6 +55,7 @@ export default function Search() {
                     setSearchString('');
                     setIsSearchOpen(false);
                 }}
+                style={{ cursor: 'pointer' }}
             />
             <TextField
                 name="search"
