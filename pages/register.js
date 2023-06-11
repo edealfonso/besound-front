@@ -218,7 +218,7 @@ export default function RegisterPage({ page }) {
                     <Info box highlight>
                         {page.text_part1}
                     </Info>
-                    <Info box large flex>
+                    <Info desktop_box large flex>
                         <TextField
                             name="first_name"
                             type="text"
@@ -298,7 +298,7 @@ export default function RegisterPage({ page }) {
                     <Info box highlight top>
                         {page.text_part2}
                     </Info>
-                    <Info box large flex>
+                    <Info desktop_box large flex>
                         <TextField
                             name="email"
                             type="email"

@@ -122,11 +122,6 @@ export default function RecordPage({ page, error }) {
                         <title>besound · CREATE</title>
                     </Head>
 
-                    {/* debug info */}
-                    <div className={styles.localData}>
-                        dimensions.width : {dimensions.width} <br />
-                    </div>
-
                     {/* particular step elements */}
                     {recordingStep == 1 && <Step1_Prepare />}
                     {recordingStep == 2 && <Step2_Record />}

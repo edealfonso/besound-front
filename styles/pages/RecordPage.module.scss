@@ -9,11 +9,3 @@
         display: none;
     }
 }
-
-.localData {
-    position: absolute;
-    top: spacer(1);
-    left: spacer(1);
-    color: white;
-    @include f-small;
-}

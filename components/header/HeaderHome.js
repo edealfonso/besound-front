@@ -9,6 +9,7 @@ import stylesHeader from './Header.module.scss';
 import styles from './HeaderHome.module.scss';
 import AboutButton from './AboutButton';
 import { AppContext } from '@/lib/contexts/AppContext';
+import DebugBar from '../common/DebugBar';
 
 const duration = 300;
 
@@ -37,17 +38,7 @@ export default function HeaderHome() {
     return (
         <>
             <header className={styles.header}>
-                <div className={styles.contextData}>
-                    isAboutOpen : {isAboutOpen ? 'true' : 'false'} <br />
-                    recordingStep : {recordingStep} <br />
-                    effect : {effect} <br />
-                    isFormOK : {isFormOK ? 'true' : 'false'} <br />
-                    recordPageStaticData :
-                    {recordPageStaticData
-                        ? recordPageStaticData.delete_success
-                        : 'no data'}
-                    <br />
-                </div>
+                <DebugBar home />
                 <Image
                     src="icon-search-light.svg"
                     width={24}

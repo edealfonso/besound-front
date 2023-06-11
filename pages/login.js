@@ -118,7 +118,7 @@ export default function LoginPage({ page }) {
             <Info highlight>{page.intro}</Info>
             <Info box>{page.instruction}</Info>
             <form onSubmit={handleLogin} method="post">
-                <Info box large>
+                <Info desktop_box flex large>
                     <TextField
                         name="email"
                         type="email"
@@ -131,8 +131,6 @@ export default function LoginPage({ page }) {
                         fullWidth
                         label="Email"
                     />
-                </Info>
-                <Info box large>
                     <TextField
                         name="password"
                         type="password"
@@ -145,7 +143,7 @@ export default function LoginPage({ page }) {
                         label="Password"
                     />
                 </Info>
-                <Info>
+                <Info box>
                     <button type="submit" ref={submitButton}>
                         {page.button}
                     </button>

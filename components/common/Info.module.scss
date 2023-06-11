@@ -17,13 +17,22 @@
     }
 
     &.large {
-        width: 90%;
         max-width: 20em;
         text-align: left;
+
+        @include media-bigphone {
+            width: 90%;
+        }
     }
 
     &.box {
         padding: spacer(1) spacer(1.5);
+    }
+
+    &.desktop_box {
+        @include media-bigphone {
+            padding: spacer(1) spacer(1.5);
+        }
     }
 
     &.flex {
