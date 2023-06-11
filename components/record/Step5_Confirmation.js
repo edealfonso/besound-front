@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -12,9 +12,8 @@ import { createPostAPI } from '@/lib/api';
 import {
     fade_time,
     player,
-    recorder,
     soundcastingPrepare,
-    stopAudio
+    endRecording
 } from '@/lib/audio';
 
 import { parseCookies } from 'nookies';
@@ -30,6 +29,7 @@ export default function Step5_Confirmation() {
     const [soundcastingStarted, setSoundcastingStarted] = useState(false);
     const [error, setError] = useState('');
     const [newPost, setNewPost] = useState(null);
+    const recorder = useRef(null);
 
     useEffect(() => {
         setIsAlertOpen(false);
@@ -42,27 +42,15 @@ export default function Step5_Confirmation() {
     }, []);
 
     const castAndPost = async () => {
-        await soundcastingPrepare();
+        recorder.current = await soundcastingPrepare();
         setTimeout(soundcastingStopEventListener, 200);
     };
 
     function soundcastingStopEventListener() {
         player.onstop = function () {
             setTimeout(async () => {
-                // stop audio
-                stopAudio();
-
-                // the recorded audio is returned as a blob
-                const recording = await recorder.stop();
-
-                // get blob url
-                const url = URL.createObjectURL(recording);
-                console.log('Tone.js Recorder Blob URL:', url);
-
-                // dispose recorder
-                await recorder.dispose();
-
-                // create post from url
+                const url = await endRecording(recorder.current);
+                recorder.current = null;
                 await createPost(url);
             }, fade_time + 200);
         };
@@ -153,7 +141,7 @@ export default function Step5_Confirmation() {
                 </Link>
                 <Info warning>
                     <div
-                        style={{ cursor: pointer }}
+                        style={{ cursor: 'pointer' }}
                         onClick={() => {
                             setIsAlertOpen(true);
                         }}
