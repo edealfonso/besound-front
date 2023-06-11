@@ -9,7 +9,7 @@ export default function Footer() {
     return (
         <footer>
             {recordingStep >= 0 && recordingStep < 3 && <Rec />}
-            {recordingStep >= 3 && <FooterStepper />}
+            {recordingStep >= 3 && recordingStep < 5 && <FooterStepper />}
         </footer>
     );
 }

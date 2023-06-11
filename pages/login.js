@@ -9,6 +9,7 @@ import nookies from 'nookies';
 import Link from 'next/link';
 import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
+import Head from 'next/head';
 
 export async function getServerSideProps() {
     const page = await getLoginPageAPI();
@@ -111,6 +112,9 @@ export default function LoginPage({ page }) {
 
     return (
         <Layout userPages>
+            <Head>
+                <title>besound · LOGIN</title>
+            </Head>
             <Info highlight>{page.intro}</Info>
             <Info box>{page.instruction}</Info>
             <form onSubmit={handleLogin} method="post">

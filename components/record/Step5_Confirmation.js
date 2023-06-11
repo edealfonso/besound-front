@@ -18,11 +18,13 @@ import {
 } from '@/lib/audio';
 
 import { parseCookies } from 'nookies';
+import AlertDialog from './AlertDialog';
 
 export default function Step5_Confirmation() {
     const router = useRouter();
 
-    const { recordPageStaticData } = useContext(AppContext);
+    const { recordPageStaticData, isAlertOpen, setIsAlertOpen } =
+        useContext(AppContext);
     const { title } = useContext(RecordContext);
 
     const [soundcastingStarted, setSoundcastingStarted] = useState(false);
@@ -30,6 +32,8 @@ export default function Step5_Confirmation() {
     const [newPost, setNewPost] = useState(null);
 
     useEffect(() => {
+        setIsAlertOpen(false);
+
         // if statement avoids double useEffect executions
         if (!soundcastingStarted) {
             setSoundcastingStarted(true);
@@ -107,6 +111,10 @@ export default function Step5_Confirmation() {
         }
     }
 
+    function deletePost() {
+        router.push(`/delete/${newPost.id}`);
+    }
+
     function renderSendingData() {
         return (
             <Box>
@@ -144,12 +152,15 @@ export default function Step5_Confirmation() {
                     Home
                 </Link>
                 <Info warning>
-                    <Link
-                        href={`/delete/${newPost.id}`}
+                    <div
+                        style={{ cursor: pointer }}
+                        onClick={() => {
+                            setIsAlertOpen(true);
+                        }}
                         dangerouslySetInnerHTML={{
                             __html: recordPageStaticData.confirmation_regret
                         }}
-                    ></Link>
+                    ></div>
                 </Info>
                 <Info highlight>
                     <span
@@ -158,6 +169,7 @@ export default function Step5_Confirmation() {
                         }}
                     />
                 </Info>
+                <AlertDialog emitOk={deletePost} />
             </>
         );
     }

@@ -26,7 +26,6 @@ export default function AudioPlayer({
     });
 
     function updateWidth() {
-        console.log('update w');
         if (sound.playing() && overlay.current) {
             let width = (sound.seek() / sound.duration()) * 100;
             overlay.current.style.width = `${width}%`;

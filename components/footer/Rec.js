@@ -3,7 +3,8 @@ import { useContext } from 'react';
 
 import styles from './Rec.module.scss';
 import { AppContext } from '@/lib/contexts/AppContext';
-import { HomeContext } from '@/lib/contexts/HomeContext';
+
+import { parseCookies } from 'nookies';
 
 export default function Rec() {
     const router = useRouter();
@@ -12,7 +13,16 @@ export default function Rec() {
 
     function handleClickHome() {
         setStopHomeSounds(true);
-        router.push('/record');
+
+        // parse token
+        const cookies = parseCookies();
+        const token = cookies.token;
+
+        if (token) {
+            router.push('/record');
+        } else {
+            router.push('/login');
+        }
     }
 
     function nextStep() {

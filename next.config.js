@@ -8,10 +8,10 @@ const nextConfig = {
     // },
     sassOptions: {
         prependData: `@import "./styles/settings/__settings.scss";`
+    },
+    env: {
+        BACKEND_SERVER_HOST: process.env.BACKEND_SERVER_HOST
     }
-    // env: {
-    //     BACKEND_SERVER_HOST: process.env.BACKEND_SERVER_HOST,
-    // },
 };
 
 module.exports = nextConfig;

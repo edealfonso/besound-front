@@ -12,6 +12,7 @@ import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
 import Link from 'next/link';
 import UserConfirmation from '@/components/user/UserConfirmation';
+import Head from 'next/head';
 
 export async function getServerSideProps() {
     const page = await getRegisterPageAPI();
@@ -205,6 +206,9 @@ export default function RegisterPage({ page }) {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Layout userPages>
+                <Head>
+                    <title>besound · REGISTER</title>
+                </Head>
                 <Info box>
                     {page.login_text}
                     <br />
@@ -298,9 +302,6 @@ export default function RegisterPage({ page }) {
                         <TextField
                             name="email"
                             type="email"
-                            // errors={!!errors.email}
-                            // helperText={errors.email}
-                            autoFocus
                             required
                             variant="standard"
                             onChange={handleTextFieldChange}

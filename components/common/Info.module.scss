@@ -1,6 +1,6 @@
 .info {
     margin: 0 auto;
-    width: clamp(13em, 75%, 23em);
+    max-width: clamp(13em, 75%, 23em);
     text-align: center;
 
     &.highlight {

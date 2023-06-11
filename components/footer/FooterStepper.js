@@ -1,12 +1,21 @@
 import { useContext, useEffect } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
 import styles from './FooterStepper.module.scss';
+import AlertDialog from '../record/AlertDialog';
 
 export default function FooterStepper() {
-    const { recordingStep, setRecordingStep, recordPageStaticData, isFormOK } =
-        useContext(AppContext);
+    const {
+        recordingStep,
+        setRecordingStep,
+        recordPageStaticData,
+        isFormOK,
+        isAlertOpen,
+        setIsAlertOpen
+    } = useContext(AppContext);
 
     useEffect(() => {
+        setIsAlertOpen(false);
+
         window.addEventListener('keydown', handleKeyPress);
 
         return () => {
@@ -40,18 +49,16 @@ export default function FooterStepper() {
         }
     }
 
-    function handleBack() {
-        let dialog = confirm('Are you sure ?');
-        if (dialog) {
-            prevStep();
-        }
-    }
-
     return (
         <>
             {recordingStep == 3 && (
                 <nav className={styles.stepper}>
-                    <a className={styles.back} onClick={handleBack}>
+                    <a
+                        className={styles.back}
+                        onClick={() => {
+                            setIsAlertOpen(true);
+                        }}
+                    >
                         {recordPageStaticData.step3_back}
                     </a>
                     <button className="alt no-margin" onClick={nextStep}>
@@ -75,6 +82,8 @@ export default function FooterStepper() {
                     </button>
                 </nav>
             )}
+            {/* {isAlertOpen && <AlertDialog emitOk={prevStep} />} */}
+            <AlertDialog emitOk={prevStep} />
         </>
     );
 }

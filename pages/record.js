@@ -52,7 +52,7 @@ export async function getServerSideProps(context) {
     };
 }
 
-export default function RecordPgae({ page, error }) {
+export default function RecordPage({ page, error }) {
     const [recordingStatus, setRecordingStatus] = useState('');
     const [dimensions, setDimensions] = useState({
         height: typeof window !== 'undefined' && window.innerHeight,
@@ -81,11 +81,11 @@ export default function RecordPgae({ page, error }) {
 
     // init
     useEffect(() => {
-        // set initial recording recordingStep
-        setRecordingStep(1);
-
         // initially save data so that footer recordingStepper can use it
         setRecordPageStaticData(page);
+
+        // set initial recording recordingStep
+        setRecordingStep(1);
 
         // set window dimensions
         const handleResize = () => {

@@ -6,10 +6,14 @@ import Box from '../common/Box';
 import Layout from '../Layout';
 
 import styles from './UserConfirmation.module.scss';
+import Head from 'next/head';
 
 export default function UserConfirmation({ page, email }) {
     return (
         <Layout userPages>
+            <Head>
+                <title>besound · REGISTER · Confirmation</title>
+            </Head>
             <Box>
                 <Info>
                     <span

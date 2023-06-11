@@ -74,6 +74,7 @@ button {
     }
 
     &:active {
+        outline-width: 0;
         transform: translateY(2px);
     }
 
@@ -84,6 +85,19 @@ button {
         &:hover {
             @include theme('background-color', $color-bg-button);
             box-shadow: 5px 5px 2px 1px rgba(128, 155, 112, 0.3);
+        }
+    }
+
+    &.red {
+        background-color: $red;
+
+        &:hover {
+            @include theme('background-color', $color-bg-button);
+            box-shadow: 5px 5px 2px 1px rgba(128, 155, 112, 0.3);
+        }
+
+        &:focus {
+            outline: 2px dashed $dark;
         }
     }
 
