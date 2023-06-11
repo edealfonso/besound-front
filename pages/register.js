@@ -14,7 +14,7 @@ import Link from 'next/link';
 import UserConfirmation from '@/components/user/UserConfirmation';
 import Head from 'next/head';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const page = await getRegisterPageAPI();
     return {
         props: {

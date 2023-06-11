@@ -11,7 +11,7 @@ import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
 import Head from 'next/head';
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const page = await getLoginPageAPI();
     return {
         props: {
