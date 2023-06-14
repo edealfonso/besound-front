@@ -245,7 +245,6 @@ export default function RegisterPage({ page }) {
                                     ? ''
                                     : errors.last_name
                             }
-                            autoFocus
                             required
                             variant="standard"
                             onChange={handleTextFieldChange}
