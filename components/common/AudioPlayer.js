@@ -89,6 +89,10 @@ export default function AudioPlayer({
                     <strong className={styles.inner}>#{post.title}</strong>
                 </span>
             </div>
+            <audio controls src={post.audio} style={{ display: 'none' }}>
+                Your browser does not support the
+                <code>audio</code> element.
+            </audio>
         </a>
     );
 }

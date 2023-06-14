@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 
-import { HomeContext, HomeProvider } from '@/lib/contexts/HomeContext';
+import { HomeProvider } from '@/lib/contexts/HomeContext';
 import { AppContext } from '@/lib/contexts/AppContext';
 import { getHomePageAPI, getPostsListAPI } from '@/lib/api';
 
