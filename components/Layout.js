@@ -23,10 +23,10 @@ export default function Layout({
                     <link rel="icon" href="/favicon.ico" />
                     <meta name="description" content={siteDescription} />
                     <meta name="og:title" content={siteTitle} />
-                    <meta
+                    {/* <meta
                         http-equiv="Content-Security-Policy"
                         content="upgrade-insecure-requests"
-                    ></meta>
+                    ></meta> */}
                     <title>{siteTitle}</title>
                 </Head>
             )}
