@@ -21,9 +21,12 @@ export default function AudioPlayer({
     const [played, setPlayed] = useState(independent);
 
     // define useSound
-    const [play, { stop, sound }] = useSound(post.audio, {
-        interrupt: true
-    });
+    const [play, { stop, sound }] = useSound(
+        post.audio.replace('https', 'http'),
+        {
+            interrupt: true
+        }
+    );
 
     function updateWidth() {
         if (sound.playing() && overlay.current) {
@@ -89,7 +92,11 @@ export default function AudioPlayer({
                     <strong className={styles.inner}>#{post.title}</strong>
                 </span>
             </div>
-            <audio controls src={post.audio} style={{ display: 'none' }}>
+            <audio
+                controls
+                src={post.audio.replace('https', 'http')}
+                style={{ display: 'none' }}
+            >
                 Your browser does not support the
                 <code>audio</code> element.
             </audio>
