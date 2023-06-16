@@ -12,7 +12,7 @@ export default function DebugBar() {
     } = useContext(AppContext);
 
     return (
-        <div className={styles.bar}>
+        <div className={styles.debugBar}>
             isAboutOpen : {isAboutOpen ? 'true' : 'false'} <br />
             recordingStep : {recordingStep} <br />
             effect : {effect} <br />

@@ -22,22 +22,22 @@ $themes: (
         color-icons: $lightgreen
     ),
     dark-theme: (
-        url-logo: url('../../public/logo-dark.svg'),
+        url-logo: url('../../public/logo-light.svg'),
         url-logo-inv: url('../../public/logo-light.svg'),
         cursor-png: url('../../public/cursor-light.png'),
         cursor-svg: url('../../public/cursor-light.png'),
         color-bg: $dark,
-        color-bg-alt: $gray,
-        color-bg-card: $gray,
+        color-bg-alt: $darkcloud,
+        color-bg-card: $darkcloud,
         color-bg-button: $cloud,
         color-bg-button-alt: $darkgreen,
         color-text: $cream,
         color-text-highlight: $lightgreen,
         color-text-button: $dark,
         color-text-button-alt: $cream,
-        color-audio: $gray,
-        color-audio-stroke: $cream,
-        color-audio-active: $green,
+        color-audio: $dark,
+        color-audio-stroke: $darker,
+        color-audio-active: $darkgreen,
         color-audio-active-stroke: $lightgreen,
         color-icons: $lightgreen
     )

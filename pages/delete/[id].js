@@ -71,8 +71,8 @@ export default function DeletePage({ APIResponse }) {
                                 </span>
                             </Info>
                         ))}
-                    <Link className="button" href="/">
-                        Home
+                    <Link style={{ display: 'inline' }} href="/">
+                        <button>Home</button>
                     </Link>
                 </Layout>
             )}

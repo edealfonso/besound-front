@@ -136,8 +136,8 @@ export default function Step5_Confirmation() {
                         }}
                     />
                 </Info>
-                <Link className="button" href="/">
-                    Home
+                <Link href="/" style={{ display: 'inline' }}>
+                    <button>Home</button>
                 </Link>
                 <Info warning>
                     <div

@@ -10,6 +10,7 @@ import styles from './HeaderHome.module.scss';
 import AboutButton from './AboutButton';
 import { AppContext } from '@/lib/contexts/AppContext';
 import DebugBar from '../common/DebugBar';
+import About from './About';
 
 const duration = 300;
 
@@ -54,20 +55,7 @@ export default function HeaderHome() {
                 <Link href="/" className={stylesHeader.logo}></Link>
                 <AboutButton />
             </header>
-            {/* <Transition nodeRef={nodeRef} in={isAboutOpen} timeout={duration}>
-                {(state) => (
-                    <div
-                        ref={nodeRef}
-                        style={{
-                            ...defaultStyle,
-                            ...transitionStyles[state],
-                        }}
-                        className={styles.popup}
-                    >
-                        <About />
-                    </div>
-                )}
-            </Transition> */}
+            <About />
         </>
     );
 }

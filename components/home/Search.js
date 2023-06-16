@@ -20,7 +20,7 @@ export default function Search() {
         // replace spaces by dashes to avoid frustration
         if (val.substr(-1) == ' ') {
             e.target.value = val.slice(0, -1) + '-';
-            handleInputChange(e);
+            handleSearchChange(e);
             return;
         }
 

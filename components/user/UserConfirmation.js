@@ -31,8 +31,8 @@ export default function UserConfirmation({ page, email }) {
                     }}
                 />
             </Info>
-            <Link className="button" href="/login">
-                Log in
+            <Link href="/login" style={{ display: 'inline' }}>
+                <button>Log in</button>
             </Link>
         </Layout>
     );

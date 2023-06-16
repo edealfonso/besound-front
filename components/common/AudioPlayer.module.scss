@@ -1,7 +1,12 @@
 .audioPlayer {
     @include big-letters;
     @include cursor-play;
+
     max-width: 100%;
+
+    @media #{$touchscreen} {
+        width: fit-content;
+    }
 
     .titleWrap {
         // x scroll

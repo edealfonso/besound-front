@@ -29,7 +29,6 @@ export default function AboutButton({ dark, floating }) {
                     className={styles.help}
                 />
             </div>
-            <About />
         </>
     );
 }

@@ -3,28 +3,17 @@ import AboutButton from './AboutButton';
 import DebugBar from '../common/DebugBar';
 
 import styles from './Header.module.scss';
+import About from './About';
 
-export default function Header({ recordPage, aboutPage, userPages }) {
-    if (aboutPage) {
-        return (
-            <div className={styles.invert}>
-                <Link href="/" className={styles.logo}></Link>
-            </div>
-        );
-    }
-
+export default function Header({ recordPage, userPages }) {
     return (
         <>
-            <header
-                className={`${recordPage ? styles.long : ''} ${
-                    aboutPage ? styles.invert : ''
-                }`}
-            >
-                {!aboutPage && <Link href="/" className={styles.logo}></Link>}
-                {aboutPage && <div className={styles.logo}></div>}
+            <header className={recordPage ? styles.headerLong : ''}>
+                {<Link href="/" className={styles.logo}></Link>}
                 <DebugBar />
                 {(recordPage || userPages) && <AboutButton floating dark />}
             </header>
+            <About />
         </>
     );
 }

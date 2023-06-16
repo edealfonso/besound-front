@@ -5,11 +5,14 @@ $lightgreen: #a4d28f;
 $red: #eb4e44;
 $darkred: #921209;
 
-$cream: #fffef9;
-$dark: #706c73;
+$cream: #fffef9; // rgb(255, 254, 249)
+$dark: #706c73; // rgb(112, 108, 115)
 $gray: #a3a0a6;
-$cloud: rgb(232, 236, 214, 0.75);
-$gray: #e8ecd6;
+// $gray: #e8ecd6; // rgb(232, 236, 214)
+$cloud: rgba(232, 236, 214, 0.75);
+
+$darker: #403f40;
+$darkcloud: rgba(64, 63, 64, 0.75);
 
 // utility
 $transparent: rgba(0, 0, 0, 0);

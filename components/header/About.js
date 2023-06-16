@@ -11,6 +11,7 @@ import Box from '@/components/common/Box';
 import Container from '@/components/common/Container';
 
 import styles from './About.module.scss';
+import Link from 'next/link';
 
 export default function About() {
     const { isAboutOpen, setIsAboutOpen } = useContext(AppContext);
@@ -46,59 +47,60 @@ export default function About() {
             ref={popup}
             className={`${styles.aboutPopup} ${isAboutOpen ? styles.open : ''}`}
         >
-            <Layout aboutPage noPaddings={false}>
-                <Info highlight>
-                    <span
-                        dangerouslySetInnerHTML={{
-                            __html: page.intro_text
-                        }}
-                    />
-                </Info>
-                <Box>
-                    <ul>
-                        {page.steps?.map((step, i) => {
-                            return (
-                                <li key={`step-${i}`}>
-                                    <Info box highlight={!step.image}>
-                                        <span
-                                            dangerouslySetInnerHTML={{
-                                                __html: step.text
-                                            }}
+            <div className={styles.header}>
+                <Link href="/" className={styles.logo}></Link>
+            </div>
+            <Info highlight>
+                <span
+                    dangerouslySetInnerHTML={{
+                        __html: page.intro_text
+                    }}
+                />
+            </Info>
+            <Box>
+                <ul>
+                    {page.steps?.map((step, i) => {
+                        return (
+                            <li key={`step-${i}`}>
+                                <Info box highlight={!step.image}>
+                                    <span
+                                        dangerouslySetInnerHTML={{
+                                            __html: step.text
+                                        }}
+                                    />
+                                </Info>
+                                {step.image && (
+                                    <Info box>
+                                        <Image
+                                            src={step.image}
+                                            width={150}
+                                            height={90}
+                                            alt={`Step ${i} icon`}
                                         />
                                     </Info>
-                                    {step.image && (
-                                        <Info box>
-                                            <Image
-                                                src={step.image}
-                                                width={150}
-                                                height={90}
-                                                alt={`Step ${i} icon`}
-                                            />
-                                        </Info>
-                                    )}
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </Box>
-                <Info>
-                    <span
-                        dangerouslySetInnerHTML={{
-                            __html: page.ending_text_1
-                        }}
-                    />
-                </Info>
-                <Info highlight>
-                    <span
-                        dangerouslySetInnerHTML={{
-                            __html: page.ending_text_2
-                        }}
-                    />
-                </Info>
-                <Info>
-                    <button onClick={aboutToggle}>Close</button>
-                </Info>
-            </Layout>
+                                )}
+                            </li>
+                        );
+                    })}
+                </ul>
+            </Box>
+            <Info>
+                <span
+                    dangerouslySetInnerHTML={{
+                        __html: page.ending_text_1
+                    }}
+                />
+            </Info>
+            <Info highlight>
+                <span
+                    dangerouslySetInnerHTML={{
+                        __html: page.ending_text_2
+                    }}
+                />
+            </Info>
+            <Info>
+                <button onClick={aboutToggle}>Close</button>
+            </Info>
         </div>
     );
 }

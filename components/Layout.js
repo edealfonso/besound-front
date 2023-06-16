@@ -12,24 +12,21 @@ export default function Layout({
     children,
     recordPage,
     homePage,
-    aboutPage,
     userPages,
     noPaddings
 }) {
     return (
         <>
-            {!aboutPage && (
-                <Head>
-                    <link rel="icon" href="/favicon.ico" />
-                    <meta name="description" content={siteDescription} />
-                    <meta name="og:title" content={siteTitle} />
-                    {/* <meta
+            <Head>
+                <link rel="icon" href="/favicon.ico" />
+                <meta name="description" content={siteDescription} />
+                <meta name="og:title" content={siteTitle} />
+                {/* <meta
                         http-equiv="Content-Security-Policy"
                         content="upgrade-insecure-requests"
                     ></meta> */}
-                    <title>{siteTitle}</title>
-                </Head>
-            )}
+                <title>{siteTitle}</title>
+            </Head>
             <div
                 className={`${styles.bodyContainer} ${
                     noPaddings ? styles.noPaddings : ''
@@ -38,11 +35,7 @@ export default function Layout({
                 {/* Header */}
                 {homePage && <HeaderHome />}
                 {!homePage && (
-                    <Header
-                        recordPage={recordPage}
-                        aboutPage={aboutPage}
-                        userPages={userPages}
-                    />
+                    <Header recordPage={recordPage} userPages={userPages} />
                 )}
 
                 {/* Main */}
@@ -61,7 +54,7 @@ export default function Layout({
                 )}
 
                 {/* Footer */}
-                {!aboutPage && !userPages && <Footer />}
+                {!userPages && <Footer />}
             </div>
         </>
     );

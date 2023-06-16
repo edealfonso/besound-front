@@ -3,13 +3,44 @@
     top: 0;
     left: 0;
     width: 100%;
-    max-height: 100vh;
+    height: 100vh;
+    margin: 0;
+
     overflow: auto;
     z-index: 200;
+
+    display: grid;
+    align-content: start;
+    gap: spacer(2);
+    @include default-padding;
+    padding-top: 0;
+
+    @include theme('background-color', $color-bg);
+    @include theme('color', $color-text);
 
     pointer-events: none;
     transition: all 0.35s ease;
     transform: translateY(101vh);
+
+    .header {
+        height: $header_h;
+        padding: spacer(1);
+        margin-bottom: spacer(1.5);
+
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+
+        .logo {
+            width: 14.7rem;
+            height: 3rem;
+            max-width: 40vw;
+
+            @include bg-contain;
+            @include theme('background-image', $url-logo-inv);
+            background-position: center bottom;
+        }
+    }
 }
 
 .open {

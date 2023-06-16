@@ -31,7 +31,8 @@ export default function AudioPlayer({
     }
 
     function getDuration() {
-        return audio.current.duration;
+        console.log(audio.current.duration);
+        return audio.current.duration <= 15 ? audio.current.duration : 15;
     }
 
     function getTime() {
@@ -39,13 +40,13 @@ export default function AudioPlayer({
     }
 
     function isPlaying() {
-        return !audio.current.ended || !audio.current.paused;
+        return !audio.current.paused;
     }
 
     function updateWidth() {
-        if (isPlaying && overlay.current) {
+        if (isPlaying() && overlay.current) {
             overlay.current.style.width = `${
-                (getTime() / getDuration()) * 100
+                (getTime() / getDuration()) * 105
             }%`;
             animation.current = window.requestAnimationFrame(updateWidth);
         } else {
@@ -101,12 +102,6 @@ export default function AudioPlayer({
                 isActive ? styles.active : ''
             }`}
         >
-            <div className={styles.titleWrap}>
-                <span className={styles.base}>#{post.title}</span>
-                <span className={styles.over} ref={overlay}>
-                    <strong className={styles.inner}>#{post.title}</strong>
-                </span>
-            </div>
             <audio
                 ref={audio}
                 controls
@@ -116,6 +111,12 @@ export default function AudioPlayer({
                 Your browser does not support the
                 <code>audio</code> element.
             </audio>
+            <div className={styles.titleWrap}>
+                <span className={styles.base}>#{post.title}</span>
+                <span className={styles.over} ref={overlay}>
+                    <strong className={styles.inner}>#{post.title}</strong>
+                </span>
+            </div>
         </a>
     );
 }
