@@ -128,18 +128,18 @@ export default function RecordPage({ page, error }) {
                     {recordingStep == 5 && <Step5_Confirmation />}
 
                     {/* common elements */}
-                    <AudioAnalyser
-                        className={`${styles.audioAnalyzer} ${
-                            recordingStep > 2 ? styles.hide : ''
-                        }`}
-                        status={recordingStatus}
-                        audioType="audio/mp3"
-                        backgroundColor="rgba(0, 0, 0, 0)"
-                        strokeColor="rgb(112, 108, 115)"
-                        width={2 * dimensions.width}
-                        height={0.5 * dimensions.height}
-                        stopCallback={startToneJS}
-                    />
+                    {recordingStep < 4 && (
+                        <AudioAnalyser
+                            className={styles.audioAnalyzer}
+                            status={recordingStatus}
+                            audioType="audio/mp3"
+                            backgroundColor="rgba(0, 0, 0, 0)"
+                            strokeColor="rgb(112, 108, 115)"
+                            width={2 * dimensions.width}
+                            height={0.5 * dimensions.height}
+                            stopCallback={startToneJS}
+                        />
+                    )}
                 </Layout>
             </RecordProvider>
         );
