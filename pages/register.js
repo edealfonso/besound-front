@@ -13,6 +13,7 @@ import Info from '@/components/common/Info';
 import Link from 'next/link';
 import UserConfirmation from '@/components/user/UserConfirmation';
 import Head from 'next/head';
+import { useKeyPress } from '@/lib/hooks/useKeyPress';
 
 export async function getStaticProps() {
     const page = await getRegisterPageAPI();
@@ -42,21 +43,13 @@ export default function RegisterPage({ page }) {
     const [datePickerError, setDatePickerError] = useState(null);
     const [userCreatedOK, setUserCreatedOK] = useState(false);
 
-    useEffect(() => {
-        window.addEventListener('keydown', handleKeyPress);
-
-        return () => {
-            window.removeEventListener('keydown', handleKeyPress);
-        };
-    }, []);
-
-    function handleKeyPress(e) {
+    useKeyPress((e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             submitButton.current.focus();
             submitButton.current.click();
         }
-    }
+    });
 
     const handleChange = (name, value) => {
         // update data state
@@ -80,17 +73,17 @@ export default function RegisterPage({ page }) {
         handleChange(e.target.name, e.target.value);
     };
 
-    // source https://regexr.com/3e48o
-    const email_pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    // source: https://www.section.io/engineering-education/password-strength-checker-javascript/
-    const password_pattern =
-        /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
-
     // re-run validation on each form data change
     useEffect(() => {
         setFormError(false);
 
         const errors = {};
+
+        // source https://regexr.com/3e48o
+        const email_pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+        // source: https://www.section.io/engineering-education/password-strength-checker-javascript/
+        const password_pattern =
+            /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
 
         // Validate email
         if (!formData.email) {

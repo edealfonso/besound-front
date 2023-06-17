@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
 import styles from './FooterStepper.module.scss';
 import AlertDialog from '../record/AlertDialog';
+import { useKeyPress } from '@/lib/hooks/useKeyPress';
 
 export default function FooterStepper() {
     const {
@@ -9,29 +10,25 @@ export default function FooterStepper() {
         setRecordingStep,
         recordPageStaticData,
         isFormOK,
-        isAlertOpen,
         setIsAlertOpen
     } = useContext(AppContext);
 
     useEffect(() => {
         setIsAlertOpen(false);
-
-        window.addEventListener('keydown', handleKeyPress);
-
-        return () => {
-            window.removeEventListener('keydown', handleKeyPress);
-        };
     }, [recordingStep]);
 
-    function handleKeyPress(e) {
-        if (e.key === 'Escape') {
-            e.preventDefault();
-            prevStep();
-        } else if (e.key === 'Enter') {
-            e.preventDefault();
-            nextStep();
-        }
-    }
+    useKeyPress(
+        (e) => {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                requestPrevStep();
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                nextStep();
+            }
+        },
+        [recordingStep]
+    );
 
     function nextStep() {
         setRecordingStep(recordingStep + 1);
@@ -39,6 +36,14 @@ export default function FooterStepper() {
 
     function prevStep() {
         setRecordingStep(recordingStep - 1);
+    }
+
+    function requestPrevStep() {
+        if (recordingStep == 3) {
+            setIsAlertOpen(true);
+        } else if (recordingStep == 4) {
+            prevStep();
+        }
     }
 
     function formSubmit(e) {
@@ -53,12 +58,7 @@ export default function FooterStepper() {
         <>
             {recordingStep == 3 && (
                 <nav className={styles.stepper}>
-                    <a
-                        className={styles.back}
-                        onClick={() => {
-                            setIsAlertOpen(true);
-                        }}
-                    >
+                    <a className={styles.back} onClick={requestPrevStep}>
                         {recordPageStaticData.step3_back}
                     </a>
                     <button className="alt no-margin" onClick={nextStep}>
@@ -68,7 +68,7 @@ export default function FooterStepper() {
             )}
             {recordingStep == 4 && (
                 <nav className={styles.stepper}>
-                    <a className={styles.back} onClick={prevStep}>
+                    <a className={styles.back} onClick={requestPrevStep}>
                         {recordPageStaticData.step4_back}
                     </a>
 
@@ -82,7 +82,6 @@ export default function FooterStepper() {
                     </button>
                 </nav>
             )}
-            {/* {isAlertOpen && <AlertDialog emitOk={prevStep} />} */}
             <AlertDialog emitOk={prevStep} />
         </>
     );

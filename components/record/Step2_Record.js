@@ -19,17 +19,15 @@ export default function Step2_Record() {
         // set initial effect whether user comes from  step 1 or has selected an effect in step 3
         setEffect(0);
 
-        // set recording time limit
-        if (remainingTime !== AUDIO_MAX_DURATION)
-            setRemainingTime(AUDIO_MAX_DURATION);
-        timer.current = setTimeout(() => {
-            setRecordingStep(3);
-        }, AUDIO_MAX_DURATION * 1000);
-
-        // set timeout
+        // set interval that decreases remaining time
         interval.current = setInterval(() => {
             setRemainingTime((current) => current - 1);
         }, 1000);
+
+        // jump to next step on AUDIO_MAX_DURATION elapsed
+        timer.current = setTimeout(() => {
+            setRecordingStep(3);
+        }, AUDIO_MAX_DURATION * 1000);
 
         return () => {
             clearTimeout(timer.current);

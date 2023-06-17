@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { TextField } from '@mui/material';
 
 import { getLoginPageAPI, loginUserAPI } from '@/lib/api';
+import { useKeyPress } from '@/lib/hooks/useKeyPress';
 
 import nookies from 'nookies';
 
@@ -29,21 +30,13 @@ export default function LoginPage({ page }) {
         password: null
     });
 
-    useEffect(() => {
-        window.addEventListener('keydown', handleKeyPress);
-
-        return () => {
-            window.removeEventListener('keydown', handleKeyPress);
-        };
-    }, []);
-
-    function handleKeyPress(e) {
+    useKeyPress((e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
             submitButton.current.focus();
             submitButton.current.click();
         }
-    }
+    });
 
     // from https://regexr.com/3e48o
     const email_pattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;

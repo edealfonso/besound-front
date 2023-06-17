@@ -98,7 +98,7 @@ export default function RecordPage({ page, error }) {
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [page]);
 
     // start Tone.js
     function startToneJS(e) {
@@ -108,9 +108,7 @@ export default function RecordPage({ page, error }) {
 
     if (error) {
         return <Container>{error}</Container>;
-    } else if (!recordPageStaticData) {
-        return <Container>Loading</Container>;
-    } else {
+    } else if (recordPageStaticData) {
         return (
             <RecordProvider>
                 <Layout

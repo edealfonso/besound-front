@@ -36,6 +36,7 @@ export default function DeletePage({ APIResponse }) {
     const { recordPageStaticData } = useContext(AppContext);
 
     // redirect to record page if not visited yet
+    // (user shouldn't be here)
     useEffect(() => {
         if (!recordPageStaticData) {
             router.push('/record');
@@ -71,7 +72,7 @@ export default function DeletePage({ APIResponse }) {
                                 </span>
                             </Info>
                         ))}
-                    <Link style={{ display: 'inline' }} href="/">
+                    <Link href="/">
                         <button>Home</button>
                     </Link>
                 </Layout>
