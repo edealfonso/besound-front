@@ -15,20 +15,6 @@ export default function Step2_Record() {
     const timer = useRef(null);
     const interval = useRef(null);
 
-    function handleClickHome() {
-        setStopHomeSounds(true);
-
-        // parse token
-        const cookies = parseCookies();
-        const token = cookies.token;
-
-        if (token) {
-            router.push('/record');
-        } else {
-            router.push('/login');
-        }
-    }
-
     useEffect(() => {
         // set initial effect whether user comes from  step 1 or has selected an effect in step 3
         setEffect(0);

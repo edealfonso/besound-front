@@ -1,11 +1,13 @@
 import '@/styles/globals.scss';
-import { AppContext, AppProvider } from '@/lib/contexts/AppContext';
-import { ThemeProvider } from '@mui/material/styles';
-import { getTheme, theme } from '@/lib/theme';
+import { useEffect, useState } from 'react';
+
+import { theme } from '@/lib/theme';
 import { GT_America } from '@/lib/fonts';
-import { useContext, useEffect, useState } from 'react';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { AppProvider } from '@/lib/contexts/AppContext';
+
+import { ThemeProvider } from '@mui/material/styles';
 import { createTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function App({ Component, pageProps }) {
     const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -18,7 +20,7 @@ export default function App({ Component, pageProps }) {
     return (
         <AppProvider>
             <div className={GT_America.className}>
-                <ThemeProvider theme={createTheme(getTheme(mode))}>
+                <ThemeProvider theme={createTheme(theme(mode))}>
                     <Component {...pageProps} />
                 </ThemeProvider>
             </div>

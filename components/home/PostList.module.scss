@@ -2,3 +2,10 @@
     margin-top: $margin-top-audios;
     overflow: hidden;
 }
+
+.anchor {
+    display: block;
+    position: relative;
+    top: calc(0px - $header_h);
+    visibility: hidden;
+}

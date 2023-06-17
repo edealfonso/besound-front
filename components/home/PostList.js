@@ -52,7 +52,8 @@ export default function PostList({ posts }) {
     return (
         <ul className={styles.list}>
             {posts.map((post, i) => (
-                <li key={post.id} id={post.id}>
+                <li key={post.id}>
+                    <div className={styles.anchor} id={post.id}></div>
                     <AudioPlayer
                         post={post}
                         selected={i === selected}

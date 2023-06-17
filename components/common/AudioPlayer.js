@@ -1,7 +1,9 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 
-import styles from './AudioPlayer.module.scss';
 import { AppContext } from '@/lib/contexts/AppContext';
+import { AUDIO_MAX_DURATION } from '@/lib/constants';
+
+import styles from './AudioPlayer.module.scss';
 
 export default function AudioPlayer({
     post,
@@ -31,8 +33,9 @@ export default function AudioPlayer({
     }
 
     function getDuration() {
-        console.log(audio.current.duration);
-        return audio.current.duration <= 15 ? audio.current.duration : 15;
+        return audio.current.duration <= AUDIO_MAX_DURATION
+            ? audio.current.duration
+            : AUDIO_MAX_DURATION;
     }
 
     function getTime() {
