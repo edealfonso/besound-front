@@ -67,11 +67,10 @@ export default function Search() {
                 InputProps={{
                     startAdornment: <>#</>
                 }}
-                // inputProps={{
-                //     'aria-label': 'Search bar'
-                // }}
+                inputProps={{
+                    'aria-label': 'Search'
+                }}
                 fullWidth
-                label="Search"
             />
         </div>
     );
