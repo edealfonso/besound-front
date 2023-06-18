@@ -1,11 +1,9 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import Head from 'next/head';
 
 import { AppContext } from '@/lib/contexts/AppContext';
 import { getAboutPageAPI } from '@/lib/api';
 
-import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
 import Box from '@/components/common/Box';
 import Container from '@/components/common/Container';

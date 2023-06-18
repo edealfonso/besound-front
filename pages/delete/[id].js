@@ -1,11 +1,11 @@
 import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
+import Link from 'next/link';
 
 import { AppContext } from '@/lib/contexts/AppContext';
 import { deletePostAPI } from '@/lib/api';
 
-import Head from 'next/head';
-import Link from 'next/link';
 import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
 

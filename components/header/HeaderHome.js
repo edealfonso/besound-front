@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { HomeContext } from '@/lib/contexts/HomeContext';
 
 import AboutButton from './AboutButton';
-import DebugBar from '../common/DebugBar';
 import About from './About';
 
 import styles from './HeaderHome.module.scss';
@@ -17,7 +16,7 @@ export default function HeaderHome() {
     return (
         <>
             <header className={styles.header}>
-                <DebugBar home />
+                {/* <DebugBar home /> */}
                 <Image
                     src="icon-search-light.svg"
                     width={24}
@@ -30,7 +29,11 @@ export default function HeaderHome() {
                         isSearchOpen ? styles.hide : ''
                     }`}
                 />
-                <Link href="/" className={stylesHeader.logo}></Link>
+                <Link
+                    href="/"
+                    className={stylesHeader.logo}
+                    aria-label="besound logo"
+                ></Link>
                 <AboutButton />
             </header>
             <About />

@@ -58,6 +58,7 @@ export default function Search() {
                 }}
                 style={{ cursor: 'pointer' }}
             />
+            <label for="search">Search</label>
             <TextField
                 name="search"
                 error={error}
