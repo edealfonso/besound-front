@@ -34,7 +34,7 @@ footer {
     align-items: center;
     justify-content: space-around;
 
-    @include theme('background-color', $color-bg-card);
+    @include theme('background-color', $color-bg-footer);
 }
 
 b,

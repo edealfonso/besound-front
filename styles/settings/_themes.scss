@@ -8,6 +8,7 @@ $themes: (
         cursor-svg: url('../../public/cursor-dark.svg'),
         color-bg: $cream,
         color-bg-alt: $dark,
+        color-bg-footer: $cloud,
         color-bg-card: $cloudlighter,
         color-bg-button: $dark,
         color-bg-button-alt: $darkgreen,
@@ -28,6 +29,7 @@ $themes: (
         cursor-svg: url('../../public/cursor-light.png'),
         color-bg: $dark,
         color-bg-alt: $darkcloud,
+        color-bg-footer: $darkcloud,
         color-bg-card: $darkcloudlighter,
         color-bg-button: $cloud,
         color-bg-button-alt: $darkgreen,
@@ -51,6 +53,7 @@ $cursor-png: 'cursor-png';
 $cursor-svg: 'cursor-svg';
 $color-bg: 'color-bg';
 $color-bg-alt: 'color-bg-alt';
+$color-bg-footer: 'color-bg-footer';
 $color-bg-card: 'color-bg-card';
 $color-bg-button: 'color-bg-button';
 $color-bg-button-alt: 'color-bg-button-alt';
