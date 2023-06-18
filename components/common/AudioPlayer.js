@@ -110,6 +110,7 @@ export default function AudioPlayer({
                 controls
                 src={post.audio}
                 style={{ display: 'none' }}
+                preload="none"
             >
                 Your browser does not support the
                 <code>audio</code> element.

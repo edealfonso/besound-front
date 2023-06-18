@@ -66,7 +66,8 @@ export default function Search() {
                 variant="standard"
                 onChange={handleSearchChange}
                 InputProps={{
-                    startAdornment: <>#</>
+                    startAdornment: <>#</>,
+                    'aria-label': 'Search bar'
                 }}
                 fullWidth
                 aria-labelledby="Search Input"
