@@ -10,7 +10,7 @@ const nextConfig = {
         prependData: `@import "./styles/settings/__settings.scss";`
     },
     env: {
-        BACKEND_SERVER_HOST: process.env.BACKEND_SERVER_HOST
+        BACKEND_SERVER: process.env.BACKEND_SERVER
     }
 };
 
