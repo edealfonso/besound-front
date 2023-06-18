@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
+import Link from 'next/link';
+import Head from 'next/head';
 
 import { TextField, Autocomplete } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -7,13 +9,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import countryList from 'react-select-country-list';
 
 import { getRegisterPageAPI, registerUserAPI } from '@/lib/api';
+import { useKeyPress } from '@/lib/hooks/useKeyPress';
 
 import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
-import Link from 'next/link';
 import UserConfirmation from '@/components/user/UserConfirmation';
-import Head from 'next/head';
-import { useKeyPress } from '@/lib/hooks/useKeyPress';
 
 export async function getStaticProps() {
     const page = await getRegisterPageAPI();

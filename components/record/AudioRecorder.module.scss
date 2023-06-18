@@ -1,7 +1,10 @@
-.audioAnalyzer {
+.analyzer {
     position: fixed;
     top: 50%;
     left: -50%;
-    // transform: scale(0.5) translateY(-100%);
     transform: scale(0.5) translateY(-80%);
+
+    &.hide {
+        display: none;
+    }
 }

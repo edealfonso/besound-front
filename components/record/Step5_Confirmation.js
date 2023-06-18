@@ -8,18 +8,13 @@ import ShareBox from './ShareBox';
 
 import { RecordContext } from '@/lib/contexts/RecordContext';
 import { AppContext } from '@/lib/contexts/AppContext';
-import { createPostAPI } from '@/lib/api';
 import {
     fade_time,
     player,
     soundcastingPrepare,
     endRecording
 } from '@/lib/audio';
-
-import { parseCookies } from 'nookies';
-import AlertDialog from './AlertDialog';
 import { createPost } from '@/lib/api_extended';
-import Container from '../common/Container';
 
 export default function Step5_Confirmation() {
     const router = useRouter();

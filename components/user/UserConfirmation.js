@@ -1,12 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 
+import Layout from '../Layout';
 import Info from '../common/Info';
 import Box from '../common/Box';
-import Layout from '../Layout';
 
 import styles from './UserConfirmation.module.scss';
-import Head from 'next/head';
 
 export default function UserConfirmation({ page, email }) {
     return (

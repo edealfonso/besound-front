@@ -1,11 +1,14 @@
+import { useContext } from 'react';
+
 import { AppContext } from '@/lib/contexts/AppContext';
 import { GT_America } from '@/lib/fonts';
+
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useContext } from 'react';
+
 import styles from './AlertDialog.module.scss';
 
 export default function AlertDialog({ emitOk }) {

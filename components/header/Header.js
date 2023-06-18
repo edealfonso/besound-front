@@ -1,9 +1,10 @@
 import Link from 'next/link';
+
 import AboutButton from './AboutButton';
+import About from './About';
 import DebugBar from '../common/DebugBar';
 
 import styles from './Header.module.scss';
-import About from './About';
 
 export default function Header({ recordPage, userPages }) {
     return (

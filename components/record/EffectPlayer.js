@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext } from 'react';
 import { RecordContext } from '@/lib/contexts/RecordContext';
 
 import stylesAudioPlayer from '../common/AudioPlayer.module.scss';

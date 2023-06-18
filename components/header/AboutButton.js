@@ -1,10 +1,9 @@
+import { useContext } from 'react';
 import Image from 'next/image';
 
-import styles from './AboutButton.module.scss';
-
-import { useContext } from 'react';
 import { AppContext } from '@/lib/contexts/AppContext';
-import About from './About';
+
+import styles from './AboutButton.module.scss';
 
 export default function AboutButton({ dark, floating }) {
     const { setIsAboutOpen } = useContext(AppContext);

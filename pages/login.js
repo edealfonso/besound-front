@@ -1,5 +1,8 @@
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import Head from 'next/head';
+
 import { TextField } from '@mui/material';
 
 import { getLoginPageAPI, loginUserAPI } from '@/lib/api';
@@ -7,10 +10,8 @@ import { useKeyPress } from '@/lib/hooks/useKeyPress';
 
 import nookies from 'nookies';
 
-import Link from 'next/link';
 import Layout from '@/components/Layout';
 import Info from '@/components/common/Info';
-import Head from 'next/head';
 
 export async function getStaticProps() {
     const page = await getLoginPageAPI();
