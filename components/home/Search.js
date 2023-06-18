@@ -59,18 +59,18 @@ export default function Search() {
                 style={{ cursor: 'pointer' }}
             />
             <TextField
-                id="searchInput"
                 name="search"
                 error={error}
                 helperText={message}
                 variant="standard"
                 onChange={handleSearchChange}
                 InputProps={{
-                    startAdornment: <>#</>,
-                    'aria-label': 'Search bar'
+                    startAdornment: <>#</>
+                }}
+                inputProps={{
+                    startAdornment: <>#</>
                 }}
                 fullWidth
-                aria-labelledby="Search Input"
             />
         </div>
     );
