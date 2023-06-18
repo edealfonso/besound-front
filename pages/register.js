@@ -205,7 +205,7 @@ export default function RegisterPage({ page }) {
                 <Info box>
                     {page.login_text}
                     <br />
-                    <Link href="/register">{page.login_link}</Link>
+                    <Link href="/login">{page.login_link}</Link>
                 </Info>
                 <form onSubmit={handleRegister} method="post">
                     <Info box highlight>
