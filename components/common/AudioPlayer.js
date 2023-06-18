@@ -33,9 +33,11 @@ export default function AudioPlayer({
     }
 
     function getDuration() {
+        // if browser is still figuring out this value,
+        // return half maximum duration
         return audio.current.duration <= AUDIO_MAX_DURATION
             ? audio.current.duration
-            : AUDIO_MAX_DURATION;
+            : AUDIO_MAX_DURATION / 2;
     }
 
     function getTime() {

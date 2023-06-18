@@ -78,6 +78,9 @@ export default function Step4_Title() {
                         startAdornment: <>#</>
                     }}
                     fullWidth
+                    inputProps={{
+                        'aria-label': 'Post title'
+                    }}
                 />
             </Info>
         </>
