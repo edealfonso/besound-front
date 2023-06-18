@@ -58,9 +58,6 @@ export default function Search() {
                 }}
                 style={{ cursor: 'pointer' }}
             />
-            <label for="searchInput" className="hidden">
-                Search
-            </label>
             <TextField
                 id="searchInput"
                 name="search"
@@ -72,6 +69,7 @@ export default function Search() {
                     startAdornment: <>#</>
                 }}
                 fullWidth
+                aria-labelledby="Search Input"
             />
         </div>
     );
