@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-
 import { AppContext } from '@/lib/contexts/AppContext';
 
 import Info from '../common/Info';

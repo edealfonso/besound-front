@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Info from '../common/Info';
 import Box from '../common/Box';
 import ShareBox from './ShareBox';
+import AlertDialog from './AlertDialog';
 
 import { RecordContext } from '@/lib/contexts/RecordContext';
 import { AppContext } from '@/lib/contexts/AppContext';
@@ -19,8 +20,7 @@ import { createPost } from '@/lib/api_extended';
 export default function Step5_Confirmation() {
     const router = useRouter();
 
-    const { recordPageStaticData, isAlertOpen, setIsAlertOpen } =
-        useContext(AppContext);
+    const { recordPageStaticData, setIsAlertOpen } = useContext(AppContext);
     const { title } = useContext(RecordContext);
 
     const [soundcastingStarted, setSoundcastingStarted] = useState(false);

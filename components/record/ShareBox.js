@@ -1,7 +1,7 @@
 import { useState } from 'react';
-
 import Link from 'next/link';
 import Image from 'next/image';
+
 import AudioPlayer from '../common/AudioPlayer';
 
 import styles from './ShareBox.module.scss';
