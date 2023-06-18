@@ -46,7 +46,11 @@ export default function About() {
             className={`${styles.aboutPopup} ${isAboutOpen ? styles.open : ''}`}
         >
             <div className={styles.header}>
-                <Link href="/" className={styles.logo}></Link>
+                <Link
+                    href="/"
+                    className={styles.logo}
+                    aria-label="besound-logo"
+                ></Link>
             </div>
             <Info highlight>
                 <span
