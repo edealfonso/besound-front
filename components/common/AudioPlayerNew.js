@@ -1,11 +1,11 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 
-import useSound from 'use-sound';
+import { AppContext } from '@/lib/contexts/AppContext';
+import { AUDIO_MAX_DURATION } from '@/lib/constants';
 
 import styles from './AudioPlayer.module.scss';
-import { AppContext } from '@/lib/contexts/AppContext';
 
-export default function AudioPlayer({
+export default function AudioPlayerNew({
     post,
     selected,
     index,
@@ -18,19 +18,41 @@ export default function AudioPlayer({
 
     const [isActive, setIsActive] = useState(false);
     const [played, setPlayed] = useState(independent);
+    const audio = useRef(null);
 
-    // define useSound
-    const [play, { stop, sound }] = useSound(
-        post.audio.replace('https', 'http'),
-        {
-            interrupt: true
-        }
-    );
+    function play() {
+        audio.current.play();
+    }
+
+    function stop() {
+        audio.current.pause();
+    }
+
+    function unload() {
+        audio.current.srcObj = null;
+    }
+
+    function getDuration() {
+        // if browser is still figuring out this value,
+        // return half maximum duration
+        return audio.current.duration <= AUDIO_MAX_DURATION
+            ? audio.current.duration
+            : AUDIO_MAX_DURATION / 2;
+    }
+
+    function getTime() {
+        return audio.current.currentTime;
+    }
+
+    function isPlaying() {
+        return !audio.current.paused;
+    }
 
     function updateWidth() {
-        if (sound.playing() && overlay.current) {
-            let width = (sound.seek() / sound.duration()) * 100;
-            overlay.current.style.width = `${width}%`;
+        if (isPlaying() && overlay.current) {
+            overlay.current.style.width = `${
+                (getTime() / getDuration()) * 105
+            }%`;
             animation.current = window.requestAnimationFrame(updateWidth);
         } else {
             window.cancelAnimationFrame(animation.current);
@@ -48,9 +70,9 @@ export default function AudioPlayer({
 
     // stop audio when we move to another page
     useEffect(() => {
-        if (stopHomeSounds && sound) {
+        if (stopHomeSounds) {
             stopPlayer();
-            sound.unload();
+            unload();
         }
     }, [stopHomeSounds]);
 
@@ -85,20 +107,22 @@ export default function AudioPlayer({
                 isActive ? styles.active : ''
             }`}
         >
+            <audio
+                ref={audio}
+                controls
+                src={post.audio}
+                style={{ display: 'none' }}
+                preload="none"
+            >
+                Your browser does not support the
+                <code>audio</code> element.
+            </audio>
             <div className={styles.titleWrap}>
                 <span className={styles.base}>#{post.title}</span>
                 <span className={styles.over} ref={overlay}>
                     <strong className={styles.inner}>#{post.title}</strong>
                 </span>
             </div>
-            <audio
-                controls
-                src={post.audio.replace('https', 'http')}
-                style={{ display: 'none' }}
-            >
-                Your browser does not support the
-                <code>audio</code> element.
-            </audio>
         </a>
     );
 }
