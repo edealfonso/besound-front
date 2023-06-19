@@ -45,7 +45,7 @@ export default function PostList({ posts }) {
                 .includes(searchString ? searchString.toLowerCase() : '');
             document
                 .getElementById(post.id)
-                .classList.toggle('hidden', !isVisible);
+                .parentNode.classList.toggle('hidden', !isVisible);
         });
     }, [searchString, posts]);
 
