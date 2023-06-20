@@ -36,12 +36,14 @@ export default function Layout({
 
                 {/* Main */}
                 {homePage && (
-                    <main className={`${styles.main} ${styles.home}`}>
+                    <main className={`${styles.main} ${styles.footerSpace}`}>
                         {children}
                     </main>
                 )}
                 {recordPage && (
-                    <main className={`${styles.main} ${styles.short}`}>
+                    <main
+                        className={`${styles.main} ${styles.footerSpace} ${styles.noHeader}`}
+                    >
                         {children}
                     </main>
                 )}

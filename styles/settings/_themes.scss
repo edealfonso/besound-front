@@ -10,13 +10,14 @@ $themes: (
         color-bg-alt: $dark,
         color-bg-footer: $cloud,
         color-bg-card: $cloudlighter,
+        color-bg-searchbar: $cloudfull,
         color-bg-button: $dark,
         color-bg-button-alt: $darkgreen,
         color-text: $dark,
         color-text-highlight: $darkgreen,
         color-text-button: $cream,
         color-text-button-alt: $cream,
-        color-audio: $cream,
+        color-audio: $cloudlighter,
         color-audio-stroke: $gray,
         color-audio-active: $green,
         color-audio-active-stroke: $darkgreen,
@@ -28,19 +29,20 @@ $themes: (
         cursor-png: url('../../public/cursor-light.png'),
         cursor-svg: url('../../public/cursor-light.png'),
         color-bg: $dark,
-        color-bg-alt: $darkcloud,
+        color-bg-alt: $darker,
         color-bg-footer: $darkcloud,
         color-bg-card: $darkcloudlighter,
+        color-bg-searchbar: $darkcloudfull,
         color-bg-button: $cloud,
         color-bg-button-alt: $darkgreen,
         color-text: $cream,
         color-text-highlight: $lightgreen,
         color-text-button: $dark,
         color-text-button-alt: $cream,
-        color-audio: $dark,
+        color-audio: $darkcloudlighter,
         color-audio-stroke: $darker,
         color-audio-active: $darkgreen,
-        color-audio-active-stroke: $lightgreen,
+        color-audio-active-stroke: $green,
         color-icons: $lightgreen
     )
 );
@@ -55,6 +57,7 @@ $color-bg: 'color-bg';
 $color-bg-alt: 'color-bg-alt';
 $color-bg-footer: 'color-bg-footer';
 $color-bg-card: 'color-bg-card';
+$color-bg-searchbar: 'color-bg-searchbar';
 $color-bg-button: 'color-bg-button';
 $color-bg-button-alt: 'color-bg-button-alt';
 $color-text: 'color-text';
