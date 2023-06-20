@@ -21,7 +21,24 @@ export default function AudioPlayer({
     const audio = useRef(null);
 
     function play() {
-        audio.current?.play();
+        var playPromise = audio.current.play();
+
+        // In browsers that don’t yet support this functionality,
+        // playPromise won’t be defined.
+        if (playPromise !== undefined) {
+            playPromise
+                .then(function () {
+                    console.log('Automatic playback started!');
+                    // Automatic playback started!
+                })
+                .catch(function (error) {
+                    console.log('Automatic playback failed!');
+                    audio.current?.play();
+
+                    // Automatic playback failed.
+                    // Show a UI element to let the user manually start playback.
+                });
+        }
     }
 
     function stop() {
