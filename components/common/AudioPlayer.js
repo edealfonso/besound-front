@@ -110,10 +110,10 @@ export default function AudioPlayer({
             <audio
                 ref={audio}
                 controls
-                src={post.audio}
                 style={{ display: 'none' }}
                 preload="none"
             >
+                <source src={post.audio} type="audio/mpeg" />
                 Your browser does not support the
                 <code>audio</code> element.
             </audio>
