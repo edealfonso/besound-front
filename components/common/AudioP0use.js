@@ -1,9 +1,9 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 
-import { AppContext } from '@/lib/contexts/AppContext';
-import { AUDIO_MAX_DURATION } from '@/lib/constants';
+import useSound from 'use-sound';
 
 import styles from './AudioPlayer.module.scss';
+import { AppContext } from '@/lib/contexts/AppContext';
 
 export default function AudioPlayer({
     post,
@@ -18,56 +18,23 @@ export default function AudioPlayer({
 
     const [isActive, setIsActive] = useState(false);
     const [played, setPlayed] = useState(independent);
-    const audio = useRef(null);
 
-    function play() {
-        audio.current?.play();
-    }
+    // define useSound
+    const [play, { stop, sound }] = useSound(post.audio, {
+        interrupt: true
+    });
 
-    function stop() {
-        audio.current?.pause();
-    }
-
-    function unload() {
-        // audio.current.srcObj = null;
-        audio.current.destroy();
-    }
-
-    function getDuration() {
-        // if browser is still figuring out this value,
-        // return half maximum duration
-        return audio.current.duration <= AUDIO_MAX_DURATION
-            ? audio.current.duration
-            : AUDIO_MAX_DURATION / 2;
-    }
-
-    function getTime() {
-        return audio.current.currentTime;
-    }
-
-    function isPlaying() {
-        return !audio.current.paused;
-    }
+    console.log('usesound', post.audio);
 
     function updateWidth() {
-        if (isPlaying() && overlay.current) {
-            overlay.current.style.width = `${
-                (getTime() / getDuration()) * 105
-            }%`;
+        if (sound.playing() && overlay.current) {
+            let width = (sound.seek() / sound.duration()) * 100;
+            overlay.current.style.width = `${width}%`;
             animation.current = window.requestAnimationFrame(updateWidth);
         } else {
             window.cancelAnimationFrame(animation.current);
         }
     }
-
-    // load audio on first mount
-    useEffect(() => {
-        if (!audio.current) {
-            console.log('Will load audio in', post.audio);
-            audio.current = new Audio(post.audio);
-            audio.current.load();
-        }
-    }, []);
 
     // turn off when another sound is selected
     useEffect(() => {
@@ -80,9 +47,9 @@ export default function AudioPlayer({
 
     // stop audio when we move to another page
     useEffect(() => {
-        if (stopHomeSounds) {
+        if (stopHomeSounds && sound) {
             stopPlayer();
-            unload();
+            sound.unload();
         }
     }, [stopHomeSounds]);
 
@@ -98,10 +65,6 @@ export default function AudioPlayer({
     }
 
     function startPlayer() {
-        if (!played || audio.current?.ended) {
-            audio.current.pause();
-            audio.current.currentTime = 0;
-        }
         animation.current = window.requestAnimationFrame(updateWidth);
         setPlayed(true);
         setIsActive(true);
@@ -127,6 +90,14 @@ export default function AudioPlayer({
                     <strong className={styles.inner}>#{post.title}</strong>
                 </span>
             </div>
+            <audio
+                controls
+                src={post.audio.replace('https', 'http')}
+                style={{ display: 'none' }}
+            >
+                Your browser does not support the
+                <code>audio</code> element.
+            </audio>
         </a>
     );
 }
