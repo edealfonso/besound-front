@@ -89,6 +89,7 @@ export default function AudioPlayer({
 
     function startPlayer() {
         if (!played) {
+            console.log('Will load audio in', post.audio);
             audio.current = new Audio(post.audio);
             audio.current.load();
         }
