@@ -84,6 +84,9 @@ export default function AudioPlayer({
             audio.current = new Audio(post.audio);
             audio.current.load();
             console.log('Loading...');
+            audio.current.onloadeddata = () => {
+                console.log('Loaded');
+            };
         }
     }, []);
 
