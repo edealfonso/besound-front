@@ -33,7 +33,7 @@ export default function AudioPlayer({
                 })
                 .catch(function (error) {
                     console.log('Automatic playback failed!');
-                    audio.current?.play();
+                    // audio.current?.play();
 
                     // Automatic playback failed.
                     // Show a UI element to let the user manually start playback.
@@ -89,6 +89,7 @@ export default function AudioPlayer({
 
     // turn off when another sound is selected
     useEffect(() => {
+        console.log('turn off when another sound is selected');
         if (!selected) {
             stopPlayer();
         } else {
@@ -98,6 +99,8 @@ export default function AudioPlayer({
 
     // stop audio when we move to another page
     useEffect(() => {
+        console.log('stop audio when we move to another page');
+
         if (stopHomeSounds) {
             stopPlayer();
             unload();
