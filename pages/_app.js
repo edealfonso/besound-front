@@ -15,6 +15,7 @@ export default function App({ Component, pageProps }) {
 
     useEffect(() => {
         setMode(prefersDarkMode ? 'dark' : 'light');
+        webView.isInspectable = true;
     }, [prefersDarkMode]);
 
     return (
