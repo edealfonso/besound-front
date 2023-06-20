@@ -66,6 +66,7 @@ export default function AudioPlayer({
             console.log('Will load audio in', post.audio);
             audio.current = new Audio(post.audio);
             audio.current.load();
+            console.log('Loading...');
         }
     }, []);
 
@@ -89,6 +90,7 @@ export default function AudioPlayer({
     // click action depends on if sound is currently playing
     function handleClick() {
         if (emitClick) emitClick(index);
+        console.log('handleClick');
 
         if (!isActive) {
             startPlayer();
@@ -99,18 +101,26 @@ export default function AudioPlayer({
 
     function startPlayer() {
         if (!played || audio.current?.ended) {
+            console.log('Never played or ended');
             audio.current.pause();
+            console.log('Paused');
+
             audio.current.currentTime = 0;
+            console.log('reinitialized');
         }
         animation.current = window.requestAnimationFrame(updateWidth);
         setPlayed(true);
         setIsActive(true);
+        console.log('play');
+
         play();
     }
 
     function stopPlayer() {
         cancelAnimationFrame(animation.current);
         setIsActive(false);
+        console.log('stop');
+
         stop();
     }
 
