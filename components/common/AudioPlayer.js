@@ -29,8 +29,7 @@ export default function AudioPlayer({
     }
 
     function unload() {
-        // audio.current.srcObj = null;
-        audio.current.destroy();
+        audio.current.srcObj = null;
     }
 
     function getDuration() {
@@ -60,47 +59,32 @@ export default function AudioPlayer({
         }
     }
 
-    // load audio on first mount
+    // load audio on element mount
     useEffect(() => {
-        if (!audio.current) {
-            console.log('Will load audio in', post.audio);
-            audio.current = document.createElement('audio');
-            audio.current.type = 'audio/mpeg';
-            audio.current.src = post.audio;
-            audio.current.load();
-            console.log('Loading...');
-            audio.current.onloadeddata = () => {
-                console.log('Loaded');
-            };
-        }
+        audio.current.load();
     }, []);
 
     // turn off when another sound is selected
     useEffect(() => {
-        if (audio.current.readyState) {
-            console.log('turn off when another sound is selected');
-            if (!selected) {
-                stopPlayer();
-            } else {
-                startPlayer();
-            }
+        if (!selected) {
+            stopPlayer();
+        } else {
+            startPlayer();
         }
     }, [selected]);
 
     // stop audio when we move to another page
     useEffect(() => {
-        console.log('stop audio when we move to another page');
-        if (audio.current.readyState) {
-            if (stopHomeSounds) {
-                stopPlayer();
-                unload();
-            }
+        if (stopHomeSounds) {
+            stopPlayer();
+            unload();
         }
     }, [stopHomeSounds]);
 
     // click action depends on if sound is currently playing
     function handleClick() {
         if (emitClick) emitClick(index);
+
         if (!isActive) {
             startPlayer();
         } else {
@@ -109,18 +93,13 @@ export default function AudioPlayer({
     }
 
     function startPlayer() {
-        if (!played || audio.current?.ended) {
-            console.log('Never played or ended');
-            audio.current.pause();
-            console.log('Paused');
-
-            audio.current.currentTime = 0;
-            console.log('reinitialized');
+        if (audio.current.readyState) {
+            if (!played) loadPlayer();
+            animation.current = window.requestAnimationFrame(updateWidth);
+            setPlayed(true);
+            setIsActive(true);
+            play();
         }
-        animation.current = window.requestAnimationFrame(updateWidth);
-        setPlayed(true);
-        setIsActive(true);
-        play();
     }
 
     function stopPlayer() {
@@ -136,6 +115,11 @@ export default function AudioPlayer({
                 isActive ? styles.active : ''
             }`}
         >
+            <audio ref={audio} preload="none">
+                <source ref={audio} src={post.audio} type="audio/mpeg" />
+                Your browser does not support the
+                <code>audio</code> element.
+            </audio>
             <div className={styles.titleWrap}>
                 <span className={styles.base}>#{post.title}</span>
                 <span className={styles.over} ref={overlay}>
