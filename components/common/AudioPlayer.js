@@ -25,7 +25,7 @@ export default function AudioPlayer({
     }
 
     function stop() {
-        audio.current.pause();
+        audio.current?.pause();
     }
 
     function unload() {
@@ -88,6 +88,10 @@ export default function AudioPlayer({
     }
 
     function startPlayer() {
+        if (!played) {
+            audio.current = new Audio(post.audio);
+            audio.current.load();
+        }
         animation.current = window.requestAnimationFrame(updateWidth);
         setPlayed(true);
         setIsActive(true);
@@ -107,12 +111,6 @@ export default function AudioPlayer({
                 isActive ? styles.active : ''
             }`}
         >
-            <audio ref={audio} preload="none">
-                {/* <audio ref={audio} style={{ display: 'none' }} preload="none"> */}
-                <source src={post.audio} type="audio/mpeg" />
-                Your browser does not support the
-                <code>audio</code> element.
-            </audio>
             <div className={styles.titleWrap}>
                 <span className={styles.base}>#{post.title}</span>
                 <span className={styles.over} ref={overlay}>
