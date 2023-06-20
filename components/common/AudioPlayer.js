@@ -21,28 +21,11 @@ export default function AudioPlayer({
     const audio = useRef(null);
 
     function play() {
-        var playPromise = audio.current.play();
-
-        // In browsers that don’t yet support this functionality,
-        // playPromise won’t be defined.
-        if (playPromise !== undefined) {
-            playPromise
-                .then(function () {
-                    console.log('Automatic playback started!');
-                    // Automatic playback started!
-                })
-                .catch(function (error) {
-                    console.log('Automatic playback failed!');
-                    // audio.current?.play();
-
-                    // Automatic playback failed.
-                    // Show a UI element to let the user manually start playback.
-                });
-        }
+        audio.current.play();
     }
 
     function stop() {
-        audio.current?.pause();
+        audio.current.pause();
     }
 
     function unload() {
@@ -81,7 +64,9 @@ export default function AudioPlayer({
     useEffect(() => {
         if (!audio.current) {
             console.log('Will load audio in', post.audio);
-            audio.current = new Audio(post.audio);
+            audio.current = document.createElement('audio');
+            audio.current.type = 'audio/mpeg';
+            audio.current.src = post.audio;
             audio.current.load();
             console.log('Loading...');
             audio.current.onloadeddata = () => {
@@ -116,8 +101,6 @@ export default function AudioPlayer({
     // click action depends on if sound is currently playing
     function handleClick() {
         if (emitClick) emitClick(index);
-        console.log('handleClick');
-
         if (!isActive) {
             startPlayer();
         } else {
@@ -137,16 +120,12 @@ export default function AudioPlayer({
         animation.current = window.requestAnimationFrame(updateWidth);
         setPlayed(true);
         setIsActive(true);
-        console.log('play');
-
         play();
     }
 
     function stopPlayer() {
         cancelAnimationFrame(animation.current);
         setIsActive(false);
-        console.log('stop');
-
         stop();
     }
 
