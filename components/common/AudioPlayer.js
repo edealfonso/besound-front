@@ -92,21 +92,24 @@ export default function AudioPlayer({
 
     // turn off when another sound is selected
     useEffect(() => {
-        console.log('turn off when another sound is selected');
-        if (!selected) {
-            stopPlayer();
-        } else {
-            startPlayer();
+        if (audio.current.readyState) {
+            console.log('turn off when another sound is selected');
+            if (!selected) {
+                stopPlayer();
+            } else {
+                startPlayer();
+            }
         }
     }, [selected]);
 
     // stop audio when we move to another page
     useEffect(() => {
         console.log('stop audio when we move to another page');
-
-        if (stopHomeSounds) {
-            stopPlayer();
-            unload();
+        if (audio.current.readyState) {
+            if (stopHomeSounds) {
+                stopPlayer();
+                unload();
+            }
         }
     }, [stopHomeSounds]);
 
