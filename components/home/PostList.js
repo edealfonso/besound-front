@@ -39,29 +39,32 @@ export default function PostList({ posts }) {
 
     // update posts according to search string
     useEffect(() => {
-        posts.forEach((post) => {
-            const isVisible = post.title
-                .toLowerCase()
-                .includes(searchString ? searchString.toLowerCase() : '');
-            document
-                .getElementById(post.id)
-                .parentNode.classList.toggle('hidden', !isVisible);
-        });
+        // posts.forEach((post) => {
+        //     const isVisible = post.title
+        //         .toLowerCase()
+        //         .includes(searchString ? searchString.toLowerCase() : '');
+        //     document
+        //         .getElementById(post.id)
+        //         .parentNode.classList.toggle('hidden', !isVisible);
+        // });
     }, [searchString, posts]);
 
     return (
         <ul className={styles.list}>
-            {posts.map((post, i) => (
-                <li key={post.id}>
-                    <div className={styles.anchor} id={post.id}></div>
-                    <AudioPlayer
-                        post={post}
-                        selected={i === selected}
-                        index={i}
-                        emitClick={setSelected}
-                    />
-                </li>
-            ))}
+            {posts.map((post, i) => {
+                if (i == 0)
+                    return (
+                        <li key={post.id}>
+                            <div className={styles.anchor} id={post.id}></div>
+                            <AudioPlayer
+                                post={post}
+                                selected={i === selected}
+                                index={i}
+                                emitClick={setSelected}
+                            />
+                        </li>
+                    );
+            })}
         </ul>
     );
 }
