@@ -19,6 +19,10 @@ export default function Layout({
         <>
             <Head>
                 <link rel="icon" href="/favicon.ico" />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1.0, user-scalable=no"
+                />
                 <meta name="description" content={siteDescription} />
                 <meta name="og:title" content={siteTitle} />
                 <title>{siteTitle}</title>
