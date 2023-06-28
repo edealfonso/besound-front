@@ -5,10 +5,10 @@ import { preparePlayer, stopAudio } from '@/lib/audio';
 import { useWindowDimensions } from '@/lib/hooks/useWindowDimensions';
 
 import dynamic from 'next/dynamic';
-// const AudioAnalyser = dynamic(import('react-audio-analyser'), { ssr: false }); // Async API cannot be server-side rendered
-const AudioAnalyser = dynamic(import('@/lib/react-audio-analyser'), {
-    ssr: false
-}); // Async API cannot be server-side rendered
+const AudioAnalyser = dynamic(import('react-audio-analyser'), { ssr: false }); // Async API cannot be server-side rendered
+// const AudioAnalyser = dynamic(import('@/lib/react-audio-analyser'), {
+//     ssr: false
+// }); // Async API cannot be server-side rendered
 
 import styles from './AudioRecorder.module.scss';
 
