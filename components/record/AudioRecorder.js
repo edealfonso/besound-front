@@ -12,7 +12,9 @@ import styles from './AudioRecorder.module.scss';
 export default function AudioRecorder() {
     const [recordingStatus, setRecordingStatus] = useState('');
     const { recordingStep } = useContext(AppContext);
+    console.log('before dimensions');
     const dimensions = useWindowDimensions();
+    console.log('after dimensions');
 
     // on recordingStep change
     useEffect(() => {
