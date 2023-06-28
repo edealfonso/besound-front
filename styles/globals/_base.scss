@@ -135,3 +135,10 @@ input:-webkit-autofill:active {
 .hidden {
     display: none !important;
 }
+
+// fix for canvas
+
+canvas {
+    width: 200vw!important;
+    height: 50vh!important;
+}

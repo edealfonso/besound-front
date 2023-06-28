@@ -11,11 +11,13 @@ const AudioAnalyser = dynamic(import('react-audio-analyser'), { ssr: false }); /
 // }); // Async API cannot be server-side rendered
 
 import styles from './AudioRecorder.module.scss';
+import { useMediaQuery } from '@mui/material';
 
 export default function AudioRecorder() {
     const [recordingStatus, setRecordingStatus] = useState('');
     const { recordingStep } = useContext(AppContext);
     const dimensions = useWindowDimensions();
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
     // on recordingStep change
     useEffect(() => {
@@ -44,28 +46,19 @@ export default function AudioRecorder() {
             status={recordingStatus}
             audioType="audio/mp3"
             backgroundColor="rgba(0, 0, 0, 0)"
-            strokeColor="rgb(112, 108, 115)"
+            strokeColor={prefersDarkMode ? '#fffef9' :'rgb(112, 108, 115)'}
             width={2 * dimensions.width}
             height={0.5 * dimensions.height}
             stopCallback={startToneJS}
-            startCallback={(e) => {
-                console.log('succ start', e);
-            }}
-            pauseCallback={(e) => {
-                console.log('succ pause', e);
-            }}
-            // stopCallback={(e) => {
-            //     this.setState({
-            //         audioSrc: window.URL.createObjectURL(e)
-            //     })
-            //     console.log("succ stop", e)
+            // startCallback={(e) => {
+            //     console.log('succ start', e);
             // }}
-            onRecordCallback={(e) => {
-                console.log('recording', e);
-            }}
-            errorCallback={(e) => {
-                console.log('error', err);
-            }}
+            // onRecordCallback={(e) => {
+            //     console.log('recording', e);
+            // }}
+            // errorCallback={(e) => {
+            //     console.log('error', err);
+            // }}
         />
     );
 }

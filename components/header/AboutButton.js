@@ -4,9 +4,14 @@ import Image from 'next/image';
 import { AppContext } from '@/lib/contexts/AppContext';
 
 import styles from './AboutButton.module.scss';
+import { useMediaQuery } from '@mui/material';
 
-export default function AboutButton({ dark, floating }) {
+export default function AboutButton({ floating }) {
     const { setIsAboutOpen } = useContext(AppContext);
+    const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+
+    let icon_tag = floating ? '' : '-light';
+    icon_tag += prefersDarkMode ? '-inv' : '';
 
     const aboutToggle = () => {
         setIsAboutOpen((current) => !current);
@@ -21,11 +26,13 @@ export default function AboutButton({ dark, floating }) {
                 onClick={aboutToggle}
             >
                 <Image
-                    src={`icon-help${dark ? '' : '-light'}.svg`}
+                    src={`icon-help${icon_tag}.svg`}
                     width={24}
                     height={24}
                     alt="Search"
-                    className={styles.help}
+                    className={`${styles.help} ${
+                        prefersDarkMode ? styles.dark : ''
+                    }`}
                 />
             </div>
         </>

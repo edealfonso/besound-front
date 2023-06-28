@@ -39,13 +39,11 @@
     //     z-index: º;
     // }
 
-    // &:hover,
-    // &:active,
-    // &:focus {
-    //     &:after {
-    //         opacity: 1;
-    //     }
-    // }
+    &:hover,
+    &:active,
+    &:focus {
+        opacity: .7;
+    }
 }
 
 .aboutLink {

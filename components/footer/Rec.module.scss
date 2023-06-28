@@ -15,4 +15,12 @@
     &.active {
         background-image: url('../../public/rec-active.svg');
     }
+
+    transition: all 0.1s ease;
+    &:hover,
+    &:active,
+    &:focus {
+        opacity: .7;
+    }
+
 }

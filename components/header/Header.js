@@ -17,7 +17,7 @@ export default function Header({ recordPage, userPages }) {
                     ></Link>
                 }
                 {/* <DebugBar /> */}
-                {(recordPage || userPages) && <AboutButton floating dark />}
+                {(recordPage || userPages) && <AboutButton floating />}
             </header>
             <About />
         </>

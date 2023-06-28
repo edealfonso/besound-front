@@ -2,6 +2,12 @@
     display: flex;
     cursor: pointer;
 
+    &:hover,
+    &:active,
+    &:focus {
+        opacity: .7;
+    }
+
     &.floating {
         position: absolute;
         bottom: -2.5rem;
@@ -19,16 +25,21 @@
             opacity: 0;
             transition: opacity 0.15s ease;
 
-            background-image: url('../../public/icon-help-light-lightbg.svg');
+            background-image: url('../../public/icon-help-light-hover.svg');
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
             z-index: º;
         }
 
+        &.dark:after {
+            background-image: url('../../public/icon-help-light-inv-hover.svg');
+        }
+
         &:hover,
         &:active,
         &:focus {
+            opacity: 1;
             &:after {
                 opacity: 1;
             }
