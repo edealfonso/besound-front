@@ -8,10 +8,10 @@ import dynamic from 'next/dynamic';
 const AudioAnalyser = dynamic(
     import('react-audio-analyser').catch((err) => {
         console.log('Error importing AudioAnalyser');
-    }),
-    {
-        ssr: false
-    }
+    })
+    // {
+    //     ssr: false
+    // }
 ); // Async API cannot be server-side rendered
 
 import styles from './AudioRecorder.module.scss';

@@ -4,7 +4,6 @@ import AboutButton from './AboutButton';
 import About from './About';
 
 import styles from './Header.module.scss';
-import DebugBar from '../common/DebugBar';
 
 export default function Header({ recordPage, userPages }) {
     return (
@@ -17,7 +16,7 @@ export default function Header({ recordPage, userPages }) {
                         aria-label="Besound homepage"
                     ></Link>
                 }
-                <DebugBar />
+                {/* <DebugBar /> */}
                 {(recordPage || userPages) && <AboutButton floating dark />}
             </header>
             <About />
