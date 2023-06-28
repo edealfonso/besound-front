@@ -43,6 +43,8 @@ export default function DeletePage({ APIResponse }) {
         }
     }, []);
 
+    console.log('APIResponse', APIResponse);
+
     return (
         <>
             {recordPageStaticData && (

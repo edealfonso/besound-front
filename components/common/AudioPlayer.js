@@ -62,14 +62,13 @@ export default function AudioPlayer({
     // load audio on first mount
     useEffect(() => {
         if (!audio.current) {
-            console.log('Will load audio in', post.audio);
+            // console.log('Will load audio in', post.audio);
             audio.current = document.createElement('audio');
             audio.current.type = 'audio/mpeg';
             audio.current.src = post.audio;
             audio.current.load();
-            console.log('Loading...');
             audio.current.onloadeddata = () => {
-                console.log('Loaded');
+                // console.log('Loaded');
             };
         }
     }, []);
@@ -77,7 +76,6 @@ export default function AudioPlayer({
     // turn off when another sound is selected
     useEffect(() => {
         if (audio.current.readyState) {
-            console.log('turn off when another sound is selected');
             if (!selected) {
                 stopPlayer();
             } else {
@@ -88,7 +86,6 @@ export default function AudioPlayer({
 
     // stop audio when we move to another page
     useEffect(() => {
-        console.log('stop audio when we move to another page');
         if (audio.current.readyState) {
             if (stopHomeSounds) {
                 stopPlayer();
