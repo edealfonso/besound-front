@@ -11,15 +11,14 @@ import PostList from '@/components/home/PostList';
 import Container from '@/components/common/Container';
 import Search from '@/components/home/Search';
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const page = await getHomePageAPI();
     const posts = await getPostsListAPI();
     return {
         props: {
             page,
             posts
-        },
-        revalidate: 30
+        }
     };
 }
 
