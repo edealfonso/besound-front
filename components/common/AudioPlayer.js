@@ -29,8 +29,7 @@ export default function AudioPlayer({
     }
 
     function unload() {
-        // audio.current.srcObj = null;
-        audio.current.destroy();
+        audio.current.srcObj = null;
     }
 
     function getDuration() {
