@@ -22,7 +22,7 @@ export default function AboutButton({ floating }) {
             <div
                 className={`${styles.aboutButton} ${
                     floating ? styles.floating : ''
-                }`}
+                } ${prefersDarkMode ? styles.dark : ''}`}
                 onClick={aboutToggle}
             >
                 <Image
@@ -30,9 +30,6 @@ export default function AboutButton({ floating }) {
                     width={24}
                     height={24}
                     alt="Search"
-                    className={`${styles.help} ${
-                        prefersDarkMode ? styles.dark : ''
-                    }`}
                 />
             </div>
         </>

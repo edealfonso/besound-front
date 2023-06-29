@@ -37,7 +37,7 @@ export default function About() {
         }
     }, [isAboutOpen]);
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <></>;
     if (!page) return <Container>No profile data</Container>;
 
     return (
